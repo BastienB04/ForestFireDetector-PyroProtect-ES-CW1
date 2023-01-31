@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/index.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <nav id="topnav">
+            <a id="home" class="active" href="/"><i class="fa fa-home"></i></a>
+            <a href="/about-us.html">About us</a>
+            <a href="https://www.youtube.com/watch?v=eBGIQ7ZuuiU">Sensors used</a>
+        </nav>
+        <head>SHEESH</head>
+
+        <!-- <div id="grid">
+            <div id="grid-item-0">succ</div>
+            <div id="grid-item-1">succ</div>
+            <div id="grid-item-2">succ</div>
+            <div id="grid-item-3">succ</div>
+            <div id="grid-item-4">succ</div>
+            <div id="grid-item-5">succ</div>
+            <div id="grid-item-6">succ</div>
+            <div id="grid-item-7">succ</div>
+            <div id="grid-item-8">succ</div>
+        </div> -->
+
+        <p id="res"></p>
+        <div id="test"></div>
+        
+        <script>
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            async function main(){
+                var bool = true;
+                while(bool){
+                    fetch('http://localhost:8080/api/cachedData').then((res) => {
+                        return res.json()
+                    }).catch(() => {
+                        bool = false;
+                    }).then((data) => {
+                        document.getElementById("res").innerHTML = JSON.stringify(data);
+                    }).catch(() => {
+                        bool = false;
+                    });
+                    await sleep(10000);
+                }
+            }
+            main()
+        </script>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <!-- <script src="http://localhost:8080/test.js" crossorigin></script> -->
+        <script src="/api/init.js" crossorigin></script>
+    </body>
+
+</html>
