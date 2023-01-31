@@ -127,7 +127,7 @@ const server = http.createServer((req, res) => {
     //                                              POST REQUETS
     //-------------------------------------------------------------------------------------------------------------------------------
     else if(req.method == 'POST'){
-        ID.unique_id=0;
+        Id.val=0;
         res.statusCode = 200;
         res.end();
     }
