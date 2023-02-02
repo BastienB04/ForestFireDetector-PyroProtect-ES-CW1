@@ -5,6 +5,7 @@ body{
 
 a {
     color: rgb(114, 137, 218);
+    align-self: center; /* DO NOT TOUCH */
   }
 
 #topnav {

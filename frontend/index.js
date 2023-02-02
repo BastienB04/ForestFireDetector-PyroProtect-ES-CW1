@@ -13,8 +13,9 @@ const GRIDSIZE = 10;
 const cachedData = {
     "device1": {
         deviceId: 1,
-        x_pos: 0,
-        y_pos: 0,
+        x_pos: 2,
+        y_pos: 1,
+        color: 'red',
         status:{
             gas: null,
             temperature: null,
@@ -23,13 +24,22 @@ const cachedData = {
     },
     "device2": {
         deviceId: 2,
-        x_pos: 9,
-        y_pos: 9,
+        x_pos: 7,
+        y_pos: 8,
+        color: 'red',
+        color: 'red',
         status:{
             gas: null,
             temperature: null,
             windSpeed: null
         }
+    },
+    "device3":{
+        deviceId: 3,
+        x_pos: 3,
+        y_pos: 7,
+        color: 'red',
+        status: {}
     }
 }
 
@@ -42,9 +52,11 @@ for(let i=0; i<GRIDSIZE; i++){
     const tmp = [];
     for(let j=0; j<GRIDSIZE; j++){
         tmp.push({
+            deviceId: null,
             x: i,
             y: j,
-            visibility: 'hidden'
+            visibility: 'hidden',
+            color: 'white'
         });
     }
     initGrid.push(tmp);
@@ -71,6 +83,10 @@ const server = http.createServer((req, res) => {
         var fileUrl;
         if(req.url == '/'){
             fileUrl = '/index.html'
+        }
+        else if(req.url.startsWith('/sensor')){
+            const deviceId = new URL(req.url, `http://${req.headers.host}`).searchParams.get('deviceId');
+            fileUrl = '/sensor.html'
         }
         else{
             fileUrl = req.url;
@@ -147,9 +163,20 @@ const server = http.createServer((req, res) => {
     //                                              POST REQUETS
     //-------------------------------------------------------------------------------------------------------------------------------
     else if(req.method == 'POST'){
-        Id.val=0;
-        res.statusCode = 200;
-        res.end();
+        if(req.url.startsWith('/api/change-color-to-red')){
+            Object.values(cachedData).forEach((device) => {
+                device.color = 'red';
+            });
+            res.statusCode = 200;
+            res.end();
+        }
+        else if(req.url.startsWith('/api/change-color-to-green')){
+            Object.values(cachedData).forEach((device) => {
+                device.color = 'green';
+            });
+            res.statusCode = 200;
+            res.end();
+        }
     }
 });
 

@@ -8,7 +8,7 @@ function templateConcat(n, str){
     for(i=0; i<n-1; i++){
         res+= " " + str
     }
-    return res
+    return res;
 }
 
 function hiddenOrVisible(data, i, j){
@@ -38,7 +38,9 @@ class Map_ extends React.Component {
             this.setState({ cachedData: data });
             (Object.values(data)).forEach((element) => {
                 this.setState(({grid}, props) => {
-                    grid[element.x_pos][element.y_pos].visibility = 'visible';
+                    grid[element.y_pos][element.x_pos].visibility = 'visible';
+                    grid[element.y_pos][element.x_pos].color = element.color;
+                    grid[element.y_pos][element.x_pos].deviceId = element.deviceId;
                     return {grid}
                 });
             });
@@ -71,7 +73,7 @@ class Map_ extends React.Component {
         const result = [];
 
         grid.forEach((row) => {
-            row.forEach(({x, y, visibility}) => {
+            row.forEach(({deviceId, x, y, visibility, color}) => {
                 result.push(
                     e(
                         'div',
@@ -85,15 +87,21 @@ class Map_ extends React.Component {
                             }
                         },
                         e(
-                            'span',
+                            'a',
                             {
-                                id: `grid-${x}-${y}`,
-                                style:{
-                                    visibility,
-                                    backgroundColor: 'green'
-                                },
-                                className: "dot"
-                            }
+                                href: `/sensor.html?sensorId=${deviceId}`
+                            },
+                            e(
+                                'span',
+                                {
+                                    id: `grid-${x}-${y}`,
+                                    style: {
+                                        visibility,
+                                        backgroundColor: color
+                                    },
+                                    className: "dot"
+                                }
+                            )
                         )
                     )
                 );
