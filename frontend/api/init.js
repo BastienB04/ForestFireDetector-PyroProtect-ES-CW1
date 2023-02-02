@@ -3,96 +3,112 @@ const e = React.createElement;
 // const HOST = process.env.HOST
 const HOST = 'http://localhost:8080'
 
-class Map_ extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {data: []}
-        const res = fetch(HOST + '/api/initData').then((res) => {
-            return res.json()
-        }).then((data) => {
-            const result = []
-            for(let i=0; i<data.rowSize; i++){
-                for(let j=0; j<data.columnSize; j++){
-                    // <div id={`grid-${i}-${j}`}>succ</div>
-                    result.push([i,j]);
-                }
-            }
-            this.state.data = result;
-        })
-
+function templateConcat(n, str){
+    res = str
+    for(i=0; i<n-1; i++){
+        res+= " " + str
     }
-    // async getData(){
-    //     res = await fetch(HOST + '/api/initData').then((res) => {
-    //         return res.json()
-    //     }).then((data) => {
-    //         const result = []
-    //         for(let i=0; i<data.rowSize; i++){
-    //             for(let j=0; j<data.columnSize; j++){
-    //                 // <div id={`grid-${i}-${j}`}>succ</div>
-    //                 result.push([i,j]);
-    //             }
-    //         }
-    //         return result;
-    //     })
-    //     this.state.data = res;
-    //     return this;
-    // }
+    return res
+}
 
-    render(){
-        const {data} = this.state;
-        const listItems = data.map(([a,b]) => {
-            e('div', {key: `${a}-${b}`}, 'succ');
-        })
-        console.log(listItems);
-        return listItems;
+function hiddenOrVisible(data, i, j){
+    Object.values(data).forEach(element => {
+        if((element.x_pos==i)&&(element.y_pos==j)){
+            return 'visible';
+        }
+    });
+    return 'hidden';
+}
+
+class Map_ extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            initData: [],
+            cachedData: [],
+            grid: [],
+            gridSize: 1
+        };
+    }
+
+    fetchCachedData(){
+        fetch(HOST + '/api/cachedData').then((res) => {
+            return res.json();
+        }).then((data) => {
+            this.setState({ cachedData: data });
+            (Object.values(data)).forEach((element) => {
+                this.setState(({grid}, props) => {
+                    grid[element.x_pos][element.y_pos].visibility = 'visible';
+                    return {grid}
+                });
+            });
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
+
+    componentDidMount() {
+        this.timer = setInterval(() => {
+            this.fetchCachedData()
+        }, 5000);
+
+
+        fetch(HOST + '/api/initData').then((res) => {
+            return res.json()
+        }).then(({gridSize, grid}) => {
+            this.setState({ gridSize, grid });
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
+
+    render() {
+        const { gridSize, grid } = this.state;
+        const el1 = document.getElementById('grid');
+        el1.style.display = 'grid';
+        el1.style.gridTemplateColumns = templateConcat(gridSize, '40px');
+        el1.style.gridTemplateRows = templateConcat(gridSize, '40px');
+        const result = [];
+
+        grid.forEach((row) => {
+            row.forEach(({x, y, visibility}) => {
+                result.push(
+                    e(
+                        'div',
+                        { 
+                            key: `grid-${x}-${y}`,
+                            className: "inside-grid",
+                            style: {
+                                border: "1px solid #5bb29a",
+                                justifyContent: "center", // DO NOT TOUCH
+                                display: "flex" // DO NOT TOUCH
+                            }
+                        },
+                        e(
+                            'span',
+                            {
+                                id: `grid-${x}-${y}`,
+                                style:{
+                                    visibility,
+                                    backgroundColor: 'green'
+                                },
+                                className: "dot"
+                            }
+                        )
+                    )
+                );
+
+            })
+        });
+
+        return result;
     }
 }
-const domContainer = document.querySelector('#test');
-const root = ReactDOM.createRoot(domContainer);
-root.render(e(Map_));
 
-// const e = React.createElement;
-// const HOST = 'http://localhost:8080';
-
-// class Map_ extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             data: []
-//         };
-//     }
-
-//     componentDidMount() {
-//         fetch(HOST + '/api/initData')
-//             .then(res => res.json())
-//             .then(data => {
-//                 this.setState({ data });
-//             })
-//             .catch(error => console.error(error));
-//     }
-
-//     render() {
-//         const { data } = this.state;
-//         const result = [];
-//         for (let i = 0; i < data.rowSize; i++) {
-//             for (let j = 0; j < data.columnSize; j++) {
-//                 result.push(
-//                     e(
-//                         'div',
-//                         { key: `grid-${i}-${j}` },
-//                         'succ'
-//                     )
-//                 );
-//             }
-//         }
-//         return result;
-//     }
-// }
-
-// const domContainer = document.querySelector('#test');
-// if (domContainer) {
-//     const root = ReactDOM.createRoot(domContainer);
-//     root.render(e(Map_));
-// } else {
-//     console.error("Element with id 'test' not found in the HTML");
-// }
+const domContainer = document.querySelector('#grid');
+if (domContainer) {
+    const root = ReactDOM.createRoot(domContainer);
+    root.render(e(Map_));
+} else {
+    console.error("Element with id 'test' not found in the HTML");
+}

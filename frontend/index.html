@@ -22,38 +22,42 @@
             <div id="grid-item-6">succ</div>
             <div id="grid-item-7">succ</div>
             <div id="grid-item-8">succ</div>
-        </div> -->
+        </div> -->    
+        
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 
         <p id="res"></p>
-        <div id="test"></div>
+        <div id="grid"></div>
+        <script src="/api/init.js" crossorigin></script>
         
-        <script>
+        <!-- <script>
             function sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
-            }
+            }    
             async function main(){
                 var bool = true;
                 while(bool){
+                    await sleep(10000);
                     fetch('http://localhost:8080/api/cachedData').then((res) => {
                         return res.json()
                     }).catch(() => {
                         bool = false;
                     }).then((data) => {
+                        Object.values(data).forEach(element => {
+                            const el = document.getElementById(`grid-${element.x_pos}-${element.j_pos}`);
+                            el.style.visibility = 'visible';
+                        });    
                         document.getElementById("res").innerHTML = JSON.stringify(data);
                     }).catch(() => {
                         bool = false;
-                    });
-                    await sleep(10000);
-                }
-            }
+                    });    
+                }    
+            }    
             main()
-        </script>
-
-        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+        </script>     -->
 
         <!-- <script src="http://localhost:8080/test.js" crossorigin></script> -->
-        <script src="/api/init.js" crossorigin></script>
     </body>
 
 </html>

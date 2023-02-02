@@ -4,23 +4,14 @@ const path = require('path');
 const port = 8080;
 
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+//-------------------------------------------------------------------------------------------------------------------------------
+//                                                  VARIABLES
+//-------------------------------------------------------------------------------------------------------------------------------
 
-const Id = {val: 0};
-async function incrId(Id){
-    while(1){
-        await sleep(1000);
-        Id.val += 1;
-        console.log(Id);
-    }
-}
+const GRIDSIZE = 10;
 
-// incrId(Id)
-
-const cachedData = [
-    {
+const cachedData = {
+    "device1": {
         deviceId: 1,
         x_pos: 0,
         y_pos: 0,
@@ -30,17 +21,40 @@ const cachedData = [
             windSpeed: null
         }
     },
-    {
+    "device2": {
         deviceId: 2,
-        x_pos: 10,
-        y_pos: 10,
+        x_pos: 9,
+        y_pos: 9,
         status:{
             gas: null,
             temperature: null,
             windSpeed: null
         }
     }
-]
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------
+//                                                  VARIABLE INIT
+//-------------------------------------------------------------------------------------------------------------------------------
+
+const initGrid = []
+for(let i=0; i<GRIDSIZE; i++){
+    const tmp = [];
+    for(let j=0; j<GRIDSIZE; j++){
+        tmp.push({
+            x: i,
+            y: j,
+            visibility: 'hidden'
+        });
+    }
+    initGrid.push(tmp);
+}
+
+const initData = {
+    gridSize: GRIDSIZE,
+    grid: initGrid
+}
+
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //                                                  SERVER DEFINITION
@@ -103,7 +117,7 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Content-Type', 'text/javascript');
                 fs.createReadStream(filePath).pipe(res);
             });
-
+            
         }
         else{
             if(req.url.startsWith('/api/cachedData')){
@@ -112,12 +126,18 @@ const server = http.createServer((req, res) => {
                 res.write(JSON.stringify(cachedData));
                 res.end();
             }
+            else if(req.url.startsWith('/api/initData')){
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.write(JSON.stringify(initData));
+                res.end();
+            }
             else{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.write(JSON.stringify({
-                    rowSize: 3,
-                    columnSize: 3
+                    rowSize: 10,
+                    columnSize: 10
                 }));
                 res.end()
             }
@@ -140,3 +160,17 @@ server.listen(port, () => {
 });
 
 
+
+// function sleep(ms) {
+//     return new Promise(resolve => setTimeout(resolve, ms));
+// }
+
+// const Id = {val: 0};
+// async function incrId(Id){
+//     while(1){
+//         await sleep(1000);
+//         Id.val += 1;
+//         console.log(Id);
+//     }
+// }
+// incrId(Id)
