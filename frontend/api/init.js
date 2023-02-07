@@ -89,7 +89,7 @@ class Map_ extends React.Component {
                         e(
                             'a',
                             {
-                                href: `/sensor.html?sensorId=${deviceId}`
+                                href: `/sensor/sensor.html?sensorId=${deviceId}`
                             },
                             e(
                                 'span',
