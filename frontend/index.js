@@ -81,6 +81,7 @@ const server = http.createServer((req, res) => {
     
     if(req.method == 'GET'){
         var fileUrl;
+        var filePath = path.resolve('.' + fileUrl);
         const fileExt = path.extname(filePath);
         if(req.url == '/'){
             fileUrl = '/index.html'
@@ -92,7 +93,6 @@ const server = http.createServer((req, res) => {
         else{
             fileUrl = req.url;
         }
-        var filePath = path.resolve('.' + fileUrl);
         
         if(fileExt == '.html'){
             fs.exists(filePath, (exists) => {
