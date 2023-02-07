@@ -86,7 +86,7 @@ const server = http.createServer((req, res) => {
         }
         else if(req.url.startsWith('/sensor')){
             const deviceId = new URL(req.url, `http://${req.headers.host}`).searchParams.get('deviceId');
-            fileUrl = '/sensor.html'
+            fileUrl = '/sensor/sensor.html'
         }
         else{
             fileUrl = req.url;
