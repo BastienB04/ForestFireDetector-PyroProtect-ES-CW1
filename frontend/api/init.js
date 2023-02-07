@@ -1,7 +1,7 @@
 const e = React.createElement;
 // require('dotenv').config()
 // const HOST = process.env.HOST
-const HOST = 'http://localhost:8080'
+const HOST = 'http://13.41.188.158:8080'
 
 function templateConcat(n, str){
     res = str

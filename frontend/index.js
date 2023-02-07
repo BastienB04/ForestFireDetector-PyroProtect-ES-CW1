@@ -178,7 +178,9 @@ const server = http.createServer((req, res) => {
             res.end();
         }
         else if(req.url.startsWith('/api/recdata')){
-            var data = JSON.parse(req);
+            
+	    console.log(req.data);
+	    var data = JSON.parse(req);
             var saveHistory = cachedData[res['id']].status;
 
             cachedData[data['id']].status.gas = data['Co2'];
