@@ -1,2 +1,2 @@
-const querystring = window.location.search;
-console.log(querystring); 
+const msg = window.location.search;
+console.log(msg); 
