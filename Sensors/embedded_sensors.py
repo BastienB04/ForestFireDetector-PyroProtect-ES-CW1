@@ -12,12 +12,15 @@ ID = 1
 ADDRESS = 'http://13.41.188.158:8080/api/recdata'
 DATA = {}
 def init():
-        DATA['id'] = 'device' + ID
+        DATA['id'] = 'device' + str(ID)
 def sendData():
 
         json_data = json.dumps(DATA)
         headers = {'Content-type': 'application/json'}
-        response = requests.post(ADDRESS, data=json_data, headers=headers)
+        try:
+                response = requests.post(ADDRESS, data=json_data, headers=headers)
+        except:
+                print("Couldn't reach host")
 
 # Create an ADS1115 ADC (16-bit) instance.
 adc = Adafruit_ADS1x15.ADS1115()
@@ -47,7 +50,7 @@ bus = smbus2.SMBus(1)
 
 # ccs811 stuff
 ccs811Begin(CCS811_driveMode_1sec)                                      #start CCS811, data update rate at 1sec
-
+init()
 while(1):
         #Analog stuff
         analog_values = [0]*4
@@ -71,12 +74,15 @@ while(1):
         
         if GPIO.input(DIGITAL_PIN)==0:
                 print('Raining!')
-                rainVal = 100 - (analog_values[1] * 100 / 32767)
+                rainVal = analog_values[1] * 4.096 / 32767
+                # rainVal = 100 - (analog_values[1] * 100 / 32767)
                 print("Moisture: ", round(rainVal,2) , "%")
                 DATA['rain'] = rainVal
                 
         else:
                 print('Not raining!')
+                rainVal = analog_values[1] * 4.096 / 32767
+                print("Moisture: ", round(rainVal,2) , "%")
                 DATA['rain'] = 0.0
         
         
@@ -115,7 +121,7 @@ while(1):
                 DATA['tVoc'] = tVOC
         elif ccs811CheckForError():
                 ccs811PrintError()
-
+        sendData()
         sleep(2)
 
 
