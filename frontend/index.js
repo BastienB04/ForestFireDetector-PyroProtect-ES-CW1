@@ -80,13 +80,11 @@ const server = http.createServer((req, res) => {
     //-------------------------------------------------------------------------------------------------------------------------------
     
     if(req.method == 'GET'){
-        var fileUrl = req.url;
-        var filePath = path.resolve('.' + fileUrl);
-        const fileExt = path.extname(filePath);
+        var fileUrl;
         if(req.url == '/'){
             fileUrl = '/index.html'
         }
-        else if(req.url.startsWith('/sensor')&&(fileExt == '.html')){
+        else if(req.url.startsWith('/sensor')){
             const deviceId = new URL(req.url, `http://${req.headers.host}`).searchParams.get('deviceId');
             fileUrl = '/sensor/sensor.html'
         }
@@ -94,6 +92,8 @@ const server = http.createServer((req, res) => {
             fileUrl = req.url;
         }
         
+        var filePath = path.resolve('.' + fileUrl);
+        const fileExt = path.extname(filePath);
         if(fileExt == '.html'){
             fs.exists(filePath, (exists) => {
                 if (!exists) {
