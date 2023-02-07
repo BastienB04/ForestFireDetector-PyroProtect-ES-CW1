@@ -177,6 +177,19 @@ const server = http.createServer((req, res) => {
             res.statusCode = 200;
             res.end();
         }
+        else if(req.url.startsWith('/api/recdata')){
+            var data = JSON.parse(res);
+            var saveHistory = cachedData[res['id']].status;
+
+            cachedData[res['id']].status.gas = res['Co2'];
+            cachedData[res['id']].status.temperature = res['temp'];
+            cachedData[res['id']].status.humidity = res['humidity'];
+            cachedData[res['id']].status.tVOC = res['tVOC'];
+            cachedData[res['id']].status.rain = res['rain'];
+            cachedData[res['id']].status.windSpeed = res['wind'];
+            console.log([res['id']].status)
+            
+        }
     }
 });
 

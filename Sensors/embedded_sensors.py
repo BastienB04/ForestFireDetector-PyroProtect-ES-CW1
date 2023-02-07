@@ -4,6 +4,20 @@ from time import sleep
 from ccs811 import ccs811Begin, CCS811_driveMode_1sec, ccs811SetEnvironmentalData, ccs811CheckDataAndUpdate, ccs811GetCO2, ccs811GetTVOC, ccs811CheckForError, ccs811PrintError
 import Adafruit_ADS1x15
 import RPi.GPIO as GPIO
+import json
+import requests
+
+
+ID = 1
+ADDRESS = "whatever"
+DATA = {}
+def init():
+        DATA['id'] = 'device' + ID
+def sendData():
+
+        json_data = json.dumps(DATA)
+        headers = {'Content-type': 'application/json'}
+        response = requests.post(ADDRESS, data=json_data, headers=headers)
 
 # Create an ADS1115 ADC (16-bit) instance.
 adc = Adafruit_ADS1x15.ADS1115()
@@ -49,17 +63,21 @@ while(1):
                         + (-111.95726 * pow(windvoltage, 2)) + (58.03388 * pow(windvoltage, 1)) \
                         + -12.00028
                 print("Wind speed: ", round(windspeed, 2), "m/s")
+                DATA['wind'] = windspeed
         else:
                 print("Wind speed: 0m/s (too low so flow is reversed)")
+                DATA['wind'] = 0.0
         
         
         if GPIO.input(DIGITAL_PIN)==0:
                 print('Raining!')
                 rainVal = 100 - (analog_values[1] * 100 / 32767)
                 print("Moisture: ", round(rainVal,2) , "%")
+                DATA['rain'] = rainVal
                 
         else:
                 print('Not raining!')
+                DATA['rain'] = 0.0
         
         
         #Temp readings
@@ -82,6 +100,8 @@ while(1):
 
         print("Temperature in °C: ", round(tempc, 2))
         print("Humidity in %: ", round(humidity_perc, 2))
+        DATA['temp'] = tempc
+        DATA['humidity'] = humidity_perc
 
         # Use temp and humidity to get CO2 and tVOC from
         ccs811SetEnvironmentalData(tempc, humidity_perc)
@@ -91,6 +111,8 @@ while(1):
                 tVOC = ccs811GetTVOC()
                 print ("CO2 : %d ppm" %CO2)
                 print ("tVOC : %d ppb" %tVOC)
+                DATA['Co2'] = CO2
+                DATA['tVoc'] = tVOC
         elif ccs811CheckForError():
                 ccs811PrintError()
 
