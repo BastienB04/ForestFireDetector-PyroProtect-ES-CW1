@@ -178,16 +178,18 @@ const server = http.createServer((req, res) => {
             res.end();
         }
         else if(req.url.startsWith('/api/recdata')){
-            var data = JSON.parse(res);
+            var data = JSON.parse(req);
             var saveHistory = cachedData[res['id']].status;
 
-            cachedData[res['id']].status.gas = res['Co2'];
-            cachedData[res['id']].status.temperature = res['temp'];
-            cachedData[res['id']].status.humidity = res['humidity'];
-            cachedData[res['id']].status.tVOC = res['tVOC'];
-            cachedData[res['id']].status.rain = res['rain'];
-            cachedData[res['id']].status.windSpeed = res['wind'];
-            console.log([res['id']].status)
+            cachedData[data['id']].status.gas = data['Co2'];
+            cachedData[data['id']].status.temperature = data['temp'];
+            cachedData[data['id']].status.humidity = data['humidity'];
+            cachedData[data['id']].status.tVOC = data['tVOC'];
+            cachedData[data['id']].status.rain = data['rain'];
+            cachedData[data['id']].status.windSpeed = data['wind'];
+            console.log([data['id']].status)
+            res.statusCode = 200;
+            res.end()
             
         }
     }
