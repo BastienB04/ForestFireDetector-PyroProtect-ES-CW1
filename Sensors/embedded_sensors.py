@@ -9,7 +9,7 @@ import requests
 
 
 ID = 1
-ADDRESS = "whatever"
+ADDRESS = 'http://13.41.188.158:8080/api/recdata'
 DATA = {}
 def init():
         DATA['id'] = 'device' + ID
