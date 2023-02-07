@@ -80,7 +80,7 @@ const server = http.createServer((req, res) => {
     //-------------------------------------------------------------------------------------------------------------------------------
     
     if(req.method == 'GET'){
-        var fileUrl;
+        var fileUrl = req.url;
         var filePath = path.resolve('.' + fileUrl);
         const fileExt = path.extname(filePath);
         if(req.url == '/'){
