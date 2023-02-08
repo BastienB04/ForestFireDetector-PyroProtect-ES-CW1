@@ -71,7 +71,9 @@ while(1):
                 print("Wind speed: 0m/s (too low so flow is reversed)")
                 DATA['wind'] = 0.0
         
-        
+        # Maybe is should only be bounded by 3.29 instead of 4.096 since max voltage is 3.29
+        # so would be:
+        # rainVal = # rainVal = 100 - (analog_values[1] * 100 / (32767*3.29/4.096))
         if GPIO.input(DIGITAL_PIN)==0:
                 print('Raining!')
                 rainVal = analog_values[1] * 4.096 / 32767
