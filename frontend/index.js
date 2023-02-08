@@ -148,6 +148,12 @@ const server = http.createServer((req, res) => {
                 res.write(JSON.stringify(initData));
                 res.end();
             }
+            else if(req.url.startswith('/api/allData')){
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.write({'status': 'succ'});
+                res.end();
+            }
             else{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
