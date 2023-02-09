@@ -26,12 +26,12 @@
         
         <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
         <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-
+        
+        <div id="map" style="height: 400px; width:100%;"></div>
         <p id="res"></p>
         <div id="grid"></div>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOiFIydMRHZwxO1VqD36D0y-DcNgrZY3g"></script>
         <script>
-            var lat = 51.498356;
+            function initMap(){var lat = 51.498356;
             var lng =  -0.176894;
             var myLatLng = new google.maps.LatLng(lat, lng);
             
@@ -42,8 +42,11 @@
             };
             
             var map = new google.maps.Map(document.getElementById("grid"), mapOptions);
+            }
            </script>
-        <script src="/api/init.js" crossorigin></script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOiFIydMRHZwxO1VqD36D0y-DcNgrZY3g&callback=initMap"></script>
+        <script src="/src/init.js" crossorigin></script>
         
         <!-- <script>
             function sleep(ms) {
