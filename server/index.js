@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const port = 8080;
+const { StationBuilder } = require('./imports/StationBuilder');
 
 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -42,6 +43,9 @@ const cachedData = {
         status: {}
     }
 }
+
+
+const stationBuilder = new StationBuilder('FWI');
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //                                                  VARIABLE INIT

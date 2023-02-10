@@ -38,8 +38,8 @@ class FWIStation extends Station{
     private calculateFFMC(): FWIStation {
         let prevMT = 147.2 * (101 - this.previousFFMC) / (59.5 + this.previousFFMC);
         
-        if (this._precipitation > 0.5) {
-          let pf = this._precipitation - 0.5;
+        if (this.precipitation > 0.5) {
+          let pf = this.precipitation - 0.5;
           let mrt = prevMT + (42.5 * pf * Math.exp((-100) / (251 - prevMT)) * (1 - Math.exp(-6.93 / pf)));
           
           if (prevMT > 150) {

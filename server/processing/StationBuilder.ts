@@ -8,14 +8,15 @@ class StationBuilder {
 
     constructor(_chosenIndex: string){
         this.chosenIndex = _chosenIndex;
+        // init circle saver
     }
 
-    public build(params: SensorReadings){
+    public build(){
         switch(this.chosenIndex){
             case this.defaultIndex: {
                 const res = new FWIStation(`station-${this.uniqueId}`);
                 this.uniqueId += 1;
-                res.readings = params;
+                // res.readings = params;
                 // res.temperature = params.temperature;
                 // res.relativeHumidity = params.relativeHumidity;
                 // res.windSpeed = params.windSpeed;
