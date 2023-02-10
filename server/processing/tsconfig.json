@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "NodeNext",
         "removeComments": true,
-        "outDir": "../imports/"
+        "outDir": "../include/"
     },
     "include": ["./"]
 }
