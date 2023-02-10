@@ -55,10 +55,15 @@ class FWIStation extends Station{
 
     // Fine Fuel Moisture Code
     private calculateFFMC(): FWIStation {
+
+        // previous day's fine fuel moisture content: prevMT
         let prevMT = 147.2 * (101 - this.currentFFMC) / (59.5 + this.currentFFMC);
         
+        // if there is rain
         if (this.precipitation > 0.5) {
             let pf = this.precipitation - 0.5;
+
+            // fine fuel moisture content of current day: mrt
             let mrt = prevMT + (42.5 * pf * Math.exp((-100) / (251 - prevMT)) * (1 - Math.exp(-6.93 / pf)));
           
             if (prevMT > 150) {
@@ -70,15 +75,18 @@ class FWIStation extends Station{
             prevMT = mrt;
         }
         
+        // fine fuel moisture content for drying phases: ed
         const ed = 0.942 * Math.pow(this.relativeHumidity, 0.679) + 11 * Math.exp((this.relativeHumidity - 100) / 10) + 0.18 * (21.1 - this.temperature) * (1 - Math.exp(-0.115 * this.relativeHumidity));
         
         let mt: number;
         if (ed < prevMT) {
+            // log drying rate: kd
             let ko = 0.424 * (1 - Math.pow(this.relativeHumidity / 100, 1.7)) + 0.0694 * this.windSpeed * (1 - Math.pow(this.relativeHumidity / 100, 8));
             let kd = ko * 0.581 * Math.exp(0.0365 * this.temperature);
             mt = ed + (prevMT - ed) * Math.pow(10, -kd);
         } 
         else{
+            // fine fuel equilibrium moisture content for wetting phases: ew
             let ew = 0.618 * Math.pow(this.relativeHumidity, 0.753) + 10 * Math.exp((this.relativeHumidity - 100) / 10) + 0.18 * (21.1 - this.temperature) * (1 - Math.exp(-0.115 * this.relativeHumidity));
             if (ew > prevMT) {
                 let k1 = 0.424 * (1 - Math.pow((100 - this.relativeHumidity) / 100, 1.7)) + 0.0694 * (1 - Math.pow((100 - this.relativeHumidity) / 100, 8));
@@ -95,10 +103,12 @@ class FWIStation extends Station{
 
     // Duff Moisture Code
     private calculateDMC(): FWIStation{
+        // effective day-length: L_e
         let L_e: number = this.effectiveDayLength;
 
-        const tmp:number = Math.max(this.temperature, -1.1);
+        const tmp:number = Math.max(this.temperature, -1.1); // if temperature < -1.1 then temp = -1.1
 
+        // log drying rate in DMC: K
         let K = 1.894 * (tmp + 1.1) * (100- this.relativeHumidity) * L_e * 0.000001;
         
         if(this.precipitation < 1.5){
@@ -106,9 +116,13 @@ class FWIStation extends Station{
             return this
         }
 
+        // effective rainfall (mm): P_e
         let P_e: number = 0.92 * this.precipitation - 1.27;
+
+        // duff moisture content from previous day: prev_M
         let prev_M : number= 20 + Math.exp(5.6348 - (this.currentDMC)/43.43);
 
+        // slope variable in DMC rain effect: b
         let b: number;
         if(this.currentDMC <= 33){
             b = 100 / (0.5 + 0.3 * this.currentDMC);
@@ -120,7 +134,10 @@ class FWIStation extends Station{
             b = 6.2 * Math.log(this.currentDMC) - 17.2;
         }
 
+        // duff moisture rain content after rain: M_r_t
         let M_r_t: number = prev_M + ((1000*P_e)/(48.77 + b*P_e));
+
+        // DMC after rain: DMC_r_t
         let DMC_r_t: number = Math.max(244.72 - 43.43 * Math.log(M_r_t - 20), 0);
 
         this.currentDMC = DMC_r_t + 100*K;
@@ -159,6 +176,14 @@ class FWIStation extends Station{
         return this;
     }
     
+    // Initial Spread Index
+    public calculateISI(): FWIStation{
+        // fuel moisture content (%): m
+        const m = 147.2 * ((101-this.currentFFMC)/(59.5 + this.currentFFMC));
+
+        this.currentISI = 0.208 * Math.exp(0.05039*this.windSpeed) * (91.9 * Math.exp(-0.1386*m)) * (1 + Math.pow(m, 5.31)/49300000);
+        return this;
+    }
 
 }
 
