@@ -4,13 +4,13 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'asthmaticbois@gmail.com',
-        pass: 'LucIsVenom!'
+        user: 'asthmabois@hotmail.com',
+        pass: 'LucIsVenom1!'
     }
 });
 
 const mailOptions = {
-    from: 'asthmaticbois@gmail.com',
+    from: 'asthmabois@hotmail.com',
     to: 'kilaniabdal@gmail.com',
     subject: 'Fire Alert',
     text: 'A fire has been detected in your area. Please take necessary precautions.'
