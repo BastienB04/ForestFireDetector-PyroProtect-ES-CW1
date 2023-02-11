@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const affectedArea = 1;
 
 
 const transporter = nodemailer.createTransport({
@@ -9,12 +10,25 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// Can just add groups and if statements to expand to other locations
+const area1 = ['kilaniabdal@gmail.com', 'asthmaticbois@gmail.com'];
+const area2 = ['meeeee@ahhh.com', 'blabla@ooo.com'];
+
+let recipients;
+if (affectedArea == 1) {
+  recipients = area1;
+} else {
+  recipients = area2;
+}
+
 const mailOptions = {
     from: 'asthmabois@hotmail.com',
-    to: 'kilaniabdal@gmail.com',
-    subject: 'Fire Alert',
+    to: recipients.join(','),
+    subject: 'Fire Alert!',
     text: 'A fire has been detected in your area. Please take necessary precautions.'
 };
+
+
     
 
 transporter.sendMail(mailOptions, (error, info) => {
