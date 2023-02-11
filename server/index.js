@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const port = 8080;
 const { StationBuilder } = require('./include/StationBuilder');
+const nodemailer = require('nodemailer');
+
 
 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -70,6 +72,34 @@ const initData = {
     gridSize: GRIDSIZE,
     grid: initGrid
 }
+
+//-------------------------------------------------------------------------------------------------------------------------------
+//                                                  MAILING LIST
+//-------------------------------------------------------------------------------------------------------------------------------
+
+// const transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//       user: 'asthmaticbois@gmail.com',
+//       pass: 'LucIsVenom!'
+//     }
+//   });
+
+//   const mailOptions = {
+//     from: 'asthmaticbois@gmail.com',
+//     to: 'kilaniabdal@gmail.com',
+//     subject: 'Fire Alert',
+//     text: 'A fire has been detected in your area. Please take necessary precautions.'
+//   };
+  
+
+// transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log('Email sent: ' + info.response);
+//     }
+//   });
 
 
 //-------------------------------------------------------------------------------------------------------------------------------
