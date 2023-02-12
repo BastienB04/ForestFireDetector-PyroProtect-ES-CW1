@@ -30,23 +30,29 @@
         <div id="map" style="height: 400px; width:100%;"></div>
         <p id="res"></p>
         <div id="grid"></div>
+        <!--
         <script>
             function initMap(){var lat = 51.498356;
-            var lng =  -0.176894;
-            var myLatLng = new google.maps.LatLng(lat, lng);
-            
-            var mapOptions = {
-              zoom: 12,
-              center: myLatLng,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            
-            var map = new google.maps.Map(document.getElementById("grid"), mapOptions);
-            }
-           </script>
-
+                var lng =  -0.176894;
+                var myLatLng = new google.maps.LatLng(lat, lng);
+                
+                var mapOptions = {
+                  zoom: 12,
+                  center: myLatLng,
+                  mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                
+                var map = new google.maps.Map(document.getElementById("grid"), mapOptions);
+                }
+        </script>
+        
+-->     
+        <script src="./src/Compiled_maps.js"></script>      
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOiFIydMRHZwxO1VqD36D0y-DcNgrZY3g&callback=initMap"></script>
+        
         <script src="/src/init.js" crossorigin></script>
+
+        
         
         <!-- <script>
             function sleep(ms) {
