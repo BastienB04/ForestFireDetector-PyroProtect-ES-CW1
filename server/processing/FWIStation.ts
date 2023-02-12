@@ -34,6 +34,7 @@ class FWIStation extends Station{
     private currentFFMC: number;
     private currentDMC: number;
     private currentDC: number;
+    private currentBUI: number;
     private currentISI: number;
 
     private effectiveDayLength: number;
@@ -177,12 +178,44 @@ class FWIStation extends Station{
     }
     
     // Initial Spread Index
-    public calculateISI(): FWIStation{
+    private calculateISI(): FWIStation{
         // fuel moisture content (%): m
         const m = 147.2 * ((101-this.currentFFMC)/(59.5 + this.currentFFMC));
 
         this.currentISI = 0.208 * Math.exp(0.05039*this.windSpeed) * (91.9 * Math.exp(-0.1386*m)) * (1 + Math.pow(m, 5.31)/49300000);
         return this;
+    }
+
+    // Buildup Index
+    private calculateBUI(): FWIStation{
+        if(this.currentDMC <= 0.4 * this.currentDC){
+            this.currentBUI = 0.8 * ((this.currentDMC * this.currentDC)/(this.currentDMC + 0.4*this.currentDC));
+        }
+        else{
+            this.currentBUI = this.currentDMC - (1- ((0.8*this.currentDC)/(this.currentDMC + 0.4*this.currentDC))) * (0.92 + Math.pow((0.0114*this.currentDMC), 1.7));
+        }
+        return this;
+    }
+
+    // Fire Weather Index
+    private calculateFWI(): FWIStation{
+        const b : number = 0.1 * this.currentISI;
+        
+        if(this.currentBUI <= 80){
+            this.currentFWI = b * (0.626 * Math.pow(this.currentBUI, 0.809) + 2);
+            return this;
+        }
+        this.currentFWI = b * (1000/(25 + 108.64 * Math.exp(-0.023 * this.currentBUI)));
+        return this;
+    }
+
+    public updateFWI(): FWIStation{
+        return this.calculateFFMC()
+                .calculateDMC()
+                .calculateDC()
+                .calculateISI()
+                .calculateBUI()
+                .calculateFWI();
     }
 
 }
