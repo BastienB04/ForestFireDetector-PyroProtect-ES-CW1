@@ -9,6 +9,7 @@ function initMap() {
   customOverlay.onAdd = function() {
     var div = document.createElement('div');
     div.style.justifyContent = "center";
+    div.style.position = "absolute";
     ReactDOM.render(<Map_ />, div);
     this.getPanes().floatPane.appendChild(div);
   };
