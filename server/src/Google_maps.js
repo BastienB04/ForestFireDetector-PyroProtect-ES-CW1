@@ -16,7 +16,7 @@ function initMap() {
     div.style.height = "100%";
 
     ReactDOM.render(<Map_ />, div);
-    this.getPanes().floatPane.appendChild(div);
+    this.div.appendChild(div);
   };
 
   customOverlay.setMap(map);
