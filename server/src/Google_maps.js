@@ -1,16 +1,16 @@
 function initMap() {
   const map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
-    center: { lat: 62.323907, lng: -150.109291 },
+    center: { lat: 51.4988, lng: 0.1749 },
     mapTypeId: "satellite",
   });
 
   const bounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(62.281819, -150.287132),
-    new google.maps.LatLng(62.400471, -150.005608)
+    new google.maps.LatLng(51.4488, 0.1249),
+    new google.maps.LatLng(51.5488, 0.2249)
   );
 
-  let image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/talkeetna.png";
+  // let image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/talkeetna.png";
   
   class CustomOverlay extends google.maps.OverlayView {
     bounds;
@@ -28,17 +28,17 @@ function initMap() {
       this.div.style.borderWidth = "0px";
       this.div.style.position = "absolute";
 
-      const img = document.createElement("img");
-      img.src = this.image;
-      img.style.width = "100%";
-      img.style.height = "100%";
-      img.style.position = "absolute";
+      // const img = document.createElement("img");
+      // img.src = this.image;
+      div.style.width = "100%";
+      div.style.height = "100%";
+      div.style.position = "absolute";
       ReactDOM.render(<Map_ />, div);
       this.div.appendChild(div);
+      this.getPanes().floatPane.appendChild(div);
 
-
-      const panes = this.getPanes();
-      panes.overlayLayer.appendChild(this.div);
+      // const panes = this.getPanes();
+      // panes.overlayLayer.appendChild(this.div);
     }
 
     draw() {
