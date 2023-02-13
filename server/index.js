@@ -6,6 +6,7 @@ const path = require('path');
 const port = 8080;
 const { StationBuilder } = require('./include/StationBuilder');
 const nodemailer = require('nodemailer');
+const { sendEmail } = require('./src/mail')
 
 
 
