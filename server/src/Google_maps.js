@@ -21,6 +21,7 @@ function initMap() {
 
   customOverlay.setMap(map);
   var southWest = new google.maps.LatLng(51.3988, 0.0749);
-  var bounds = new google.maps.LatLngBounds(southWest, northEast);
   var northEast = new google.maps.LatLng(51.4988,  0.1749); 
+  var bounds = new google.maps.LatLngBounds(southWest, northEast);
+  customOverlay.bounds = bounds;
 };
