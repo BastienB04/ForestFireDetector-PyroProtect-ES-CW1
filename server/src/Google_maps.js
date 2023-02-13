@@ -8,6 +8,7 @@ function initMap() {
   var customOverlay = new google.maps.OverlayView();
   customOverlay.onAdd = function() {
     var div = document.createElement('div');
+    div.id = 'grid';
     div.style.justifyContent = "center";
     div.style.position = "absolute";
     ReactDOM.render(<Map_ />, div);
