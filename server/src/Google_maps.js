@@ -11,8 +11,9 @@ function initMap() {
     div.id = 'grid';
     div.style.justifyContent = "center";
     div.style.position = "absolute";
-    div.style.top = "50%";
-    div.style.left = "50%";
+    div.style.width = "100%";
+    div.style.height = "100%";
+
 
     ReactDOM.render(<Map_ />, div);
     this.getPanes().floatPane.appendChild(div);
