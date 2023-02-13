@@ -1,9 +1,11 @@
+
 type SensorReadings = {
     temperature: number;
     relativeHumidity: number;
     windSpeed: number;
     precipitation: number;
 }
+
 
 // a station represents a pi
 abstract class Station {
@@ -17,7 +19,7 @@ abstract class Station {
         this._stationId = name;
     }
 
-    abstract get index(): number;
+    public abstract get index(): number;
 
     public set temperature(temp: number){
         this._temperature = temp;
@@ -57,6 +59,9 @@ abstract class Station {
         this._windSpeed = params.windSpeed;
         this._precipitation = params.precipitation;
     }
+
+
+    public abstract update(): any;
 }
 
 export { Station, SensorReadings }

@@ -1,5 +1,6 @@
 import { Station } from "./Station";
 
+
 enum EffeciveDayLength {
     January = 6.5,
     February = 7.5,
@@ -216,6 +217,10 @@ class FWIStation extends Station{
                 .calculateISI()
                 .calculateBUI()
                 .calculateFWI();
+    }
+
+    public update(): any {
+        return this.updateFWI;
     }
 
 }

@@ -17,23 +17,42 @@ var EffeciveDayLength;
     EffeciveDayLength[EffeciveDayLength["November"] = 7] = "November";
     EffeciveDayLength[EffeciveDayLength["December"] = 6] = "December";
 })(EffeciveDayLength || (EffeciveDayLength = {}));
+var EffeciveDayLengthFactor;
+(function (EffeciveDayLengthFactor) {
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["January"] = -1.6] = "January";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["February"] = -1.6] = "February";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["March"] = -1.6] = "March";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["April"] = 0.9] = "April";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["May"] = 3.8] = "May";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["June"] = 5.8] = "June";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["July"] = 6.4] = "July";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["August"] = 5] = "August";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["September"] = 2.4] = "September";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["October"] = 0.4] = "October";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["November"] = -1.6] = "November";
+    EffeciveDayLengthFactor[EffeciveDayLengthFactor["December"] = -1.6] = "December";
+})(EffeciveDayLengthFactor || (EffeciveDayLengthFactor = {}));
 class FWIStation extends Station_1.Station {
     currentFWI;
     currentFFMC;
     currentDMC;
     currentDC;
+    currentBUI;
     currentISI;
-    previousFFMC;
     effectiveDayLength;
+    effectiveDayLengthFactor;
     constructor(name) {
         super(name);
         this.effectiveDayLength = EffeciveDayLength.February;
+        this.currentFFMC = 85;
+        this.currentDMC = 6;
+        this.currentDC = 15;
     }
     get index() {
         return this.currentFWI;
     }
     calculateFFMC() {
-        let prevMT = 147.2 * (101 - this.previousFFMC) / (59.5 + this.previousFFMC);
+        let prevMT = 147.2 * (101 - this.currentFFMC) / (59.5 + this.currentFFMC);
         if (this.precipitation > 0.5) {
             let pf = this.precipitation - 0.5;
             let mrt = prevMT + (42.5 * pf * Math.exp((-100) / (251 - prevMT)) * (1 - Math.exp(-6.93 / pf)));
@@ -68,35 +87,78 @@ class FWIStation extends Station_1.Station {
     }
     calculateDMC() {
         let L_e = this.effectiveDayLength;
-        var tmp;
-        if (this.temperature < -1.1) {
-            tmp = -1.1;
-        }
-        else {
-            tmp = this.temperature;
-        }
+        const tmp = Math.max(this.temperature, -1.1);
         let K = 1.894 * (tmp + 1.1) * (100 - this.relativeHumidity) * L_e * 0.000001;
         if (this.precipitation < 1.5) {
             this.currentDMC = this.currentDMC + 100 * K;
+            return this;
+        }
+        let P_e = 0.92 * this.precipitation - 1.27;
+        let prev_M = 20 + Math.exp(5.6348 - (this.currentDMC) / 43.43);
+        let b;
+        if (this.currentDMC <= 33) {
+            b = 100 / (0.5 + 0.3 * this.currentDMC);
+        }
+        else if (this.currentDMC <= 65) {
+            b = 14 - 1.3 * Math.log(this.currentDMC);
         }
         else {
-            let P_e = 0.92 * this.precipitation - 1.27;
-            let prev_M = 20 + Math.exp(5.6348 - (this.currentDMC) / 43.43);
-            let b;
-            if (this.currentDMC <= 33) {
-                b = 100 / (0.5 + 0.3 * this.currentDMC);
-            }
-            else if (this.currentDMC <= 65) {
-                b = 14 - 1.3 * Math.log(this.currentDMC);
-            }
-            else {
-                b = 6.2 * Math.log(this.currentDMC) - 17.2;
-            }
-            let M_r_t = prev_M + ((1000 * P_e) / (48.77 + b * P_e));
-            let DMC_r_t = Math.max(244.72 - 43.43 * Math.log(M_r_t - 20), 0);
-            this.currentDMC = DMC_r_t + 100 * K;
+            b = 6.2 * Math.log(this.currentDMC) - 17.2;
+        }
+        let M_r_t = prev_M + ((1000 * P_e) / (48.77 + b * P_e));
+        let DMC_r_t = Math.max(244.72 - 43.43 * Math.log(M_r_t - 20), 0);
+        this.currentDMC = DMC_r_t + 100 * K;
+        return this;
+    }
+    calculateDC() {
+        const L_f = this.effectiveDayLengthFactor;
+        const tmp = Math.max(this.temperature, -2.8);
+        const V = Math.max(0.36 * (this.temperature + 2.8) + L_f, 0);
+        if (this.precipitation <= 2.8) {
+            this.currentDC = this.currentDC + 0.5 * V;
+            return this;
+        }
+        const P_d = 0.83 * this.precipitation - 1.27;
+        const prevQ = 800 * Math.exp(-this.currentDC / 400);
+        const Q_r_t = prevQ + 3.937 * P_d;
+        const DC_r_t = Math.max(400 * Math.log(800 / Q_r_t), 0);
+        this.currentDC = DC_r_t + 0.5 * V;
+        return this;
+    }
+    calculateISI() {
+        const m = 147.2 * ((101 - this.currentFFMC) / (59.5 + this.currentFFMC));
+        this.currentISI = 0.208 * Math.exp(0.05039 * this.windSpeed) * (91.9 * Math.exp(-0.1386 * m)) * (1 + Math.pow(m, 5.31) / 49300000);
+        return this;
+    }
+    calculateBUI() {
+        if (this.currentDMC <= 0.4 * this.currentDC) {
+            this.currentBUI = 0.8 * ((this.currentDMC * this.currentDC) / (this.currentDMC + 0.4 * this.currentDC));
+        }
+        else {
+            this.currentBUI = this.currentDMC - (1 - ((0.8 * this.currentDC) / (this.currentDMC + 0.4 * this.currentDC))) * (0.92 + Math.pow((0.0114 * this.currentDMC), 1.7));
         }
         return this;
     }
+    calculateFWI() {
+        const b = 0.1 * this.currentISI;
+        if (this.currentBUI <= 80) {
+            this.currentFWI = b * (0.626 * Math.pow(this.currentBUI, 0.809) + 2);
+            return this;
+        }
+        this.currentFWI = b * (1000 / (25 + 108.64 * Math.exp(-0.023 * this.currentBUI)));
+        return this;
+    }
+    updateFWI() {
+        return this.calculateFFMC()
+            .calculateDMC()
+            .calculateDC()
+            .calculateISI()
+            .calculateBUI()
+            .calculateFWI();
+    }
+    update() {
+        return this.updateFWI;
+    }
 }
 exports.FWIStation = FWIStation;
+console.log(typeof (FWIStation));
