@@ -4,7 +4,7 @@ import Map_ from './Map_';
 
 function initMap() {
   const map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 11,
+    zoom: 7,
     center: { lat: 51.4988, lng: 0.1749 },
     mapTypeId: "satellite",
   });
@@ -40,14 +40,15 @@ function initMap() {
       const overlayProjection = this.getProjection();
       const sw = overlayProjection.fromLatLngToDivPixel(this.bounds.getSouthWest());
       const ne = overlayProjection.fromLatLngToDivPixel(this.bounds.getNorthEast());
-
+    
       if (this.div) {
         this.div.style.left = sw.x + "px";
-        this.div.style.top = ne.y + "px";
+        this.div.style.top = sw.y + "px";
         this.div.style.width = ne.x - sw.x + "px";
-        this.div.style.height = sw.y - ne.y + "px";
+        this.div.style.height = ne.y - sw.y + "px";
       }
     }
+    
 
     onRemove() {
       this.div.parentNode.removeChild(this.div);
