@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-const { module } = require('../include/Station');
 // const {affectedArea} = ;
 
 function sendEmail(affectedArea){
