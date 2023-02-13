@@ -11,7 +11,7 @@ function initMap() {
     div.style.display = "flex";
     div.style.alignItems = "center";
     div.style.justifyContent = "center";
-    div.style.position = "relative";
+    div.style.position = "fixed";
     div.style.width = "100%";
     div.style.height = "100%";
 
