@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Map_ from './Map_';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import Map_ from './Map_';
 
 // function initMap() {
 //   const map = new google.maps.Map(document.getElementById('map'), {
@@ -92,12 +92,7 @@ function initMap() {
 
     ReactDOM.render(<Map_ />, div);
     this.getPanes().floatPane.appendChild(div);
-    // this.div.appendChild(div);
   };
 
   customOverlay.setMap(map);
-  var southWest = new google.maps.LatLng(51.3988, 0.0749);
-  var northEast = new google.maps.LatLng(51.4988,  0.1749); 
-  var bounds = new google.maps.LatLngBounds(southWest, northEast);
-  customOverlay.bounds = bounds;
 };
