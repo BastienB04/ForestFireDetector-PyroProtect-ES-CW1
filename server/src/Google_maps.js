@@ -5,13 +5,13 @@
 function initMap() {
   const map = new google.maps.Map(document.getElementById('map'), {
     zoom: 7,
-    center: { lat: 51.4988, lng: 0.1749 },
+    center: { lat: 51.4988, lng: 0.1349 },
     mapTypeId: "satellite",
   });
 
   const bounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(51.4488, 0.1249),
-    new google.maps.LatLng(51.5488, 0.2249)
+    new google.maps.LatLng(51.4488, 0.1049),
+    new google.maps.LatLng(51.5488, 0.1649)
   );
 
   class CustomOverlay extends google.maps.OverlayView {
@@ -30,19 +30,17 @@ function initMap() {
     
       this.div.style.width = "100%";
       this.div.style.height = "100%";
-      this.div.style.position = "absolute";
+      this.div.style.position = "relative"; // Set position to relative
     
-      // Add CSS styles to position the Map_ component in the center
-      this.div.style.position = "absolute";
-      this.div.style.top = 0;
-      this.div.style.left = 0;
-      this.div.style.right = 0;
-      this.div.style.bottom = 0;
+      // Set top, left, bottom, right to position Map_ component
+      this.div.style.top = "50%";
+      this.div.style.left = "50%";
+      this.div.style.transform = "translate(-50%, -50%)";
     
       ReactDOM.render(<Map_ />, this.div);
     
       this.getPanes().floatPane.appendChild(this.div);
-    }
+    }    
     
 
     draw() {
