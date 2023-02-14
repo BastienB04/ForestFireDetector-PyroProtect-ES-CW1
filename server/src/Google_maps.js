@@ -15,40 +15,35 @@ function initMap() {
   );
 
   class CustomOverlay extends google.maps.OverlayView {
-    constructor(bounds, mapDiv) {
+    bounds;
+    div;
+    constructor(bounds) {
       super();
       this.bounds = bounds;
-      this.mapDiv = mapDiv;
-      this.setMap(map);
     }
   
     onAdd() {
-      this.div = document.createElement("div");
-      this.div.style.borderStyle = "none";
-      this.div.style.borderWidth = "0px";
-      this.div.style.position = "absolute";
-      this.div.style.width = "100%";
-      this.div.style.height = "100%";
-      this.mapDiv.appendChild(this.div);
+      this.div = document.createElement('div');
+      this.div.style.position = 'absolute';
+      this.div.style.width = '100%';
+      this.div.style.height = '100%';
       ReactDOM.render(<Map_ />, this.div);
+      this.getPanes().floatPane.appendChild(this.div);
     }
   
     draw() {
       const overlayProjection = this.getProjection();
-      const sw = overlayProjection.fromLatLngToDivPixel(this.bounds.getSouthWest());
-      const ne = overlayProjection.fromLatLngToDivPixel(this.bounds.getNorthEast());
-      const divWidth = ne.x - sw.x;
-      const divHeight = ne.y - sw.y;
-      const divCenterX = (ne.x + sw.x) / 2;
-      const divCenterY = (ne.y + sw.y) / 2;
+      const sw = overlayProjection.fromLatLngToDivPixel(
+        this.bounds.getSouthWest()
+      );
+      const ne = overlayProjection.fromLatLngToDivPixel(
+        this.bounds.getNorthEast()
+      );
   
       if (this.div) {
-        // set the position of the div
-        this.div.style.left = divCenterX - divWidth / 2 + "px";
-        this.div.style.top = divCenterY - divHeight / 2 + "px";
-        // set the size of the div
-        this.div.style.width = divWidth + "px";
-        this.div.style.height = divHeight + "px";
+        const scaleX = (ne.x - sw.x) / 100;
+        const scaleY = (ne.y - sw.y) / 100;
+        this.div.style.transform = `translate(${sw.x}px, ${sw.y}px) scale(${scaleX}, ${scaleY})`;
       }
     }
   
@@ -59,13 +54,13 @@ function initMap() {
   
     hide() {
       if (this.div) {
-        this.div.style.visibility = "hidden";
+        this.div.style.visibility = 'hidden';
       }
     }
   
     show() {
       if (this.div) {
-        this.div.style.visibility = "visible";
+        this.div.style.visibility = 'visible';
       }
     }
   }
