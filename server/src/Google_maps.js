@@ -15,36 +15,22 @@ function initMap() {
   );
 
   class CustomOverlay extends google.maps.OverlayView {
-    bounds;
-    div;
     constructor(bounds) {
       super();
       this.bounds = bounds;
+      this.div = null;
     }
   
     onAdd() {
       this.div = document.createElement('div');
-      this.div.style.position = 'absolute';
-      this.div.style.width = '100%';
-      this.div.style.height = '100%';
+      this.div.style.border = "none";
+      this.div.style.borderWidth = "0px";
+      this.div.style.position = "absolute";
+      this.div.style.width = "100%";
+      this.div.style.height = "100%";
       ReactDOM.render(<Map_ />, this.div);
-      this.getPanes().floatPane.appendChild(this.div);
-    }
-  
-    draw() {
-      const overlayProjection = this.getProjection();
-      const sw = overlayProjection.fromLatLngToDivPixel(
-        this.bounds.getSouthWest()
-      );
-      const ne = overlayProjection.fromLatLngToDivPixel(
-        this.bounds.getNorthEast()
-      );
-  
-      if (this.div) {
-        const scaleX = (ne.x - sw.x) / 100;
-        const scaleY = (ne.y - sw.y) / 100;
-        this.div.style.transform = `translate(${sw.x}px, ${sw.y}px) scale(${scaleX}, ${scaleY})`;
-      }
+      const panes = this.getPanes();
+      panes.overlayLayer.appendChild(this.div);
     }
   
     onRemove() {
@@ -52,18 +38,24 @@ function initMap() {
       this.div = null;
     }
   
-    hide() {
-      if (this.div) {
-        this.div.style.visibility = 'hidden';
+    draw() {
+      const overlayProjection = this.getProjection();
+      if (!overlayProjection) {
+        return;
       }
-    }
   
-    show() {
+      const sw = overlayProjection.fromLatLngToContainerPixel(this.bounds.getSouthWest());
+      const ne = overlayProjection.fromLatLngToContainerPixel(this.bounds.getNorthEast());
+  
       if (this.div) {
-        this.div.style.visibility = 'visible';
+        this.div.style.left = sw.x + "px";
+        this.div.style.top = ne.y + "px"; // Change to use ne.y instead of sw.y
+        this.div.style.width = ne.x - sw.x + "px";
+        this.div.style.height = sw.y - ne.y + "px"; // Change to use sw.y - ne.y instead of ne.y - sw.y
       }
     }
   }
+  
   
 
   const customOverlay = new CustomOverlay(bounds);
