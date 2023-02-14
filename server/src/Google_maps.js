@@ -15,48 +15,41 @@ function initMap() {
   );
 
   class CustomOverlay extends google.maps.OverlayView {
-    bounds;
-    div;
-    map;
-    constructor(bounds, map) {
+    constructor(bounds, mapDiv) {
       super();
       this.bounds = bounds;
-      this.map = map;
+      this.mapDiv = mapDiv;
+      this.setMap(map);
     }
   
     onAdd() {
       this.div = document.createElement("div");
+      this.div.style.borderStyle = "none";
+      this.div.style.borderWidth = "0px";
       this.div.style.position = "absolute";
       this.div.style.width = "100%";
       this.div.style.height = "100%";
+      this.mapDiv.appendChild(this.div);
       ReactDOM.render(<Map_ />, this.div);
-      this.getPanes().floatPane.appendChild(this.div);
     }
   
     draw() {
       const overlayProjection = this.getProjection();
-      if (!overlayProjection) {
-        return;
-      }
-  
       const sw = overlayProjection.fromLatLngToDivPixel(this.bounds.getSouthWest());
       const ne = overlayProjection.fromLatLngToDivPixel(this.bounds.getNorthEast());
-      if (!sw || !ne) {
-        return;
+      const divWidth = ne.x - sw.x;
+      const divHeight = ne.y - sw.y;
+      const divCenterX = (ne.x + sw.x) / 2;
+      const divCenterY = (ne.y + sw.y) / 2;
+  
+      if (this.div) {
+        // set the position of the div
+        this.div.style.left = divCenterX - divWidth / 2 + "px";
+        this.div.style.top = divCenterY - divHeight / 2 + "px";
+        // set the size of the div
+        this.div.style.width = divWidth + "px";
+        this.div.style.height = divHeight + "px";
       }
-  
-      const offsetX = sw.x;
-      const offsetY = ne.y;
-      const width = ne.x - sw.x;
-      const height = sw.y - ne.y;
-  
-      this.div.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      this.div.style.width = `${width}px`;
-      this.div.style.height = `${height}px`;
-  
-      // Get the zoom level of the map and use it to adjust the scale of the grid
-      const zoom = this.map.getZoom();
-      this.div.style.transform += ` scale(${1 / Math.pow(2, zoom - 7)})`;
     }
   
     onRemove() {
