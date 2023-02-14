@@ -17,63 +17,66 @@ function initMap() {
   class CustomOverlay extends google.maps.OverlayView {
     bounds;
     div;
-    constructor(bounds) {
+    map;
+    constructor(bounds, map) {
       super();
       this.bounds = bounds;
+      this.map = map;
     }
-
+  
     onAdd() {
-      this.div = document.createElement('div');
-      this.div.style.borderStyle = "none";
-      this.div.style.borderWidth = "0px";
+      this.div = document.createElement("div");
       this.div.style.position = "absolute";
-    
       this.div.style.width = "100%";
       this.div.style.height = "100%";
-      this.div.style.position = "relative"; // Set position to relative
-    
-      // Set top, left, bottom, right to position Map_ component
-      this.div.style.top = "50%";
-      this.div.style.left = "50%";
-      this.div.style.transform = "translate(-50%, -50%)";
-    
       ReactDOM.render(<Map_ />, this.div);
-    
       this.getPanes().floatPane.appendChild(this.div);
-    }    
-    
-
+    }
+  
     draw() {
       const overlayProjection = this.getProjection();
+      if (!overlayProjection) {
+        return;
+      }
+  
       const sw = overlayProjection.fromLatLngToDivPixel(this.bounds.getSouthWest());
       const ne = overlayProjection.fromLatLngToDivPixel(this.bounds.getNorthEast());
-    
-      if (this.div) {
-        this.div.style.left = sw.x + "px";
-        this.div.style.top = sw.y + "px";
-        this.div.style.width = ne.x - sw.x + "px";
-        this.div.style.height = ne.y - sw.y + "px";
+      if (!sw || !ne) {
+        return;
       }
+  
+      const offsetX = sw.x;
+      const offsetY = ne.y;
+      const width = ne.x - sw.x;
+      const height = sw.y - ne.y;
+  
+      this.div.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      this.div.style.width = `${width}px`;
+      this.div.style.height = `${height}px`;
+  
+      // Get the zoom level of the map and use it to adjust the scale of the grid
+      const zoom = this.map.getZoom();
+      this.div.style.transform += ` scale(${1 / Math.pow(2, zoom - 7)})`;
     }
-    
-
+  
     onRemove() {
       this.div.parentNode.removeChild(this.div);
       this.div = null;
     }
-
+  
     hide() {
       if (this.div) {
         this.div.style.visibility = "hidden";
       }
     }
-
+  
     show() {
       if (this.div) {
         this.div.style.visibility = "visible";
       }
     }
   }
+  
 
   const customOverlay = new CustomOverlay(bounds);
   customOverlay.setMap(map);
