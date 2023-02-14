@@ -27,14 +27,23 @@ function initMap() {
       this.div.style.borderStyle = "none";
       this.div.style.borderWidth = "0px";
       this.div.style.position = "absolute";
-
+    
       this.div.style.width = "100%";
       this.div.style.height = "100%";
       this.div.style.position = "absolute";
+    
+      // Add CSS styles to position the Map_ component in the center
+      this.div.style.position = "absolute";
+      this.div.style.top = 0;
+      this.div.style.left = 0;
+      this.div.style.right = 0;
+      this.div.style.bottom = 0;
+    
       ReactDOM.render(<Map_ />, this.div);
-
+    
       this.getPanes().floatPane.appendChild(this.div);
     }
+    
 
     draw() {
       const overlayProjection = this.getProjection();
