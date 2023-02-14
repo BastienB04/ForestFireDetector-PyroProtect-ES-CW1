@@ -73,7 +73,6 @@ import Map_ from './Map_';
 // }
 
 
-
 function initMap() {
   const map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 51.4988, lng: 0.1749 },
@@ -87,12 +86,13 @@ function initMap() {
     div.style.display = "flex";
     div.style.alignItems = "center";
     div.style.justifyContent = "center";
-    div.style.position = "fixed";
+    div.style.position = "absolute";
     div.style.width = "100%";
     div.style.height = "100%";
 
     ReactDOM.render(<Map_ />, div);
     this.getPanes().floatPane.appendChild(div);
+    // this.div.appendChild(div);
   };
 
   customOverlay.setMap(map);
