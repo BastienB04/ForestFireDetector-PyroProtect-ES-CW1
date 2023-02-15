@@ -44,6 +44,13 @@ function initMap() {
       ReactDOM.render(<Map_ />, this.div);
       const panes = this.getPanes();
       panes.overlayLayer.appendChild(this.div);
+      this.div.addEventListener('click', (event) => {
+        // check if the clicked element is a dot
+        if (event.target.classList.contains('dot')) {
+          // navigate to the href specified in the a tag
+          window.location.href = event.target.parentNode.href;
+        }
+      });
     }
   
     onRemove() {
