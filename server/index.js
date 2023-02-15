@@ -15,7 +15,7 @@ const { sendEmail } = require('./src/mail')
 //                                                  VARIABLES
 //-------------------------------------------------------------------------------------------------------------------------------
 
-const GRIDSIZE = 10;
+const GRIDSIZE = 20;
 
 const cachedData = {
     "device1": {

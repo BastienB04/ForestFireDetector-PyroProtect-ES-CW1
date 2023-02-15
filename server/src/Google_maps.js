@@ -63,8 +63,8 @@ function initMap() {
         this.div.style.left = sw.x + "px";
         this.div.style.top = ne.y + "px"; // Change to use ne.y instead of sw.y
         var factor = Math.pow(2, zoomLevel-15);
-        this.div.style.gridTemplateColumns = templateConcat(10, (40*factor) + 'px');
-        this.div.style.gridTemplateRows = templateConcat(10, (40*factor) + 'px');
+        this.div.style.gridTemplateColumns = templateConcat(20, (40*factor) + 'px');
+        this.div.style.gridTemplateRows = templateConcat(20, (40*factor) + 'px');
         //this.div.style.width = ne.x - sw.x + "px";
         //this.div.style.height = sw.y - ne.y + "px"; // Change to use sw.y - ne.y instead of ne.y - sw.y
       }
