@@ -53,6 +53,16 @@ function initMap() {
         //this.div.style.width = ne.x - sw.x + "px";
         //this.div.style.height = sw.y - ne.y + "px"; // Change to use sw.y - ne.y instead of ne.y - sw.y
       }
+      google.maps.event.addListener(map, "zoom_changed", function () {
+        // Get the current zoom level
+        const zoomLevel = map.getZoom();
+      
+        // Calculate the new scale based on the zoom level
+        const newScale = Math.pow(2, zoomLevel) / 10;
+      
+        // Set the scale of your div element
+        div.style.transform = "scale(" + newScale + ")";
+      });
     }
   }
   
