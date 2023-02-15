@@ -135,19 +135,19 @@ function circleToHeat(radius1, radius2, radius3, array)
                 element.color = 'rgba(20,255,0,0.5)';
                 element.probability = array[0][0];
             }
-            else if(((!array[0][3]) | (element.y > cachedData["device2"].y_pos)) & (x == [0, 1, 0])){
+            else if(((!array[0][3]) || (element.y > cachedData["device2"].y_pos)) && (x == [0, 1, 0])){
                 element.color = 'rgba(20,255,0,0.5)';
                 element.probability = array[0][1];
             }
-            else if((array[0][3]) & (x == [0, 1, 0]) & (element.y <= cachedData["device2"].y_pos)){
+            else if((array[0][3]) && (x == [0, 1, 0]) && (element.y <= cachedData["device2"].y_pos)){
                 element.color = 'rgba(20,255,0,0.5)';
                 element.probability = array[0][3];
             }
-            else if(x = [0, 0, 1]){
+            else if(x == [0, 0, 1]){
                 element.color = 'rgba(20,255,0,0.5)';
                 element.probability = array[0][2];
             }
-            else if(x = [1, 1, 0]){
+            else if(x == [1, 1, 0]){
                 element.color = 'rgba(255,255,0,0.5)';
                 element.probability = array[1][0];
             }
@@ -155,15 +155,15 @@ function circleToHeat(radius1, radius2, radius3, array)
                 element.color = 'rgba(255,255,0,0.5)';
                 element.probability = array[1][1];
             }
-            else if((array[1][3]) & (x == [0, 1, 1]) & (element.y <= cachedData["device1"].y_pos)){
+            else if((array[1][3]) && (x == [0, 1, 1]) && (element.y <= cachedData["device1"].y_pos)){
                 element.color = 'rgba(255,255,0,0.5)';
                 element.probability = array[1][3];
             }
-            else if(x = [1, 0, 1]){
+            else if(x == [1, 0, 1]){
                 element.color = 'rgba(255,0,0,0.5)';
                 element.probability = array[1][2];
             }
-            else if(x = [1, 1, 1]){
+            else if(x == [1, 1, 1]){
                 element.color = 'rgba(255,255,0,0.5)';
                 element.probability = array[2][0];
             }
