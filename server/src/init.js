@@ -37,6 +37,7 @@ class Map_ extends React.Component {
             return res.json();
         }).then((data)=>{
             this.setState({ heatMap : data});
+            console.log(data);
             (Object.values(data)).forEach((element) =>{
                 this.setState(({grid}, props) =>{
                     grid[element.y][element.x].color = element.color;
@@ -71,7 +72,7 @@ class Map_ extends React.Component {
         }, 5000);
         this.timer2 = setInterval(() => {
             this.fetchHeatMap()
-        }, 30000);
+        }, 5000);
 
 
         fetch(HOST + '/api/initData').then((res) => {
