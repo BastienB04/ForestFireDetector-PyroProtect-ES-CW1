@@ -84,6 +84,7 @@ class Map_ extends React.Component {
         }).catch((err) => {
             console.error(err);
         });
+        this.fetchHeatMap();
     }
 
     render() {
@@ -106,7 +107,7 @@ class Map_ extends React.Component {
                                 border: "2px solid #FFFFFF",
                                 justifyContent: "center", // DO NOT TOUCH
                                 display: "flex", // DO NOT TOUCH
-                                backgroundColor: 'rgba(20,251,1,.5)'
+                                backgroundColor: color
                             }
                         }
                         
