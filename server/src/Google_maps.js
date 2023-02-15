@@ -10,17 +10,17 @@ function templateConcat(n, str){
 }
 
 let map;
-let zoomLevel = 16;
+let zoomLevel = 15;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 16,
+    zoom: 15,
     center: { lat: 51.5088, lng: -0.1749 },
     mapTypeId: "satellite",
   });
 
   const bounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(51.5009, -0.1926),
-    new google.maps.LatLng(51.5131, -0.1589)
+    new google.maps.LatLng(51.5009, -0.1826),
+    new google.maps.LatLng(51.5009, -0.1589)
   );
 
   class CustomOverlay extends google.maps.OverlayView {
@@ -62,7 +62,7 @@ function initMap() {
       if (this.div) {
         this.div.style.left = sw.x + "px";
         this.div.style.top = ne.y + "px"; // Change to use ne.y instead of sw.y
-        var factor = Math.pow(2, zoomLevel-16);
+        var factor = Math.pow(2, zoomLevel-15);
         this.div.style.gridTemplateColumns = templateConcat(10, (40*factor) + 'px');
         this.div.style.gridTemplateRows = templateConcat(10, (40*factor) + 'px');
         //this.div.style.width = ne.x - sw.x + "px";
