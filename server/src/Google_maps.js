@@ -24,7 +24,7 @@ function initMap() {
   
     onAdd() {
       this.div = document.createElement('div');
-      this.div.setAttribute('id', 'grid');
+     // this.div.setAttribute('id', 'grid');
       this.div.style.border = "none";
       this.div.style.borderWidth = "0px";
       this.div.style.position = "absolute";
