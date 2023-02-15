@@ -44,8 +44,8 @@ function initMap() {
         return;
       }
   
-      const sw = overlayProjection.fromLatLngToContainerPixel(this.bounds.getSouthWest());
-      const ne = overlayProjection.fromLatLngToContainerPixel(this.bounds.getNorthEast());
+      const sw = overlayProjection.fromLatLngToDivPixel(this.bounds.getSouthWest());
+      const ne = overlayProjection.fromLatLngToDivPixel(this.bounds.getNorthEast());
   
       if (this.div) {
         this.div.style.left = sw.x + "px";
