@@ -61,8 +61,8 @@ function initMap() {
         const newScale = Math.pow(2, zoomLevel) / 10;
       
         // Set the scale of your div element
-        this.div.style.transform = "scale(" + newScale + ")";
-        console.log("Zoom changed");
+        console.log("Zoom changed, new scale is:");  
+        console.log(newScale);
       });
     }
   }
