@@ -38,6 +38,7 @@ class Map_ extends React.Component {
         }).then((data)=>{
             this.setState({ heatMap : data});
             console.log(data);
+            console.log(grid);
             (Object.values(data)).forEach((element) =>{
                 this.setState(({grid}, props) =>{
                     grid[element.y][element.x].color = element.color;
