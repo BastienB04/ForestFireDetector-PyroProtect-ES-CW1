@@ -11,5 +11,22 @@
             <a href="https://www.youtube.com/watch?v=eBGIQ7ZuuiU">Sensors used</a>
             <a href="/email-registration.html">Register my email</a>
         </nav>
+        <form action="saveData" method="POST">
+            <pre>
+                Email    : <input type="text" name="email"
+                            value='<%=user.email%>'> <br>
+     
+                Name     : <input type="text" name="name"
+                            value='<%=user.name%>'> <br>
+     
+                Number   : <input type="number" name="mobile"
+                            value='<%=user.mobile%>'> <br>
+     
+                Address : <input type="text" name="address"
+                            value='<%=user.address%>'> <br>
+     
+                <input type="submit" value="Submit Form">
+            </pre>
+        </form>
     </body>
 </html>
