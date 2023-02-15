@@ -20,7 +20,7 @@ class EmailForm extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({email : this.state.value})
     };
-    fetch('http://13.41.188.158:8080/api/emailSubmission', requestOptions);
+    fetch('http://13.41.188.158:8080/api/EmailSubmission', requestOptions);
     event.preventDefault();
     }
 
