@@ -1,3 +1,6 @@
+const e = React.createElement;
+
+
 class NameForm extends React.Component {
   constructor(props) {
     super(props);
