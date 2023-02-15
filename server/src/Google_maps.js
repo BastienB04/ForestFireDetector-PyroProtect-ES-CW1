@@ -42,16 +42,7 @@ function initMap() {
       this.div.style.gridTemplateRows = templateConcat(10, '40px');
 
       ReactDOM.render(<Map_ />, this.div);
-      const panes = this.getPanes();
-      panes.overlayLayer.appendChild(this.div);
-      this.div.addEventListener('click', (event) => {
-        // check if the clicked element is a dot
-        if (event.target.classList.contains('dot')) {
-          // navigate to the href specified in the a tag
-          window.location.href = event.target.parentNode.href;
-        }
-      });
-      this.div.addEventListener("click", this.handleOverlayClick.bind(this));
+      this.getPanes().overlayLayer.appendChild(this.div);
     }
   
     onRemove() {
@@ -81,16 +72,6 @@ function initMap() {
          zoomLevel = map.getZoom();
          console.log(zoomLevel);
       });
-    }
-    handleOverlayClick(event) {
-      event.preventDefault();
-      const target = event.target;
-      if (target.tagName === "A") {
-        const href = target.getAttribute("href");
-        if (href) {
-          window.location.href = href;
-        }
-      }
     }
   }
   
