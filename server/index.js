@@ -1,5 +1,3 @@
-
-
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -233,9 +231,7 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Content-Type', 'application/json');
                 res.write(JSON.stringify(HeatMap));
                 res.end();
-                const child = spawn(process.argv[0], [__filename, 'circleToHeat']);
-                child.stdin.write(JSON.stringify([0.5, 0.5, 0.3]));
-                child.stdin.end();              
+                circleToHeat(0.5,0.5,0.3);
             }
             else if(req.url.startsWith('/api/initData')){
                 res.statusCode = 200;
@@ -308,15 +304,7 @@ server.listen(port, () => {
 });
 
 
-if (process.argv[2] === 'circleToHeat') {
-    let input = '';
-    process.stdin.on('data', chunk => input += chunk);
-    process.stdin.on('end', () => {
-      const [x, y, r] = JSON.parse(input);
-      circleToHeat(x, y, r);
-      process.send('circleToHeat finished');
-    });
-  }
+
 // function sleep(ms) {
 //     return new Promise(resolve => setTimeout(resolve, ms));
 // }
