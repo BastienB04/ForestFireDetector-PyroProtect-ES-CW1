@@ -117,7 +117,7 @@ const initData = {
 //     }
 //   });
 
-async function circleToHeat(radius1, radius2, radius3)
+function circleToHeat(radius1, radius2, radius3)
 {
     HeatMap.forEach((row) =>{
         row.forEach((element) =>{
@@ -230,9 +230,9 @@ const server = http.createServer((req, res) => {
             {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                circleToHeat(0.5,0.5,0.3);
                 res.write(JSON.stringify(HeatMap));
                 res.end();
+                circleToHeat(0.5,0.5,0.3);
             }
             else if(req.url.startsWith('/api/initData')){
                 res.statusCode = 200;

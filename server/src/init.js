@@ -31,7 +31,7 @@ class Map_ extends React.Component {
             heatMap: []
         };
     }
-    async fetchHeatMap()
+    fetchHeatMap()
     {
         fetch(HOST + '/api/heatMap').then((res) => {
             return res.json();
