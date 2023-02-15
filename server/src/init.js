@@ -41,6 +41,7 @@ class Map_ extends React.Component {
                 row.forEach((element)=>{
                     this.setState(({grid}, props) =>{
                         grid[element.y][element.x].color = element.color;
+                        grid[element.y][element.x].probability = element.probability;
                         return {grid}
                 });
                 
