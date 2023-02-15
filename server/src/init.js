@@ -84,26 +84,10 @@ class Map_ extends React.Component {
                                 border: "2px solid #FFFFFF",
                                 justifyContent: "center", // DO NOT TOUCH
                                 display: "flex", // DO NOT TOUCH
-                                backgroundColor: 'rgba(1,1,1,.5)'
+                                backgroundColor: 'rgba(20,251,1,.5)'
                             }
-                        },
-                        e(
-                            'a',
-                            {
-                                href: `/sensor/sensor.html?sensorId=${deviceId}`
-                            },
-                            e(
-                                'span', 
-                                {
-                                    id: `grid-${x}-${y}`,
-                                    style: {
-                                        visibility,
-                                        backgroundColor: color
-                                    },
-                                    className: "dot"
-                                }
-                            )
-                        )
+                        }
+                        
                     )
                 );
 
