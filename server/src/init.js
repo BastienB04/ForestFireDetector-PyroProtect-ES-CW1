@@ -110,7 +110,12 @@ class Map_ extends React.Component {
                             
 
                         },
-                        probability
+                        e(
+                            'span',
+                            {},
+                            `Probability: ${probability}`
+                        )
+                        
                         
                     )
                 );
