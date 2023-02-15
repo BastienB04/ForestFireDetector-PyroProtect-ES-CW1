@@ -8,7 +8,7 @@ const { StationBuilder } = require('./include/StationBuilder');
 const nodemailer = require('nodemailer');
 const { sendEmail } = require('./src/mail')
 
-const kmToSquareRatio = 0.1;
+const kmToSquareRatio = 10;
 
 
 
