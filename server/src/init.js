@@ -112,7 +112,7 @@ class Map_ extends React.Component {
         return result;
     }
 }
-/*
+
 const domContainer = document.querySelector('#grid');
 if (domContainer) {
     const root = ReactDOM.createRoot(domContainer);
@@ -120,4 +120,3 @@ if (domContainer) {
 } else {
     console.error("Element with id 'test' not found in the HTML");
 }
-*/
