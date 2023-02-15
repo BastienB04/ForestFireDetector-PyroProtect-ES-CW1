@@ -81,7 +81,7 @@ class Map_ extends React.Component {
                             key: `grid-${x}-${y}`,
                             className: "inside-grid",
                             style: {
-                                border: "1px solid #5bb29a",
+                                border: "2px solid #FFFFFF",
                                 justifyContent: "center", // DO NOT TOUCH
                                 display: "flex" // DO NOT TOUCH
                             }
