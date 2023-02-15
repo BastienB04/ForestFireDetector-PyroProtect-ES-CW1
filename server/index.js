@@ -117,7 +117,7 @@ const initData = {
 //     }
 //   });
 
-function circleToHeat(radius1, radius2, radius3)
+async function circleToHeat(radius1, radius2, radius3)
 {
     HeatMap.forEach((row) =>{
         row.forEach((element) =>{
@@ -125,10 +125,11 @@ function circleToHeat(radius1, radius2, radius3)
             var distance2 = Math.sqrt(Math.pow(cachedData["device2"].x_pos - element.x,2) + Math.pow( cachedData["device2"].y_pos - element.y, 2));
             var distance3 = Math.sqrt(Math.pow(cachedData["device3"].x_pos - element.x,2) + Math.pow( cachedData["device3"].y_pos - element.y, 2));
             var i = 0;
+            let x = new Array(10);
             if(distance1 < radius1*kmToSquareRatio)
-                i++;
+                x[0] = 1;
             if(distance2 < radius2*kmToSquareRatio)
-                i++;
+            x[0] = 1;
             if(distance3 < radius3*kmToSquareRatio)
                 i++;
             
