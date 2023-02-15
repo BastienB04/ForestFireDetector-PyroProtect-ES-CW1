@@ -20,7 +20,7 @@ function initMap() {
 
   const bounds = new google.maps.LatLngBounds(
     new google.maps.LatLng(51.5009, -0.1826),
-    new google.maps.LatLng(51.5089, -0.1589)
+    new google.maps.LatLng(51.5100, -0.1589)
   );
 
   class CustomOverlay extends google.maps.OverlayView {
