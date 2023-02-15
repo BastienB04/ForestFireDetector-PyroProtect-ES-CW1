@@ -147,9 +147,9 @@ function circleToHeat(radius1, radius2, radius3)
             }
         });
     });
-    HeatMap[cachedData["device1"].y_pos][cachedData["device1"].x_pos].color = 'rgba(0,0,255, 0.5)';
-    HeatMap[cachedData["device2"].y_pos][cachedData["device2"].x_pos].color = 'rgba(0,0,255, 0.5)';
-    HeatMap[cachedData["device3"].y_pos][cachedData["device3"].x_pos].color = 'rgba(0,0,255, 0.5)';
+    HeatMap[cachedData["device1"].x_pos][cachedData["device1"].y_pos].color = 'rgba(0,0,255, 0.5)';
+    HeatMap[cachedData["device2"].x_pos][cachedData["device2"].y_pos].color = 'rgba(0,0,255, 0.5)';
+    HeatMap[cachedData["device3"].x_pos][cachedData["device3"].y_pos].color = 'rgba(0,0,255, 0.5)';
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 //                                                  SERVER DEFINITION
