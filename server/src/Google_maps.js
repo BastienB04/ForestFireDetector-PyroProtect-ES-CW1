@@ -51,31 +51,7 @@ function initMap() {
           window.location.href = event.target.parentNode.href;
         }
       });
-      const mapDiv = this.getMap().getDiv();
-  let isDraggingMap = false;
-
-  // Prevent map drag and scroll while interacting with the object
-  this.div.addEventListener("mousedown", () => {
-    isDraggingMap = false;
-    mapDiv.style.pointerEvents = "none";
-    google.maps.event.addDomListener(mapDiv, "mouseleave", () => {
-      isDraggingMap = true;
-    });
-  });
-
-  // Restore map drag and scroll after interacting with the object
-  document.addEventListener("mouseup", () => {
-    if (!isDraggingMap) {
-      mapDiv.style.pointerEvents = "auto";
-      google.maps.event.clearListeners(mapDiv, "mouseleave");
-    }
-  });
-
-
-
-
-
-
+      this.div.addEventListener("click", this.handleOverlayClick.bind(this));
     }
   
     onRemove() {
@@ -105,6 +81,16 @@ function initMap() {
          zoomLevel = map.getZoom();
          console.log(zoomLevel);
       });
+    }
+    handleOverlayClick(event) {
+      event.preventDefault();
+      const target = event.target;
+      if (target.tagName === "A") {
+        const href = target.getAttribute("href");
+        if (href) {
+          window.location.href = href;
+        }
+      }
     }
   }
   
