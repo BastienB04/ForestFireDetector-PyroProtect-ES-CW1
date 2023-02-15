@@ -6,14 +6,24 @@ class StationBuilder {
     defaultIndex = 'FWI';
     uniqueId = 0;
     chosenIndex;
+    stationList;
     constructor(_chosenIndex) {
         this.chosenIndex = _chosenIndex;
     }
-    build() {
+    build(x, y) {
         switch (this.chosenIndex) {
             case this.defaultIndex: {
                 const res = new FWIStation_1.FWIStation(`station-${this.uniqueId}`);
                 this.uniqueId += 1;
+                const info = {
+                    station: res,
+                    circle: {
+                        x: x,
+                        y: y,
+                        r: -1
+                    }
+                };
+                this.stationList.push(info);
                 return res;
             }
             default: {
