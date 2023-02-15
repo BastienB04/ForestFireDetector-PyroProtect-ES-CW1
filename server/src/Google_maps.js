@@ -29,6 +29,7 @@ function initMap() {
       this.div.style.position = "absolute";
       this.div.style.width = "100%";
       this.div.style.height = "100%";
+      var div = document.createElement('div');
       ReactDOM.render(<Map_ />, div);
       const panes = this.getPanes();
       panes.overlayLayer.appendChild(this.div);
