@@ -200,13 +200,21 @@ class FWIStation extends Station{
 
     // Fire Weather Index
     private calculateFWI(): FWIStation{
-        const b : number = 0.1 * this.currentISI;
+        var b : number = 0.1 * this.currentISI;
         
         if(this.currentBUI <= 80){
-            this.currentFWI = b * (0.626 * Math.pow(this.currentBUI, 0.809) + 2);
+            b *= (0.626 * Math.pow(this.currentBUI, 0.809) + 2); 
+            // this.currentFWI = b * (0.626 * Math.pow(this.currentBUI, 0.809) + 2);
+        }
+        else{
+            b *= (1000/(25 + 108.64 * Math.exp(-0.023 * this.currentBUI)));
+        }
+
+        if(b > 1){
+            this.currentFWI = Math.exp(2.72 * Math.pow(0.434 * Math.log(b), 0.647));
             return this;
         }
-        this.currentFWI = b * (1000/(25 + 108.64 * Math.exp(-0.023 * this.currentBUI)));
+        this.currentFWI = b;
         return this;
     }
 
@@ -220,7 +228,7 @@ class FWIStation extends Station{
     }
 
     public update(): any {
-        return this.updateFWI;
+        return this.updateFWI();
     }
 
 }
