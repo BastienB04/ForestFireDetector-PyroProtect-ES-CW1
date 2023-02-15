@@ -40,6 +40,7 @@ class Map_ extends React.Component {
             console.log(data);
             console.log(this.state.grid);
             data.forEach((element) =>{
+                console.log(element);
                 this.setState(({grid}, props) =>{
                     console.log(element.x);
                     grid[element.y][element.x].color = element.color;
