@@ -92,7 +92,7 @@ class Map_ extends React.Component {
                                 href: `/sensor/sensor.html?sensorId=${deviceId}`
                             },
                             e(
-                                'span',
+                                'span', 
                                 {
                                     id: `grid-${x}-${y}`,
                                     style: {

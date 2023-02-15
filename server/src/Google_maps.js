@@ -1,6 +1,14 @@
 // import React from 'react';
 // import ReactDOM from 'react-dom';
 // import Map_ from './Map_';
+function templateConcat(n, str){
+  res = str
+  for(i=0; i<n-1; i++){
+      res+= " " + str
+  }
+  return res;
+}
+
 let map;
 let zoomLevel = 7;
 function initMap() {
@@ -24,12 +32,14 @@ function initMap() {
   
     onAdd() {
       this.div = document.createElement('div');
-     // this.div.setAttribute('id', 'grid');
       this.div.style.border = "none";
       this.div.style.borderWidth = "0px";
       this.div.style.position = "absolute";
       this.div.style.width = "100%";
       this.div.style.height = "100%";
+      this.div.style.display = 'grid';
+      this.div.style.gridTemplateColumns = templateConcat(10, '40px');
+      this.div.style.gridTemplateRows = templateConcat(10, '40px');
 
       ReactDOM.render(<Map_ />, this.div);
       const panes = this.getPanes();
