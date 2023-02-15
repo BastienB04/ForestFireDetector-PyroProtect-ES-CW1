@@ -14,13 +14,13 @@ let zoomLevel = 16;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
     zoom: 16,
-    center: { lat: 51.4988, lng: 0.1349 },
+    center: { lat: 51.4988, lng: -0.1349 },
     mapTypeId: "satellite",
   });
 
   const bounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(51.5009, 0.1926),
-    new google.maps.LatLng(51.5488, 0.2149)
+    new google.maps.LatLng(51.5009, -0.1926),
+    new google.maps.LatLng(51.5488, -0.2149)
   );
 
   class CustomOverlay extends google.maps.OverlayView {
