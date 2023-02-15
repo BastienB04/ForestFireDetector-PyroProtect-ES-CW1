@@ -22,7 +22,6 @@ const cachedData = {
         deviceId: 1,
         x_pos: 2,
         y_pos: 1,
-        color: 'red',
         status:{
             gas: null,
             temperature: null,
@@ -33,8 +32,6 @@ const cachedData = {
         deviceId: 2,
         x_pos: 7,
         y_pos: 8,
-        color: 'red',
-        color: 'red',
         status:{
             gas: null,
             temperature: null,
@@ -45,7 +42,6 @@ const cachedData = {
         deviceId: 3,
         x_pos: 3,
         y_pos: 7,
-        color: 'red',
         status: {}
     }
 }
@@ -66,7 +62,7 @@ for(let i=0; i<GRIDSIZE; i++){
             x: i,
             y: j,
             visibility: 'hidden',
-            color: 'white'
+            color: 'rgba(20,255,0,0.5)'
         });
     }
     initGrid.push(tmp);

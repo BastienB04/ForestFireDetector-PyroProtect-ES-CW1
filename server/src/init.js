@@ -58,7 +58,6 @@ class Map_ extends React.Component {
             (Object.values(data)).forEach((element) => {
                 this.setState(({grid}, props) => {
                     grid[element.y_pos][element.x_pos].visibility = 'visible';
-                    grid[element.y_pos][element.x_pos].color = element.color;
                     grid[element.y_pos][element.x_pos].deviceId = element.deviceId;
                     return {grid}
                 });
