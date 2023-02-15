@@ -62,6 +62,7 @@ function initMap() {
       
         // Set the scale of your div element
         this.div.style.transform = "scale(" + newScale + ")";
+        console.log("Zoom changed");
       });
     }
   }
