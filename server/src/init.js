@@ -37,14 +37,13 @@ class Map_ extends React.Component {
             return res.json();
         }).then((data)=>{
             this.setState({ heatMap : data});
-            console.log(data);
-            console.log(this.state.grid);
-            data.forEach((element) =>{
-                console.log(element);
-                this.setState(({grid}, props) =>{
-                    console.log(element.x);
-                    grid[element.y][element.x].color = element.color;
-                    return {grid}
+            data.forEach((row) =>{
+                row.forEach((element)=>{
+                    this.setState(({grid}, props) =>{
+                        grid[element.y][element.x].color = element.color;
+                        return {grid}
+                });
+                
                 });
             });
         }).catch((err)=>{
