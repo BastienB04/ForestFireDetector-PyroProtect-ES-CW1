@@ -61,8 +61,8 @@ function initMap() {
         // Calculate the new scale based on the zoom level
       
         // Set the scale of your div element
-        pointerToDiv.div.style.width = (100/zoomLevel) + "%";
-        pointerToDiv.div.style.height = (100/zoomLevel) + "%";
+        pointerToDiv.style.width = (100/zoomLevel) + "%";
+        pointerToDiv.style.height = (100/zoomLevel) + "%";
       });
     }
   }
