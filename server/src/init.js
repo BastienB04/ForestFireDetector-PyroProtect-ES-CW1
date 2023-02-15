@@ -66,7 +66,8 @@ class Map_ extends React.Component {
 
     render() {
         const { gridSize, grid } = this.state;
-        const el1 = document.createElement('grid');
+        const el1 = document.createElement('div');
+        el1.setAttribute('id', 'grid');
         el1.style.display = 'grid';
         el1.style.gridTemplateColumns = templateConcat(gridSize, '40px');
         el1.style.gridTemplateRows = templateConcat(gridSize, '40px');
@@ -112,7 +113,7 @@ class Map_ extends React.Component {
         return result;
     }
 }
-
+/*
 const domContainer = document.querySelector('#grid');
 if (domContainer) {
     const root = ReactDOM.createRoot(domContainer);
@@ -120,3 +121,4 @@ if (domContainer) {
 } else {
     console.error("Element with id 'test' not found in the HTML");
 }
+*/
