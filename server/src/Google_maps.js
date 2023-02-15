@@ -58,11 +58,10 @@ function initMap() {
         const zoomLevel = map.getZoom();
       
         // Calculate the new scale based on the zoom level
-        const newScale = Math.pow(2, zoomLevel) / 10;
       
         // Set the scale of your div element
-        console.log("Zoom changed, new scale is:");  
-        console.log(newScale);
+        this.div.style.width = (100/zoomLevel) + "%";
+        this.div.style.height = (100/zoomLevel) + "%";
       });
     }
   }
