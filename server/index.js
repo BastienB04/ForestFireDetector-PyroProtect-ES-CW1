@@ -70,7 +70,7 @@ for(let i=0; i<GRIDSIZE; i++){
         });
     }
     initGrid.push(tmp);
-    
+}
 const HeatMap = []
 for(let i=0; i<GRIDSIZE; i++){
     const tmp = [];
@@ -84,7 +84,7 @@ for(let i=0; i<GRIDSIZE; i++){
     HeatMap.push(tmp);
 }
 
-}
+
 const initData = {
     gridSize: GRIDSIZE,
     grid: initGrid
