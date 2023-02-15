@@ -84,7 +84,6 @@ class Map_ extends React.Component {
         }).catch((err) => {
             console.error(err);
         });
-        this.fetchHeatMap();
     }
 
     render() {
