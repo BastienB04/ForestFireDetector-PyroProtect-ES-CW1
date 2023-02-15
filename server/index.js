@@ -269,7 +269,7 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Content-Type', 'application/json');
                 res.write(JSON.stringify(HeatMap));
                 res.end();
-                circleToHeat(0.5,0.5,0.3);
+                circleToHeat(0.5,0.5,0.3,[[0.5, 0.4,0.3, 0],[0.2,0.1,0,0][0,0,0,0]]);
             }
             else if(req.url.startsWith('/api/initData')){
                 res.statusCode = 200;
