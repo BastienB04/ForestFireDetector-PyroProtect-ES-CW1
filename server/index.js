@@ -70,8 +70,21 @@ for(let i=0; i<GRIDSIZE; i++){
         });
     }
     initGrid.push(tmp);
+    
+const HeatMap = []
+for(let i=0; i<GRIDSIZE; i++){
+    const tmp = [];
+    for(let j=0; j<GRIDSIZE; j++){
+        tmp.push({
+            x: i,
+            y: j,
+            color: 'rgba(255,20,0,0.5)'
+        });
+    }
+    HeatMap.push(tmp);
 }
 
+}
 const initData = {
     gridSize: GRIDSIZE,
     grid: initGrid
@@ -178,6 +191,13 @@ const server = http.createServer((req, res) => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.write(JSON.stringify(cachedData));
+                res.end();
+            }
+            else if(req.url.startsWith('/api/heatMap'))
+            {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.write(JSON.stringify(HeatMap));
                 res.end();
             }
             else if(req.url.startsWith('/api/initData')){

@@ -27,10 +27,26 @@ class Map_ extends React.Component {
             initData: [],
             cachedData: [],
             grid: [],
-            gridSize: 1
+            gridSize: 1,
+            heatMap: []
         };
     }
-
+    fetchHeatMap()
+    {
+        fetch(HOST + '/api/heatMap').then((res) => {
+            return res.json();
+        }).then((data)=>{
+            this.setState({ heatMap : data});
+            (Object.values(data)).forEach((element) =>{
+                this.setState(({grid}, props) =>{
+                    grid[element.y_pos][element.x_pos].color = element.color;
+                    return {grid}
+                });
+            });
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
     fetchCachedData(){
         fetch(HOST + '/api/cachedData').then((res) => {
             return res.json();
@@ -53,6 +69,9 @@ class Map_ extends React.Component {
         this.timer = setInterval(() => {
             this.fetchCachedData()
         }, 5000);
+        this.timer2 = setInterval(() => {
+            this.fetchHeatMap()
+        }, 30000);
 
 
         fetch(HOST + '/api/initData').then((res) => {
