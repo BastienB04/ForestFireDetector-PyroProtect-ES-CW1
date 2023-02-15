@@ -106,8 +106,12 @@ class Map_ extends React.Component {
                                 justifyContent: "center", // DO NOT TOUCH
                                 display: "flex", // DO NOT TOUCH
                                 backgroundColor: color
-                            }
-                        }
+                            },
+                            
+
+                        },
+                        'label',
+                        '0.00'
                         
                     )
                 );
