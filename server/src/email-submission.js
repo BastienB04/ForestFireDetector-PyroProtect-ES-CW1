@@ -1,7 +1,7 @@
 const e = React.createElement;
 
 
-class NameForm extends React.Component {
+class EmailForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {value: ''};
@@ -38,7 +38,7 @@ class NameForm extends React.Component {
 const domContainer = document.querySelector('#form');
 if (domContainer) {
     const root = ReactDOM.createRoot(domContainer);
-    root.render(e(Map_));
+    root.render(e(EmailForm));
 } else {
     console.error("Element with id 'test' not found in the HTML");
 }
