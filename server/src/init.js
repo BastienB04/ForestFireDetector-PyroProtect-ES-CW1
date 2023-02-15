@@ -83,7 +83,8 @@ class Map_ extends React.Component {
                             style: {
                                 border: "2px solid #FFFFFF",
                                 justifyContent: "center", // DO NOT TOUCH
-                                display: "flex" // DO NOT TOUCH
+                                display: "flex", // DO NOT TOUCH
+                                backgroundColor: 'rgba(1,1,1,.5)'
                             }
                         },
                         e(
