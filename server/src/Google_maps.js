@@ -1,9 +1,9 @@
 // import React from 'react';
 // import ReactDOM from 'react-dom';
 // import Map_ from './Map_';
-
+let map;
 function initMap() {
-  const map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
     zoom: 7,
     center: { lat: 51.4988, lng: 0.1349 },
     mapTypeId: "satellite",
@@ -53,7 +53,6 @@ function initMap() {
         //this.div.style.width = ne.x - sw.x + "px";
         //this.div.style.height = sw.y - ne.y + "px"; // Change to use sw.y - ne.y instead of ne.y - sw.y
       }
-      pointerToDiv = this.div;
       google.maps.event.addListener(map, "zoom_changed", function () {
         // Get the current zoom level
         const zoomLevel = map.getZoom();
@@ -61,8 +60,11 @@ function initMap() {
         // Calculate the new scale based on the zoom level
       
         // Set the scale of your div element
-        pointerToDiv.style.width = (100/zoomLevel) + "%";
-        pointerToDiv.style.height = (100/zoomLevel) + "%";
+        if(this.div)
+        {
+          this.div.style.width = (100/zoomLevel) + "%";
+          this.div.style.height = (100/zoomLevel) + "%";
+        }
       });
     }
   }
