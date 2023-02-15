@@ -110,7 +110,6 @@ class Map_ extends React.Component {
                             
 
                         },
-                        'label',
                         '0.00'
                         
                     )
