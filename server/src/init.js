@@ -66,7 +66,7 @@ class Map_ extends React.Component {
 
     render() {
         const { gridSize, grid } = this.state;
-        const el1 = document.createElement('div');
+        const el1 = document.getElementById('grid');
         el1.setAttribute('id', 'grid');
         el1.style.display = 'grid';
         el1.style.gridTemplateColumns = templateConcat(gridSize, '40px');
