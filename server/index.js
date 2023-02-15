@@ -16,7 +16,7 @@ const kmToSquareRatio = 10;
 //                                                  VARIABLES
 //-------------------------------------------------------------------------------------------------------------------------------
 
-const GRIDSIZE = 20;
+const GRIDSIZE = 100;
 
 const cachedData = {
     "device1": {
@@ -31,8 +31,8 @@ const cachedData = {
     },
     "device2": {
         deviceId: 2,
-        x_pos: 7,
-        y_pos: 8,
+        x_pos: 70,
+        y_pos: 80,
         status:{
             gas: null,
             temperature: null,
@@ -41,8 +41,8 @@ const cachedData = {
     },
     "device3":{
         deviceId: 3,
-        x_pos: 3,
-        y_pos: 7,
+        x_pos: 30,
+        y_pos: 70,
         status: {}
     }
 }
@@ -229,7 +229,7 @@ const server = http.createServer((req, res) => {
             {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                circleToHeat(0.5,0.5,0.3);
+                circleToHeat(5,5,3);
                 res.write(JSON.stringify(HeatMap));
                 res.end();
             }
