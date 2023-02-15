@@ -62,7 +62,8 @@ for(let i=0; i<GRIDSIZE; i++){
             x: i,
             y: j,
             visibility: 'hidden',
-            color: 'rgba(20,255,0,0.5)'
+            color: 'rgba(20,255,0,0.5)',
+            probability: '0.00'
         });
     }
     initGrid.push(tmp);
@@ -74,7 +75,8 @@ for(let i=0; i<GRIDSIZE; i++){
         tmp.push({
             x: i,
             y: j,
-            color: 'rgba(255,20,0,0.5)'
+            color: 'rgba(255,20,0,0.5)',
+            probability: '0.3'
         });
     }
     HeatMap.push(tmp);

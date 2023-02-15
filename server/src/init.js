@@ -94,7 +94,7 @@ class Map_ extends React.Component {
         const result = [];
 
         grid.forEach((row) => {
-            row.forEach(({deviceId, x, y, visibility, color}) => {
+            row.forEach(({deviceId, x, y, visibility, color, probability}) => {
                 result.push(
                     e(
                         'div',
@@ -110,7 +110,7 @@ class Map_ extends React.Component {
                             
 
                         },
-                        '0.00'
+                        probability
                         
                     )
                 );
