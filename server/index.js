@@ -8,6 +8,7 @@ const { StationBuilder } = require('./include/StationBuilder');
 const nodemailer = require('nodemailer');
 const { sendEmail } = require('./src/mail')
 
+const kmToSquareRatio = 0.1;
 
 
 
@@ -116,7 +117,37 @@ const initData = {
 //     }
 //   });
 
-
+function circleToHeat(radius1, radius2, radius3)
+{
+    HeatMap.forEach((row) =>{
+        row.forEach((element) =>{
+            var distance1 = Math.sqrt(Math.pow(cachedData["device1"].x_pos - element.x,2) + Math.pow( cachedData["device1"].y_pos - element.y, 2));
+            var distance2 = Math.sqrt(Math.pow(cachedData["device2"].x_pos - element.x,2) + Math.pow( cachedData["device2"].y_pos - element.y, 2));
+            var distance3 = Math.sqrt(Math.pow(cachedData["device3"].x_pos - element.x,2) + Math.pow( cachedData["device3"].y_pos - element.y, 2));
+            var i = 0;
+            if(distance1 < radius1*kmToSquareRatio)
+                i++;
+            if(distance2 < radius2*kmToSquareRatio)
+                i++;
+            if(distance3 < radius3*kmToSquareRatio)
+                i++;
+            
+            switch(i){
+                case 1:
+                    element.color = 'rgba(20,255,0,0.5)';
+                    break;
+                case 2:
+                    element.color = 'rgba(255,255,0,0.5)';
+                    break;
+                case 3:
+                    element.color = 'rgba(255,0,0,0.5)';
+                    break;
+                default:
+                    element.color = 'rgba(0,0,0,0)';
+            }
+        });
+    });
+}
 //-------------------------------------------------------------------------------------------------------------------------------
 //                                                  SERVER DEFINITION
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -195,6 +226,7 @@ const server = http.createServer((req, res) => {
             {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
+                circleToHeat(0.5,0.5,0.3);
                 res.write(JSON.stringify(HeatMap));
                 res.end();
             }
