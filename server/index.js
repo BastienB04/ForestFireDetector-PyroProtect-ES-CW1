@@ -16,7 +16,7 @@ const kmToSquareRatio = 10;
 //-------------------------------------------------------------------------------------------------------------------------------
 
 const GRIDSIZE = 20;
-
+const emailSubscribed = [];
 const cachedData = {
     "device1": {
         deviceId: 1,
@@ -116,7 +116,7 @@ const initData = {
 //     }
 //   });
 
-function circleToHeat(radius1, radius2, radius3)
+function circleToHeat(radius1, radius2, radius3, array)
 {
     HeatMap.forEach((row) =>{
         row.forEach((element) =>{
@@ -124,33 +124,71 @@ function circleToHeat(radius1, radius2, radius3)
             var distance2 = Math.sqrt(Math.pow(cachedData["device2"].x_pos - element.x,2) + Math.pow( cachedData["device2"].y_pos - element.y, 2));
             var distance3 = Math.sqrt(Math.pow(cachedData["device3"].x_pos - element.x,2) + Math.pow( cachedData["device3"].y_pos - element.y, 2));
             var i = 0;
-            let x = new Array(10);
-            if(distance1 < radius1*kmToSquareRatio)
-                x[0] = 1;
-            if(distance2 < radius2*kmToSquareRatio)
-            x[0] = 1;
-            if(distance3 < radius3*kmToSquareRatio)
-                i++;
+            const x = [distance1 < radius1 ? 1 : 0, distance2 < radius2 ? 1 : 0, distance3 < radius3 ? 1 : 0,];
             
-            switch(i){
-                case 1:
-                    element.color = 'rgba(20,255,0,0.5)';
-                    break;
-                case 2:
-                    element.color = 'rgba(255,255,0,0.5)';
-                    break;
-                case 3:
-                    element.color = 'rgba(255,0,0,0.5)';
-                    break;
-                default:
-                    element.color = 'rgba(0,0,0,0)';
+            if(x == [1, 0, 0]){
+                element.color = 'rgba(0,0,0,0)';
+                element.probability = 'NaN';
             }
+            else if (x == [1, 0, 0])
+            {
+                element.color = 'rgba(20,255,0,0.5)';
+                element.probability = array[0][0];
+            }
+            else if(((!array[0][3]) | (element.y > cachedData["device2"].y_pos)) & (x == [0, 1, 0])){
+                element.color = 'rgba(20,255,0,0.5)';
+                element.probability = array[0][1];
+            }
+            else if((array[0][3]) & (x == [0, 1, 0]) & (element.y <= cachedData["device2"].y_pos)){
+                element.color = 'rgba(20,255,0,0.5)';
+                element.probability = array[0][3];
+            }
+            else if(x = [0, 0, 1]){
+                element.color = 'rgba(20,255,0,0.5)';
+                element.probability = array[0][2];
+            }
+            else if(x = [1, 1, 0]){
+                element.color = 'rgba(255,255,0,0.5)';
+                element.probability = array[1][0];
+            }
+            else if(((!array[1][3]) | (element.y > cachedData["device1"].y_pos)) & (x == [0, 1, 1])){
+                element.color = 'rgba(255,255,0,0.5)';
+                element.probability = array[1][1];
+            }
+            else if((array[1][3]) & (x == [0, 1, 1]) & (element.y <= cachedData["device1"].y_pos)){
+                element.color = 'rgba(255,255,0,0.5)';
+                element.probability = array[1][3];
+            }
+            else if(x = [1, 0, 1]){
+                element.color = 'rgba(255,0,0,0.5)';
+                element.probability = array[1][2];
+            }
+            else if(x = [1, 1, 1]){
+                element.color = 'rgba(255,255,0,0.5)';
+                element.probability = array[2][0];
+            }
+
+            
+            // switch(i){
+            //     case 1:
+            //         element.color = 'rgba(20,255,0,0.5)';
+            //         break;
+            //     case 2:
+            //         element.color = 'rgba(255,255,0,0.5)';
+            //         break;
+            //     case 3:
+            //         element.color = 'rgba(255,0,0,0.5)';
+            //         break;
+            //     default:
+            //         element.color = 'rgba(0,0,0,0)';
+            // }
         });
     });
     HeatMap[cachedData["device1"].x_pos][cachedData["device1"].y_pos].color = 'rgba(0,0,255, 0.5)';
     HeatMap[cachedData["device2"].x_pos][cachedData["device2"].y_pos].color = 'rgba(0,0,255, 0.5)';
     HeatMap[cachedData["device3"].x_pos][cachedData["device3"].y_pos].color = 'rgba(0,0,255, 0.5)';
 }
+
 //-------------------------------------------------------------------------------------------------------------------------------
 //                                                  SERVER DEFINITION
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -291,8 +329,18 @@ const server = http.createServer((req, res) => {
             })
 	    res.statusCode = 200;
 	    res.end();
-            
-            
+        }
+        else if(req.url.startsWith('api/EmailSubmission')){
+            var recieved = '';
+            req.on('data', function(data){
+                recieved += data
+            });
+            req.on('end', function(){
+                var data = JSON.parse(recieved);
+                fs.writeFileSync("email.txt", data["email"]);
+            })
+            res.statusCode = 200;
+            res.end();
         }
     }
 });
