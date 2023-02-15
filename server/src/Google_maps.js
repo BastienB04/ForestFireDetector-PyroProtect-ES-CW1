@@ -53,6 +53,7 @@ function initMap() {
         //this.div.style.width = ne.x - sw.x + "px";
         //this.div.style.height = sw.y - ne.y + "px"; // Change to use sw.y - ne.y instead of ne.y - sw.y
       }
+      pointerToDiv = this.div;
       google.maps.event.addListener(map, "zoom_changed", function () {
         // Get the current zoom level
         const zoomLevel = map.getZoom();
@@ -60,8 +61,8 @@ function initMap() {
         // Calculate the new scale based on the zoom level
       
         // Set the scale of your div element
-        this.div.style.width = (100/zoomLevel) + "%";
-        this.div.style.height = (100/zoomLevel) + "%";
+        pointerToDiv.div.style.width = (100/zoomLevel) + "%";
+        pointerToDiv.div.style.height = (100/zoomLevel) + "%";
       });
     }
   }
