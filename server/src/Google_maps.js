@@ -29,11 +29,9 @@ function initMap() {
       this.div.style.position = "absolute";
       this.div.style.width = "100%";
       this.div.style.height = "100%";
-      var div = document.createElement('div');
-      ReactDOM.render(<Map_ />, div);
+      ReactDOM.render(<Map_ />, this.div);
       const panes = this.getPanes();
       panes.overlayLayer.appendChild(this.div);
-      this.div.appendChild(div);
     }
   
     onRemove() {
@@ -53,8 +51,8 @@ function initMap() {
       if (this.div) {
         this.div.style.left = sw.x + "px";
         this.div.style.top = sw.y + "px"; // Change to use ne.y instead of sw.y
-        this.div.style.width = (100 / zoomLevel) + "%";
-        this.div.style.height = (100 / zoomLevel) + "%";
+        this.div.style.width = (100 / (zoomLevel-7)) + "%";
+        this.div.style.he = (100 / (zoomLevel-7)) + "%";
         //this.div.style.width = ne.x - sw.x + "px";
         //this.div.style.height = sw.y - ne.y + "px"; // Change to use sw.y - ne.y instead of ne.y - sw.y
       }
