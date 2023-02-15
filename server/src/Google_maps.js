@@ -62,7 +62,7 @@ function initMap() {
       if (this.div) {
         this.div.style.left = sw.x + "px";
         this.div.style.top = sw.y + "px"; // Change to use ne.y instead of sw.y
-        var factor = Math.pow(2, zoomLevel-7);
+        var factor = 1 /  Math.pow(2, zoomLevel-7);
         this.div.style.width = (100 *factor) + "%";
         this.div.style.he = (100 *factor) + "%";
         //this.div.style.width = ne.x - sw.x + "px";
