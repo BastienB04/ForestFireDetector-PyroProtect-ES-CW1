@@ -44,6 +44,7 @@ const cachedData = {
         y_pos: 7,
         status: {}
     }
+
 }
 
 
@@ -81,6 +82,13 @@ for(let i=0; i<GRIDSIZE; i++){
     }
     HeatMap.push(tmp);
 }
+var pos_array = fs.readdirSync("positions.txt").split("\n").split(",");
+cachedData["device1"].x_pos = pos_array[0];
+cachedData["device1"].y_pos = pos_array[1];
+cachedData["device2"].x_pos = pos_array[2];
+cachedData["device2"].y_pos = pos_array[3];
+cachedData["device3"].x_pos = pos_array[4];
+cachedData["device3"].y_pos = pos_array[5];
 
 
 const initData = {
@@ -334,6 +342,24 @@ const server = http.createServer((req, res) => {
             req.on('end', function(){
                 var data = JSON.parse(recieved);
                 fs.appendFileSync("email.txt", data["email"] +"\n");
+            })
+            res.statusCode = 200;
+            res.end();
+        }
+        else if(req.url.startsWith('/api/ChangePosition')){
+            var recieved = '';
+            req.on('data', function(data){
+                recieved += data
+            });
+            req.on('end', function(){
+                var data = JSON.parse(recieved);
+                cachedData[data["device"]].x_pos = data["x"];
+                cachedData[data["device"]].y_pos = data["y"];
+                fs.writeFileSync("positions.txt",
+                    cachedData["device1"].x_pos + "," + cachedData["device1"].y_pos + "\n" +
+                    cachedData["device2"].x_pos + "," + cachedData["device2"].y_pos + "\n" +
+                    cachedData["device3"].x_pos + "," + cachedData["device3"].y_pos + "\n" 
+                );
             })
             res.statusCode = 200;
             res.end();
