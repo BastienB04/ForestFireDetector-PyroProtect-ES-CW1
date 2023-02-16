@@ -6,7 +6,7 @@ const { StationBuilder } = require('./include/StationBuilder');
 const nodemailer = require('nodemailer');
 const { sendEmail } = require('./src/mail')
 const { spawn } = require('child_process');
-const kmToSquareRatio = 10;
+const kmToSquareRatio = 0.1;
 
 
 var sampleRate = 5;
@@ -364,12 +364,16 @@ const server = http.createServer((req, res) => {
             });
             req.on('end', function(){
                 var data = JSON.parse(recieved);
-                cachedData[data['id']].status.gas = data['Co2'];
                 cachedData[data['id']].status.temperature = data['temp'];
                 cachedData[data['id']].status.humidity = data['humidity'];
-                cachedData[data['id']].status.tVOC = data['tVOC'];
                 cachedData[data['id']].status.rain = data['rain'];
                 cachedData[data['id']].status.windSpeed = data['wind'];
+                stationMap[data['id']].readings = {
+                    temperature: data['temp'],
+                    relativeHumidity: data['humidity'],
+                    windSpeed: data['wind'],
+                    precipitation: data['rain']
+                }
             })
 	    res.statusCode = 200;
 	    res.end();
