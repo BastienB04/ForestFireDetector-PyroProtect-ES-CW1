@@ -156,7 +156,7 @@ function circleToHeat(radius1, radius2, radius3, array)
                     element.probability = array[1][0];
                     break;
                 case '1 1 1':
-                    element.color = 'rgba(0,255,0,0.5)';
+                    element.color = 'rgba(255,0,0,0.5)';
                     element.probability = array[2][0];
                     break;
                 case '0 1 1':
