@@ -171,39 +171,7 @@ function circleToHeat(radius1, radius2, radius3, array)
                 default:
                     break;
                 }
-            //     else if(((!array[0][3]) || (element.y > cachedData["device2"].y_pos)) && (x == [0, 1, 0])){
-            //         element.color = 'rgba(20,255,0,0.5)';
-            //         element.probability = array[0][1];
-            //     }
-            //     else if((array[0][3]) && (x == [0, 1, 0]) && (element.y <= cachedData["device2"].y_pos)){
-            //         element.color = 'rgba(20,255,0,0.5)';
-            //         element.probability = array[0][3];
-            //     }
-            //     else if(x == [0, 0, 1]){
-            //         element.color = 'rgba(20,255,0,0.5)';
-            //         element.probability = array[0][2];
-            //     }
-            //     else if(x == [1, 1, 0]){
-            //         element.color = 'rgba(255,255,0,0.5)';
-            //         element.probability = array[1][0];
-            //     }
-            //     else if(((!array[1][3]) | (element.y > cachedData["device1"].y_pos)) & (x == [0, 1, 1])){
-            //         element.color = 'rgba(255,255,0,0.5)';
-            //         element.probability = array[1][1];
-            //     }
-            //     else if((array[1][3]) && (x == [0, 1, 1]) && (element.y <= cachedData["device1"].y_pos)){
-            //         element.color = 'rgba(255,255,0,0.5)';
-            //         element.probability = array[1][3];
-            //     }
-            //     else if(x == [1, 0, 1]){
-            //         element.color = 'rgba(255,0,0,0.5)';
-            //         element.probability = array[1][2];
-            //     }
-            //     else if(x == [1, 1, 1]){
-            //         element.color = 'rgba(255,255,0,0.5)';
-            //         element.probability = array[2][0];
-            //     }
-            // }
+            
             
 
         });
@@ -213,75 +181,6 @@ function circleToHeat(radius1, radius2, radius3, array)
     HeatMap[cachedData["device3"].x_pos][cachedData["device3"].y_pos].color = 'rgba(0,0,255, 0.5)';
 }
 
-// function circleToHeat(radius1, radius2, radius3, array) {
-//     const x1 = cachedData["device1"].x_pos;
-//     const y1 = cachedData["device1"].y_pos;
-//     const x2 = cachedData["device2"].x_pos;
-//     const y2 = cachedData["device2"].y_pos;
-//     const x3 = cachedData["device3"].x_pos;
-//     const y3 = cachedData["device3"].y_pos;
-//     const kmToSquareRatio = 1; // assuming this is a constant
-  
-//     HeatMap.forEach((row) => {
-//       row.forEach((element) => {
-//         const distance1 = Math.sqrt((x1 - element.x) ** 2 + (y1 - element.y) ** 2);
-//         const distance2 = Math.sqrt((x2 - element.x) ** 2 + (y2 - element.y) ** 2);
-//         const distance3 = Math.sqrt((x3 - element.x) ** 2 + (y3 - element.y) ** 2);
-  
-//         let x = [0, 0, 0];
-//         if (distance1 < radius1 * kmToSquareRatio) {
-//           x[0] = 1;
-//         }
-//         if (distance2 < radius2 * kmToSquareRatio) {
-//           x[1] = 1;
-//         }
-//         if (distance3 < radius3 * kmToSquareRatio) {
-//           x[2] = 1;
-//         }
-  
-//         element.color = 'rgba(0,0,0,0)';
-//         element.probability = "NaN";
-  
-//         switch (x.join(' ')) {
-//           case '1 0 0':
-//             break;
-//           case '1 0 1':
-//             element.color = 'rgba(255,0,0,0.5)';
-//             element.probability = array[1][2];
-//             break;
-//           case '1 1 0':
-//             element.color = 'rgba(255,255,0,0.5)';
-//             element.probability = array[1][0];
-//             break;
-//           case '1 1 1':
-//             element.color = 'rgba(255,255,0,0.5)';
-//             element.probability = array[2][0];
-//             break;
-//           case '0 1 0':
-//             if (!array[0][3] || element.y > y2) {
-//               element.color = 'rgba(20,255,0,0.5)';
-//               element.probability = array[0][1];
-//             } else {
-//               element.color = 'rgba(20,255,0,0.5)';
-//               element.probability = array[0][3];
-//             }
-//             break;
-//           case '0 1 1':
-//             if (!array[1][3] || element.y > y1) {
-//               element.color = 'rgba(255,255,0,0.5)';
-//               element.probability = array[1][1];
-//             } else {
-//               element.color = 'rgba(255,255,0,0.5)';
-//               element.probability = array[1][3];
-//             }
-//             break;
-//           case '0 0 1':
-//             element.color = 'rgba(20,255,0,0.5)';
-//             element.probability = array[0][2];
-//             break;
-//           default:
-//             break;
-//         }
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //                                                  SERVER DEFINITION
@@ -363,7 +262,7 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Content-Type', 'application/json');
                 res.write(JSON.stringify(HeatMap));
                 res.end();
-                circleToHeat(0.5,0.5,0.3,[[0.5, 0.4,0.3, 0],[0.2,0.1,0,0][0,0,0,0]]);
+                circleToHeat(1,1,0.6,[[0.5, 0.4,0.3, 0],[0.2,0.1,0,0][0,0,0,0]]);
             }
             else if(req.url.startsWith('/api/initData')){
                 res.statusCode = 200;
@@ -431,7 +330,7 @@ const server = http.createServer((req, res) => {
             });
             req.on('end', function(){
                 var data = JSON.parse(recieved);
-                fs.writeFileSync("email.txt", data["email"]);
+                fs.appendFileSync("email.txt", data["email"]);
             })
             res.statusCode = 200;
             res.end();
