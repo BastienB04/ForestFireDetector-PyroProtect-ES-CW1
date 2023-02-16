@@ -12,7 +12,6 @@ type Circle = {
 export {Circle}
 
 function radiusFromFWI(FWI: number): number{
-    console.log(FWI);
     if(typeof(FWI) == "undefined"){
         return 10000;
     }
