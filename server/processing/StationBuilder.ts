@@ -64,6 +64,7 @@ class StationBuilder {
 
     public getRadius():number[]{
         return this.stationList.map((val) => {
+            console.log(val.circle);
             return val.circle.r;
         })
     }
