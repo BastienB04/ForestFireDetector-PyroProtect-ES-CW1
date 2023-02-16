@@ -86,6 +86,7 @@ var pos_array = fs.readFileSync("positions.txt").toString().split("\n");
 pos_array.forEach((element)=>{
     element = element.split(",")
 });
+console.log(pos_array);
 cachedData["device1"].x_pos = pos_array[0][0];
 cachedData["device1"].y_pos = pos_array[0][1];
 cachedData["device2"].x_pos = pos_array[1][0];
