@@ -1,8 +1,11 @@
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+const { count } = require('console');
 // const {affectedArea} = ;
-
+var counter = 0;
 function sendEmail(){
+    if(counter == 0)
+    {
     const transporter = nodemailer.createTransport({
         service: 'hotmail',
         auth: {
@@ -26,6 +29,9 @@ function sendEmail(){
             console.log('Email sent: ' + info.response);
         }
     });
+    }
+    counter++;
+
 }
 
 module.exports = {
