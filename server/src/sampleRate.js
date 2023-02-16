@@ -1,4 +1,3 @@
-const e = React.createElement;
 
 
 class SampleForm extends React.Component {
