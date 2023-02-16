@@ -381,7 +381,8 @@ const server = http.createServer((req, res) => {
                     cachedData["device3"].x_pos + "," + cachedData["device3"].y_pos + "\n" 
                 );
             })
-            res.statusCode = 200;
+            res.statusCode = 301;
+            res.write('http://13.41.188.158:8080');
             res.end();
         }
     }

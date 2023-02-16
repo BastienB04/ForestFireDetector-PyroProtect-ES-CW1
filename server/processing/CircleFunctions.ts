@@ -452,7 +452,7 @@ function areas_case10(circle1: Circle, circle2: Circle, circle3: Circle){
 }
 
 // Case 11
-function area_case11(circle1: Circle, circle2: Circle, circle3: Circle){
+function areas_case11(circle1: Circle, circle2: Circle, circle3: Circle){
     const a1: number = area_circle(circle1);
     const a2: number = area_circle(circle2);
     const a3: number = area_circle(circle3);
@@ -476,7 +476,7 @@ function area_case11(circle1: Circle, circle2: Circle, circle3: Circle){
 }
 
 // Case 12
-function area_case12(circle1: Circle, circle2: Circle, circle3: Circle){
+function areas_case12(circle1: Circle, circle2: Circle, circle3: Circle){
     const red:number = area_circle(circle1);
     let yellow: number = area_overlap_2circles(circle2, circle3);
 
@@ -756,3 +756,141 @@ function areas_case14(circle1: Circle, circle2: Circle, circle3: Circle) {
         [red, 0, 0, 0]
     ]
 }
+
+function findColouredAreas(circle1: Circle, circle2: Circle, circle3: Circle): number[][] {
+    const Case: [number, number] = determineOverlapCase(circle1, circle2, circle3);
+    console.log("Case: ", Case[0]);
+    console.log("circle_configuration: ", Case[1]);
+  
+    let circle1_: Circle;
+    let circle2_: Circle;
+    let circle3_: Circle;
+  
+    const circle_config: number = Case[1];
+  
+    if (circle_config === 1) {
+      circle1_ = circle1;
+      circle2_ = circle2;
+      circle3_ = circle3;
+    } else if (circle_config === 2) {
+      circle1_ = circle1; 
+      circle2_ = circle3;
+      circle3_ = circle2;
+    } else if (circle_config === 3) {
+      circle1_ = circle2;
+      circle2_ = circle1;
+      circle3_ = circle3;
+    } else if (circle_config === 4) {
+      circle1_ = circle3;
+      circle2_ = circle1;
+      circle3_ = circle2;
+    } else if (circle_config === 5) {
+      circle1_ = circle2;
+      circle2_ = circle3;
+      circle3_ = circle1;
+    } else if (circle_config === 6) {
+      circle1_ = circle3;
+      circle2_ = circle2;
+      circle3_ = circle1;
+    }
+  
+    let coloured_areas: number[][];
+
+    if (Case[0] === 1) {
+        coloured_areas = areas_case1(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 2) {
+        coloured_areas = areas_case2(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 3) {
+        coloured_areas = areas_case3(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 4) {
+        coloured_areas = areas_case4(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 5) {
+        coloured_areas = areas_case5(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 6) {
+        coloured_areas = areas_case6(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 7) {
+        coloured_areas = areas_case7(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 8) {
+        coloured_areas = areas_case8(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 9) {
+        coloured_areas = areas_case9(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 10) {
+        coloured_areas = areas_case10(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 11) {
+        coloured_areas = areas_case11(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 12) {
+        coloured_areas = areas_case12(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 13) {
+        coloured_areas = areas_case13(circle1_, circle2_, circle3_);
+    } else if (Case[0] === 14) {
+        coloured_areas = areas_case14(circle1_, circle2_, circle3_);
+    }
+      
+    //   console.log("Green: ", coloured_areas[0]);
+    //   console.log("Yellow: ", coloured_areas[1]);
+    //   console.log("Red: ", coloured_areas[2]);
+    
+    return coloured_areas;
+}
+
+/* Probability Function */
+
+function probGreen(areaGreen: number): number {
+    if (areaGreen === 0) {
+      return 0;
+    } else {
+        const k = 799158.3166;
+        let P = k / areaGreen / 100000;
+  
+    if (P > 0.99) {
+        P = 0.99;
+    }
+  
+        return P;
+    }
+}
+  
+function probYellow(areaYellow: number): number {
+    if (areaYellow === 0) {
+        return 0;
+    } else {
+        const k = 207299;
+        let P = k / areaYellow / 100000;
+  
+    if (P > 0.99) {
+        P = 0.99;
+    }
+  
+        return P;
+    }
+}
+  
+function probRed(areaRed: number): number {
+    if (areaRed === 0) {
+        return 0;
+    } else {
+        const k = 2183363;
+        let P = k / areaRed / 100000;
+  
+    if (P > 0.99) {
+        P = 0.99;
+    }
+  
+        return P;
+    }
+}
+
+function findProbabilities(areasVector: number[][]): number[][] {
+    for (let i = 0; i < areasVector[0].length; i++) {
+        areasVector[0][i] = probGreen(areasVector[0][i]);
+    }
+    for (let i = 0; i < areasVector[1].length; i++) {
+        areasVector[1][i] = probYellow(areasVector[1][i]);
+    }
+    for (let i = 0; i < areasVector[2].length; i++) {
+        areasVector[2][i] = probRed(areasVector[2][i]);
+    }
+    return areasVector;
+}
+
+export {findProbabilities};

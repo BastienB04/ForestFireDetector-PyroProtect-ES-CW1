@@ -3,6 +3,7 @@ import { Station, SensorReadings } from "./Station";
 import { Circle, Point } from "./CircleFunctions";
 
 type StationInfo = {
+    id: string;
     station: Station | FWIStation;
     circle: Circle;
 };
@@ -21,8 +22,8 @@ class StationBuilder {
         switch(this.chosenIndex){
             case this.defaultIndex: {
                 const res = new FWIStation(`station-${this.uniqueId}`);
-                this.uniqueId += 1;
                 const info: StationInfo = {
+                    id: `station-${this.uniqueId}`,
                     station: res,
                     circle: {
                         x: x,
@@ -30,6 +31,7 @@ class StationBuilder {
                         r: -1
                     }
                 }
+                this.uniqueId += 1;
                 this.stationList.push(info);
                 // res.readings = params;
                 // res.temperature = params.temperature;
@@ -43,6 +45,8 @@ class StationBuilder {
             }
         }
     }
+
+    public
 }
 
 export { StationBuilder }
