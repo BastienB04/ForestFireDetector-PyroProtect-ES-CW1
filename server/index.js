@@ -330,7 +330,7 @@ const server = http.createServer((req, res) => {
             });
             req.on('end', function(){
                 var data = JSON.parse(recieved);
-                fs.appendFileSync("email.txt", data["email"]);
+                fs.appendFileSync("email.txt", data["email"] +"\n");
             })
             res.statusCode = 200;
             res.end();
