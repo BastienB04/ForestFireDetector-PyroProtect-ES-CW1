@@ -15,7 +15,7 @@ function radiusFromFWI(FWI: number): number{
     if(typeof(FWI) == "undefined"){
         return 10000;
     }
-    return -11.242 * FWI + 101.88;
+    return (-11.242 * FWI) + 101.88;
 }
 export {radiusFromFWI}
 
