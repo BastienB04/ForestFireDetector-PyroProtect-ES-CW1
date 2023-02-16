@@ -848,10 +848,13 @@ function probGreen(areaGreen: number): number {
         let P = k / areaGreen / 100000;
   
     if (P > 0.99) {
-        P = 0.99;
+        return 0.99;
     }
-  
-        return P;
+    if (P <= 0){
+        return 0;
+    }
+    
+    return P;
     }
 }
   
@@ -865,8 +868,11 @@ function probYellow(areaYellow: number): number {
     if (P > 0.99) {
         P = 0.99;
     }
+    if(P <= 0){
+        return 0;
+    }
   
-        return P;
+    return P;
     }
 }
   
@@ -880,8 +886,11 @@ function probRed(areaRed: number): number {
     if (P > 0.99) {
         P = 0.99;
     }
+    if(P <= 0){
+        return 0;
+    }
   
-        return P;
+    return P;
     }
 }
 
