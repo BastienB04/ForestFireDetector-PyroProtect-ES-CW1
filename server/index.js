@@ -291,7 +291,7 @@ const server = http.createServer((req, res) => {
             }
             else if(req.url.startsWith('/api/heatMap'))
             {
-                console.log(`index 304: ${stationHQ.getProbabilities()}`);
+                console.log(`index 304: ${stationHQ.getProbabilities()[2]}`);
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.write(JSON.stringify(HeatMap));
