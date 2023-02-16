@@ -198,14 +198,16 @@ function rearange(stationList){
 //     }
 //   });
 
-function circleToHeat([radius1, radius2, radius3], array)
+// function circleToHeat([radius1, radius2, radius3], array)
+function circleToHeat([circle1, circle2, circle3], array)
 {
     HeatMap.forEach((row) =>{
         row.forEach((element) =>{
             // var distance1 = Math.sqrt(Math.pow(cachedData["device1"].x_pos - element.x,2) + Math.pow( cachedData["device1"].y_pos - element.y, 2));
             // var distance2 = Math.sqrt(Math.pow(cachedData["device2"].x_pos - element.x,2) + Math.pow( cachedData["device2"].y_pos - element.y, 2));
             // var distance3 = Math.sqrt(Math.pow(cachedData["device3"].x_pos - element.x,2) + Math.pow( cachedData["device3"].y_pos - element.y, 2));
-            [circle1_, circle2_, circle3_] = rearange([stationHQ.stationList[0].circle, stationHQ.stationList[1].circle, stationHQ.stationList[2].circle]);
+            let [circle1_, circle2_, circle3_] = rearange(circle1, circle2, circle3);
+            let [radius1, radius2, radius3] = [circle1_.r, circle2_.r, circle3_.r];
             // console.log(circle1_);
             // console.log(circle2_);
             // console.log(circle3_);
@@ -365,7 +367,8 @@ const server = http.createServer((req, res) => {
                 //     [0.5, 0.3, 0.2, 0.2],
                 //     [0.8, 0, 0, 0]
                 //   ]);
-                circleToHeat(stationHQ.getRadius(), stationHQ.getProbabilities());
+                let circles = [stationHQ.stationList[0].circle, stationHQ.stationList[1].circle, stationHQ.stationList[2].circle]
+                circleToHeat(circles, stationHQ.getProbabilities());
             }
             else if(req.url.startsWith('/api/initData')){
                 res.statusCode = 200;
