@@ -35,10 +35,3 @@ class SampleForm extends React.Component {
     );
   }
 }
-const domContainer = document.querySelector('#form');
-if (domContainer) {
-    const root = ReactDOM.createRoot(domContainer);
-    root.render(e(SampleForm));
-} else {
-    console.error("Element with id 'test' not found in the HTML");
-}

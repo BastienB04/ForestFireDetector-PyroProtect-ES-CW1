@@ -136,3 +136,10 @@ if (domContainer) {
 } else {
     console.error("Element with id 'test' not found in the HTML");
 }
+const domContainer2 = document.querySelector('#form');
+if (domContainer2) {
+    const root = ReactDOM.createRoot(domContainer2);
+    root.render(e(SampleForm));
+} else {
+    console.error("Element with id 'test' not found in the HTML");
+}
