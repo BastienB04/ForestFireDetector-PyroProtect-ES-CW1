@@ -64,7 +64,7 @@ let tmpReadings = {
     windSpeed: 20,
     precipitation: 0
 }
-stationMap["station-0"].readings = tmp;
+stationMap["station-0"].readings = tmpReadings;
 
 tmpReadings = {
     temperature: 150,
@@ -72,7 +72,7 @@ tmpReadings = {
     windSpeed: 20,
     precipitation: 0
 }
-stationMap["station-1"].readings = tmp;
+stationMap["station-1"].readings = tmpReadings;
 
 tmpReadings = {
     temperature: 15,
@@ -80,7 +80,7 @@ tmpReadings = {
     windSpeed: 20,
     precipitation: 0
 }
-stationMap["station-2"].readings = tmp;
+stationMap["station-2"].readings = tmpReadings;
 
 
 
