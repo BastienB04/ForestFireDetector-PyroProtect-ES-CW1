@@ -12,6 +12,9 @@ type Circle = {
 export {Circle}
 
 function radiusFromFWI(FWI: number): number{
+    if(typeof(FWI) == "undefined"){
+        return 10000;
+    }
     return -11.242 * FWI + 101.88;
 }
 export {radiusFromFWI}
@@ -757,7 +760,7 @@ function areas_case14(circle1: Circle, circle2: Circle, circle3: Circle) {
     ]
 }
 
-function findColouredAreas(circle1: Circle, circle2: Circle, circle3: Circle): number[][] {
+function findColouredAreas([circle1, circle2, circle3]: Circle[]): number[][] {
     const Case: [number, number] = determineOverlapCase(circle1, circle2, circle3);
     console.log("Case: ", Case[0]);
     console.log("circle_configuration: ", Case[1]);
@@ -832,6 +835,8 @@ function findColouredAreas(circle1: Circle, circle2: Circle, circle3: Circle): n
     
     return coloured_areas;
 }
+
+export { findColouredAreas };
 
 /* Probability Function */
 

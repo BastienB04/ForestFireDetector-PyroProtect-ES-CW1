@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StationBuilder = void 0;
 const FWIStation_1 = require("./FWIStation");
+const CircleFunctions_1 = require("./CircleFunctions");
 class StationBuilder {
     defaultIndex = 'FWI';
     uniqueId = 0;
@@ -32,6 +33,25 @@ class StationBuilder {
                 throw new Error("NO INDEX CHOSEN");
             }
         }
+    }
+    getProbablities() {
+        if (this.stationList.length < 3) {
+            throw new Error("not enough stations");
+        }
+        if (this.stationList.length > 3) {
+            throw new Error("too many stations");
+        }
+        this.stationList.forEach((stationInfo) => {
+            stationInfo.station.update();
+            stationInfo.circle.r = (0, CircleFunctions_1.radiusFromFWI)(stationInfo.station.fireIndex);
+        });
+        const tmp = (0, CircleFunctions_1.findColouredAreas)(this.stationList.map((val) => { return val.circle; }));
+        return (0, CircleFunctions_1.findProbabilities)(tmp);
+    }
+    getRadius() {
+        return this.stationList.map((val) => {
+            return val.circle.r;
+        });
     }
 }
 exports.StationBuilder = StationBuilder;

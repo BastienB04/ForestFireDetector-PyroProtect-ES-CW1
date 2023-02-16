@@ -7,6 +7,7 @@ class Station {
     _relativeHumidity;
     _windSpeed;
     _precipitation;
+    _updated;
     constructor(name) {
         this._stationId = name;
     }
@@ -39,6 +40,13 @@ class Station {
         this._relativeHumidity = params.relativeHumidity;
         this._windSpeed = params.windSpeed;
         this._precipitation = params.precipitation;
+        this._updated = true;
+    }
+    get updated() {
+        return this._updated;
+    }
+    set updated(b) {
+        this._updated = b;
     }
 }
 exports.Station = Station;

@@ -228,7 +228,11 @@ class FWIStation extends Station{
     }
 
     public update(): any {
-        return this.updateFWI();
+        if(this.updated){
+            this.updated = false;
+            return this.updateFWI();
+        }
+        return this.currentFWI;
     }
 
 }

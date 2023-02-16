@@ -47,10 +47,42 @@ const cachedData = {
 }
 
 
-const stationBuilder = new StationBuilder('FWI');
-const station = stationBuilder.build(0,0);
-const n = station.fireIndex;
-console.log(n);
+const stationHQ = new StationBuilder('FWI');
+const station1 = stationHQ.build(3,3);
+const station2 = stationHQ.build(4,12);
+const station3 = stationHQ.build(14,5);
+
+const stationMap = {
+    "station-0": station1,
+    "station-1": station2,
+    "station-2": station3
+}
+
+let tmpReadings = {
+    temperature: 15,
+    relativeHumidity: 20,
+    windSpeed: 20,
+    precipitation: 0
+}
+stationMap["station-0"].readings = tmp;
+
+tmpReadings = {
+    temperature: 150,
+    relativeHumidity: 20,
+    windSpeed: 20,
+    precipitation: 0
+}
+stationMap["station-1"].readings = tmp;
+
+tmpReadings = {
+    temperature: 15,
+    relativeHumidity: 20,
+    windSpeed: 20,
+    precipitation: 0
+}
+stationMap["station-2"].readings = tmp;
+
+
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //                                                  VARIABLE INIT
@@ -127,7 +159,7 @@ const initData = {
 //     }
 //   });
 
-function circleToHeat(radius1, radius2, radius3, array)
+function circleToHeat([radius1, radius2, radius3], array)
 {
     HeatMap.forEach((row) =>{
         row.forEach((element) =>{
@@ -273,10 +305,11 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Content-Type', 'application/json');
                 res.write(JSON.stringify(HeatMap));
                 res.end();
-                circleToHeat(1,1,0.6,[  [0.2, 0.3, 0.25, 0],
-                    [0.5, 0.3, 0.2, 0.2],
-                    [0.8, 0, 0, 0]
-                  ]);
+                // circleToHeat(1,1,0.6,[  [0.2, 0.3, 0.25, 0],
+                //     [0.5, 0.3, 0.2, 0.2],
+                //     [0.8, 0, 0, 0]
+                //   ]);
+                circleToHeat(stationHQ.getRadius(), stationHQ.getProbabilities());
             }
             else if(req.url.startsWith('/api/initData')){
                 res.statusCode = 200;

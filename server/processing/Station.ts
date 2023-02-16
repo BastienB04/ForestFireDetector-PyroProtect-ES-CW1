@@ -14,6 +14,7 @@ abstract class Station {
     private _relativeHumidity: number; // percentage
     private _windSpeed:number; // km/h
     private _precipitation: number; // mm
+    private _updated: boolean;
 
     constructor(name: string){
         this._stationId = name;
@@ -58,8 +59,16 @@ abstract class Station {
         this._relativeHumidity = params.relativeHumidity;
         this._windSpeed = params.windSpeed;
         this._precipitation = params.precipitation;
+        this._updated = true;
     }
 
+    public get updated(): boolean{
+        return this._updated;
+    }
+
+    public set updated(b: boolean){
+        this._updated = b;
+    }
 
     public abstract update(): any;
 }

@@ -1,6 +1,6 @@
 import { FWIStation } from "./FWIStation";
 import { Station, SensorReadings } from "./Station";
-import { Circle, Point, findProbabilities, radiusFromFWI } from "./CircleFunctions";
+import { Circle, Point, findProbabilities, radiusFromFWI, findColouredAreas } from "./CircleFunctions";
 
 type StationInfo = {
     id: string;
@@ -47,18 +47,26 @@ class StationBuilder {
         }
     }
 
-    // public getProbablities():number[][]{
-    //     if(this.stationList.length < 3){
-    //         throw new Error("not enough stations");
-    //     }
-    //     if(this.stationList.length > 3){
-    //         throw new Error("too many stations");
-    //     }
-    //     this.stationList.forEach((stationInfo) => {
-    //         stationInfo.circle.r = radiusFromFWI(stationInfo.station.fireIndex);
-    //     });
-    //     return findProbabilities();
-    // }
+    public getProbablities():number[][]{
+        if(this.stationList.length < 3){
+            throw new Error("not enough stations");
+        }
+        if(this.stationList.length > 3){
+            throw new Error("too many stations");
+        }
+        this.stationList.forEach((stationInfo) => {
+            stationInfo.station.update();
+            stationInfo.circle.r = radiusFromFWI(stationInfo.station.fireIndex);
+        });
+        const tmp: number[][] = findColouredAreas(this.stationList.map((val) => {return val.circle}));
+        return findProbabilities(tmp);
+    }
+
+    public getRadius():number[]{
+        return this.stationList.map((val) => {
+            return val.circle.r;
+        })
+    }
 }
 
 export { StationBuilder }

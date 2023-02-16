@@ -1,7 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findProbabilities = exports.radiusFromFWI = void 0;
+exports.findProbabilities = exports.findColouredAreas = exports.radiusFromFWI = void 0;
 function radiusFromFWI(FWI) {
+    if (typeof (FWI) == "undefined") {
+        return 10000;
+    }
     return -11.242 * FWI + 101.88;
 }
 exports.radiusFromFWI = radiusFromFWI;
@@ -555,7 +558,7 @@ function areas_case14(circle1, circle2, circle3) {
         [red, 0, 0, 0]
     ];
 }
-function findColouredAreas(circle1, circle2, circle3) {
+function findColouredAreas([circle1, circle2, circle3]) {
     const Case = determineOverlapCase(circle1, circle2, circle3);
     console.log("Case: ", Case[0]);
     console.log("circle_configuration: ", Case[1]);
@@ -638,6 +641,7 @@ function findColouredAreas(circle1, circle2, circle3) {
     }
     return coloured_areas;
 }
+exports.findColouredAreas = findColouredAreas;
 function probGreen(areaGreen) {
     if (areaGreen === 0) {
         return 0;
