@@ -364,6 +364,7 @@ const server = http.createServer((req, res) => {
             });
             req.on('end', function(){
                 var data = JSON.parse(recieved);
+                console.log(data);
                 cachedData[data['id']].status.temperature = data['temp'];
                 cachedData[data['id']].status.humidity = data['humidity'];
                 cachedData[data['id']].status.rain = data['rain'];
