@@ -35,9 +35,9 @@ class PositionForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           X:
-          <input type="text" value={this.state.x} onChange={this.handleChange1} />
+          <input type="number" value={this.state.x} onChange={this.handleChange1} />
           Y:
-          <input type="text" value={this.state.y} onChange={this.handleChange2} />  
+          <input type="number" value={this.state.y} onChange={this.handleChange2} />  
         </label>
         <input type="submit" value="Submit" />
       </form>
