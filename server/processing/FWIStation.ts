@@ -59,10 +59,6 @@ class FWIStation extends Station{
 
     // Fine Fuel Moisture Code
     private calculateFFMC(): FWIStation {
-        console.log(this.currentDC);
-        console.log('ffmc');
-        console.log(this.currentFFMC);
-
         // previous day's fine fuel moisture content: prevMT
         let prevMT = 147.2 * (101 - this.currentFFMC) / (59.5 + this.currentFFMC);
         
@@ -158,11 +154,13 @@ class FWIStation extends Station{
         console.log('ahhhhhhh');
         console.log(this.currentDC);
         const L_f = this.effectiveDayLengthFactor;
+        console.log(`L_f: ${L_f}`);
 
         const tmp = Math.max(this.temperature, -2.8); // if temperature < -2.8 then tmp = -2.8
 
         // potential evapotranspiration: V
         const V = Math.max( 0.36 * (tmp+ 2.8) + L_f, 0); // if V < 0 then V = 0
+        console.log(`V: ${V}`);
 
         if(this.precipitation <= 2.8){
             console.log('here');

@@ -54,9 +54,6 @@ class FWIStation extends Station_1.Station {
         return this.currentFWI;
     }
     calculateFFMC() {
-        console.log(this.currentDC);
-        console.log('ffmc');
-        console.log(this.currentFFMC);
         let prevMT = 147.2 * (101 - this.currentFFMC) / (59.5 + this.currentFFMC);
         if (this.precipitation > 0.5) {
             let pf = this.precipitation - 0.5;
@@ -119,8 +116,10 @@ class FWIStation extends Station_1.Station {
         console.log('ahhhhhhh');
         console.log(this.currentDC);
         const L_f = this.effectiveDayLengthFactor;
+        console.log(`L_f: ${L_f}`);
         const tmp = Math.max(this.temperature, -2.8);
         const V = Math.max(0.36 * (tmp + 2.8) + L_f, 0);
+        console.log(`V: ${V}`);
         if (this.precipitation <= 2.8) {
             console.log('here');
             console.log(this.currentDC);
