@@ -1,5 +1,5 @@
 import { Station } from "./Station";
-
+import {sendEmail} from "../src/mail"
 
 enum EffeciveDayLength {
     January = 6.5,
@@ -221,12 +221,15 @@ class FWIStation extends Station{
     public updateFWI(): FWIStation{
         // console.log(this.temperature);
         // console.log(this.currentFWI);
-        return this.calculateFFMC()
+        this.calculateFFMC()
             .calculateDMC()
             .calculateDC()
             .calculateISI()
             .calculateBUI()
             .calculateFWI();
+        if(this.currentFWI > 10)
+            sendEmail();
+        return this;
     }
 
     public update(): any {
