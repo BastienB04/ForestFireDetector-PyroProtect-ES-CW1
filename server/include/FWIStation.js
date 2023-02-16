@@ -44,6 +44,7 @@ class FWIStation extends Station_1.Station {
     constructor(name) {
         super(name);
         this.effectiveDayLength = EffeciveDayLength.February;
+        this.effectiveDayLengthFactor = EffeciveDayLengthFactor.February;
         this.currentFFMC = 85;
         this.currentDMC = 6;
         this.currentDC = 15;
