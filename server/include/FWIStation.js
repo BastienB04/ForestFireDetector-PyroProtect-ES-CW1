@@ -93,7 +93,7 @@ class FWIStation extends Station_1.Station {
         console.log('here');
         console.log(K);
         if (this.precipitation < 1.5) {
-            this.currentDMC = this.currentDMC + (100 * K) / (3600 * 24 / this.samplingRate);
+            this.currentDMC = this.currentDMC + (100 * K);
             return this;
         }
         let P_e = 0.92 * this.precipitation - 1.27;
