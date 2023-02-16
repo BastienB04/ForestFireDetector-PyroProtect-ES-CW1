@@ -16,6 +16,7 @@ class StationBuilder {
 
     constructor(_chosenIndex: string){
         this.chosenIndex = _chosenIndex;
+        this.stationList = [];
     }
 
     public build(x: number, y: number){
