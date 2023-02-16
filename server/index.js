@@ -128,10 +128,7 @@ const initData = {
 //-------------------------------------------------------------------------------------------------------------------------------
 //         THING
 //-------------------------------------------------------------------------------------------------------------------------------
-function rearange(stationList){
-    let circle1 = stationList[0];
-    let circle2 = stationList[1];
-    let circle3 = stationList[2];
+function rearange(circle1, circle2, circle3){
     const Case= determineOverlapCase(circle1, circle2, circle3);
 
     let circle1_;
