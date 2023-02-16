@@ -51,7 +51,7 @@ class FWIStation extends Station{
         this.currentDC = 15;
     }
 
-    get index(){
+    get fireIndex(){
         return this.currentFWI;
     }
 

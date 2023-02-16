@@ -19,7 +19,7 @@ abstract class Station {
         this._stationId = name;
     }
 
-    public abstract get index(): number;
+    public abstract get fireIndex(): number;
 
     public set temperature(temp: number){
         this._temperature = temp;

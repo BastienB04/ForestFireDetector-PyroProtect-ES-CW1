@@ -1,6 +1,6 @@
 import { FWIStation } from "./FWIStation";
 import { Station, SensorReadings } from "./Station";
-import { Circle, Point } from "./CircleFunctions";
+import { Circle, Point, findProbabilities, radiusFromFWI } from "./CircleFunctions";
 
 type StationInfo = {
     id: string;
@@ -46,7 +46,18 @@ class StationBuilder {
         }
     }
 
-    public
+    // public getProbablities():number[][]{
+    //     if(this.stationList.length < 3){
+    //         throw new Error("not enough stations");
+    //     }
+    //     if(this.stationList.length > 3){
+    //         throw new Error("too many stations");
+    //     }
+    //     this.stationList.forEach((stationInfo) => {
+    //         stationInfo.circle.r = radiusFromFWI(stationInfo.station.fireIndex);
+    //     });
+    //     return findProbabilities();
+    // }
 }
 
 export { StationBuilder }
