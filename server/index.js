@@ -82,17 +82,14 @@ for(let i=0; i<GRIDSIZE; i++){
     }
     HeatMap.push(tmp);
 }
-var pos_array = fs.readFileSync("positions.txt").toString().split("\n");
-pos_array.forEach((element)=>{
-    element = element.split(",")
-});
+var pos_array = fs.readFileSync("positions.txt").toString().split("\n").map(x => x.split(","));
 console.log(pos_array);
-cachedData["device1"].x_pos = pos_array[0][0];
-cachedData["device1"].y_pos = pos_array[0][1];
-cachedData["device2"].x_pos = pos_array[1][0];
-cachedData["device2"].y_pos = pos_array[1][1];
-cachedData["device3"].x_pos = pos_array[2][0];
-cachedData["device3"].y_pos = pos_array[2][1];
+cachedData["device1"].x_pos = parseInt(pos_array[0][0]);
+cachedData["device1"].y_pos = parseInt(pos_array[0][1]);
+cachedData["device2"].x_pos = parseInt(pos_array[1][0]);
+cachedData["device2"].y_pos = parseInt(pos_array[1][1]);
+cachedData["device3"].x_pos = parseInt(pos_array[2][0]);
+cachedData["device3"].y_pos = parseInt(pos_array[2][1]);
 
 
 const initData = {
