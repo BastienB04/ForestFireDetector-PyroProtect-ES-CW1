@@ -77,13 +77,7 @@ class Map_ extends React.Component {
         }, 5000);
 
 
-        fetch(HOST + '/api/initData').then((res) => {
-            return res.json()
-        }).then(({gridSize, grid}) => {
-            this.setState({ gridSize, grid });
-        }).catch((err) => {
-            console.error(err);
-        });
+        this.fetchHeatMap();
     }
 
     render() {
