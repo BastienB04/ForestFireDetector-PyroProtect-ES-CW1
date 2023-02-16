@@ -69,7 +69,7 @@ stationMap["station-0"].readings = tmpReadings;
 
 stationMap["station-1"].readings = tmpReadings;
 tmpReadings = {
-    temperature: 50,
+    temperature: 20,
     relativeHumidity: 1,
     windSpeed: 0,
     precipitation:1
