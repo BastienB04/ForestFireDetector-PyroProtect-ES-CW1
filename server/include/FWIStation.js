@@ -150,6 +150,7 @@ class FWIStation extends Station_1.Station {
         }
         console.log(`b: ${b}`);
         if (b > 1) {
+            console.log(Math.exp(2.72 * Math.pow(0.434 * Math.log(b), 0.647)));
             this.currentFWI = Math.exp(2.72 * Math.pow(0.434 * Math.log(b), 0.647));
             return this;
         }
