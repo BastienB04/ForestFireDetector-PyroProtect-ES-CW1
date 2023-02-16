@@ -137,7 +137,7 @@ function circleToHeat(radius1, radius2, radius3, array)
             switch (x.join(' ')){
                 case'0 0 0':
                     element.color = 'rgba(0,0,0,0)';
-                    element.probability = 'NaN';
+                    element.probability = 0;
                     break;
                 case'1 0 0':
                     element.color = 'rgba(20,255,0,0.5)';
