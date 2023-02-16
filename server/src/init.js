@@ -88,7 +88,7 @@ class Map_ extends React.Component {
 
             this.fetchHeatMap();
           
-          }, 1000);
+          }, 100);
         
         
     }
