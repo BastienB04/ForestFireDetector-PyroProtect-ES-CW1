@@ -50,8 +50,6 @@ class FWIStation extends Station{
         this.currentFFMC = 85;
         this.currentDMC = 6;
         this.currentDC = 15;
-        console.log(this.currentDC);
-        console.log('finished constructing');
     }
 
     get fireIndex(){
@@ -152,22 +150,15 @@ class FWIStation extends Station{
 
     // Drought Code
     private calculateDC(): FWIStation{
-        console.log('ahhhhhhh');
-        console.log(this.currentDC);
         const L_f = this.effectiveDayLengthFactor;
-        console.log(`L_f: ${L_f}`);
 
         const tmp = Math.max(this.temperature, -2.8); // if temperature < -2.8 then tmp = -2.8
 
         // potential evapotranspiration: V
         const V = Math.max( 0.36 * (tmp+ 2.8) + L_f, 0); // if V < 0 then V = 0
-        console.log(`V: ${V}`);
 
         if(this.precipitation <= 2.8){
-            console.log('here');
-            console.log(this.currentDC);
             this.currentDC = this.currentDC + 0.5 * V;
-            console.log(this.currentDC)
             return this;
         }
 
@@ -192,6 +183,7 @@ class FWIStation extends Station{
         // fuel moisture content (%): m
         const m = 147.2 * ((101-this.currentFFMC)/(59.5 + this.currentFFMC));
         console.log(`m: ${m}`);
+        console.log(`calc: ${0.208 * Math.exp(0.05039*this.windSpeed) * (91.9 * Math.exp(-0.1386*m)) * (1 + Math.pow(m, 5.31)/49300000)}`);
         this.currentISI = 0.208 * Math.exp(0.05039*this.windSpeed) * (91.9 * Math.exp(-0.1386*m)) * (1 + Math.pow(m, 5.31)/49300000);
         return this;
     }
