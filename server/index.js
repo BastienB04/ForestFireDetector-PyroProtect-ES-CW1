@@ -48,6 +48,9 @@ const cachedData = {
 
 
 const stationBuilder = new StationBuilder('FWI');
+const station = stationBuilder.build(0,0);
+const n = station.fireIndex;
+console.log(n);
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //                                                  VARIABLE INIT
