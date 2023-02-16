@@ -216,42 +216,42 @@ function circleToHeat([circle1, circle2, circle3], array)
                     break;
                 case'1 0 0':
                     element.color = 'rgba(20,255,0,0.5)';
-                    element.probability = array[0][0];
+                    element.probability = Math.round(array[0][0]*100)/100;
                     break;
                 case '0 1 0':
                     console.log('case14');
                     if (!array[0][3] || element.y > circle2_.y) {
                     element.color = 'rgba(20,255,0,0.5)';
-                    element.probability = array[0][1];
+                    element.probability = Math.round(array[0][1]*100)/100;
                     } else {
                     element.color = 'rgba(20,255,0,0.5)';
-                    element.probability = array[0][3];
+                    element.probability = Math.round(array[0][3]*100)/100;
                     }
                     break;  
                 case '0 0 1':
                     element.color = 'rgba(20,255,0,0.5)';
-                    element.probability = array[0][2];
+                    element.probability = Math.round(array[0][2]*100)/100;
                     break;
                 case '1 0 1':
                     element.color = 'rgba(255,255,0,0.5)';
-                    element.probability = array[1][2];
+                    element.probability = Math.round(array[1][2]*100)/100;
                     break;
                 case '1 1 0':
                     element.color = 'rgba(255,255,0,0.5)';
-                    element.probability = array[1][0];
+                    element.probability = Math.round(array[1][0]*100)/100;
                     break;
                 case '1 1 1':
                     element.color = 'rgba(255,0,0,0.5)';
-                    element.probability = array[2][0];
+                    element.probability = Math.round(array[2][0]*100)/100;
                     break;
                 case '0 1 1':
                     console.log('case13');
                     if (!array[1][3] || element.y > circle1_.y) {
                     element.color = 'rgba(255,255,0,0.5)';
-                    element.probability = array[1][1];
+                    element.probability = Math.round(array[1][1]*100)/100;
                     } else {
                     element.color = 'rgba(255,255,0,0.5)';
-                    element.probability = array[1][3];
+                    element.probability = Math.round(array[1][3]*100)/100;
                     }
                     break;
                 default:
