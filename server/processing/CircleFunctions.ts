@@ -198,6 +198,7 @@ function determineOverlapCase(circle1: Circle, circle2: Circle, circle3: Circle)
 
     return [Case, circle_config];
 }
+export {determineOverlapCase};
 
 function area_circle(circle: Circle): number {
     const A = Math.PI * Math.pow(circle.r, 2);

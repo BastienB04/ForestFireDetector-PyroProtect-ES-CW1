@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const { sendEmail } = require('./src/mail')
 const { spawn } = require('child_process');
 const kmToSquareRatio = 1;
+const {determineOverlapCase} = require('./include/CircleFunctions');
 
 
 var sampleRate = 5;
@@ -125,6 +126,51 @@ const initData = {
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------
+//         THING
+//-------------------------------------------------------------------------------------------------------------------------------
+function rearange(stationList){
+    let circle1 = stationList.circle1;
+    let circle2 = stationList.circle2;
+    let circle3 = stationList.circle3;
+    const Case= determineOverlapCase(circle1, circle2, circle3);
+
+    let circle1_;
+    let circle2_;
+    let circle3_;
+  
+    const circle_config = Case[1];
+  
+    if (circle_config === 1) {
+      circle1_ = circle1;
+      circle2_ = circle2;
+      circle3_ = circle3;
+    } else if (circle_config === 2) {
+      circle1_ = circle1; 
+      circle2_ = circle3;
+      circle3_ = circle2;
+    } else if (circle_config === 3) {
+      circle1_ = circle2;
+      circle2_ = circle1;
+      circle3_ = circle3;
+    } else if (circle_config === 4) {
+      circle1_ = circle3;
+      circle2_ = circle1;
+      circle3_ = circle2;
+    } else if (circle_config === 5) {
+      circle1_ = circle2;
+      circle2_ = circle3;
+      circle3_ = circle1;
+    } else if (circle_config === 6) {
+      circle1_ = circle3;
+      circle2_ = circle2;
+      circle3_ = circle1;
+    }
+
+    return [circle1_, circle2_, circle3_];
+}
+
+
+//-------------------------------------------------------------------------------------------------------------------------------
 //                                                  MAILING LIST
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -159,9 +205,13 @@ function circleToHeat([radius1, radius2, radius3], array)
             // var distance1 = Math.sqrt(Math.pow(cachedData["device1"].x_pos - element.x,2) + Math.pow( cachedData["device1"].y_pos - element.y, 2));
             // var distance2 = Math.sqrt(Math.pow(cachedData["device2"].x_pos - element.x,2) + Math.pow( cachedData["device2"].y_pos - element.y, 2));
             // var distance3 = Math.sqrt(Math.pow(cachedData["device3"].x_pos - element.x,2) + Math.pow( cachedData["device3"].y_pos - element.y, 2));
-            [distance1, distance2, distance3] = stationHQ.stationList.map((stationInfo) => {
-                return Math.sqrt(Math.pow(stationInfo.circle.x - element.x, 2) + Math.pow(stationInfo.circle.y -element.y, 2));
-            });
+            [circle1_, circle2_, circle3_] = rearange([stationList[0].circle, stationList[1].circle, stationList[2].circle]);
+            var distance1 = Math.sqrt(Math.pow(circle1_.x - element.x, 2) + Math.pow(circle1_.y - element.y, 2));
+            var distance2 = Math.sqrt(Math.pow(circle2_.x - element.x, 2) + Math.pow(circle2_.y - element.y, 2));
+            var distance3 = Math.sqrt(Math.pow(circle3_.x - element.x, 2) + Math.pow(circle3_.y - element.y, 2));
+            // [distance1, distance2, distance3] = stationHQ.stationList.map((stationInfo) => {
+                // return Math.sqrt(Math.pow(stationInfo.circle.x - element.x, 2) + Math.pow(stationInfo.circle.y -element.y, 2));
+            // });
             const x = [distance1 < radius1*kmToSquareRatio ? 1 : 0, distance2 < radius2*kmToSquareRatio  ? 1 : 0, distance3 < radius3*kmToSquareRatio  ? 1 : 0,];
 
             switch (x.join(' ')){
@@ -175,7 +225,7 @@ function circleToHeat([radius1, radius2, radius3], array)
                     break;
                 case '0 1 0':
                     console.log('case14');
-                    if (!array[0][3] || element.y > stationHQ[1].circle.y) {
+                    if (!array[0][3] || element.y > circle2_.y) {
                     element.color = 'rgba(20,255,0,0.5)';
                     element.probability = array[0][1];
                     } else {
@@ -201,7 +251,7 @@ function circleToHeat([radius1, radius2, radius3], array)
                     break;
                 case '0 1 1':
                     console.log('case13');
-                    if (!array[1][3] || element.y > stationHQ[0].circle.y) {
+                    if (!array[1][3] || element.y > circle1_.y) {
                     element.color = 'rgba(255,255,0,0.5)';
                     element.probability = array[1][1];
                     } else {

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findProbabilities = exports.findColouredAreas = exports.radiusFromFWI = void 0;
+exports.findProbabilities = exports.findColouredAreas = exports.determineOverlapCase = exports.radiusFromFWI = void 0;
 function radiusFromFWI(FWI) {
     if (typeof (FWI) == "undefined") {
         return 10000;
@@ -161,6 +161,7 @@ function determineOverlapCase(circle1, circle2, circle3) {
     }
     return [Case, circle_config];
 }
+exports.determineOverlapCase = determineOverlapCase;
 function area_circle(circle) {
     const A = Math.PI * Math.pow(circle.r, 2);
     return A;
