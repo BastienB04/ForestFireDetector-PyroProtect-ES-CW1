@@ -128,8 +128,6 @@ class FWIStation extends Station_1.Station {
     }
     calculateISI() {
         const m = 147.2 * ((101 - this.currentFFMC) / (59.5 + this.currentFFMC));
-        console.log(`m: ${m}`);
-        console.log(`calc: ${(1 + Math.pow(m, 5.31) / 49300000)}`);
         this.currentISI = 0.208 * Math.exp(0.05039 * this.windSpeed) * (91.9 * Math.exp(-0.1386 * m)) * (1 + Math.pow(m, 5.31) / 49300000);
         return this;
     }
@@ -169,7 +167,7 @@ class FWIStation extends Station_1.Station {
         this.calculateBUI();
         console.log(`BUI: ${this.currentBUI}`);
         this.calculateFWI();
-        console.log(this.currentFWI);
+        console.log(`FWI: ${this.currentFWI}`);
         return this;
     }
     update() {
