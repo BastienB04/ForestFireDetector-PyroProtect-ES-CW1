@@ -491,3 +491,268 @@ function area_case12(circle1: Circle, circle2: Circle, circle3: Circle){
         [red, 0, 0, 0]
     ]
 }
+
+function areas_case13(circle1: Circle, circle2: Circle, circle3: Circle): number[][] {
+    const a1 = area_circle(circle1);
+    const a2 = area_circle(circle2);
+    const a3 = area_circle(circle3);
+
+    const i1and2 = area_overlap_2circles(circle1, circle2);
+    const i1and3 = area_overlap_2circles(circle1, circle3);
+    const i2and3 = area_overlap_2circles(circle2, circle3);
+
+    const left = a1 - i1and3; //y4
+    const right = a1 - i1and2; //y2
+
+    const intersections_2and3 = getIntersection2Circles(circle2, circle3);
+    const intersections_1and2 = getIntersection2Circles(circle1, circle2);
+    const intersections_1and3 = getIntersection2Circles(circle1, circle3);
+
+    //---------------
+    //Find red using the same approach to find Red in Case 8 (polygon + 4 subtensions)
+    //Setting up the red polygon vertices to be:
+    //a  #b
+    //c  #d
+
+    let polygon_red_vertex_a: Point, polygon_red_vertex_b: Point,
+        polygon_red_vertex_c: Point, polygon_red_vertex_d: Point;
+
+    if (intersections_1and3[0].y > intersections_1and3[1].y) {
+        polygon_red_vertex_a = intersections_1and3[0];
+        polygon_red_vertex_c = intersections_1and3[1];
+    } else {
+        polygon_red_vertex_a = intersections_1and3[1];
+        polygon_red_vertex_c = intersections_1and3[0];
+    }
+
+    if (intersections_1and2[0].y > intersections_1and2[1].y) {
+        polygon_red_vertex_b = intersections_1and2[0];
+        polygon_red_vertex_d = intersections_1and2[1];
+    } else {
+        polygon_red_vertex_b = intersections_1and2[1];
+        polygon_red_vertex_d = intersections_1and2[0];
+    }
+
+    //Find the area of the quadrilateral by splitting into 2 triangles: CAB and BDC
+    const polygon_red_side_ab = euclideanDistance(polygon_red_vertex_a, polygon_red_vertex_b);
+    const polygon_red_side_bd = euclideanDistance(polygon_red_vertex_b, polygon_red_vertex_d);
+    const polygon_red_side_cd = euclideanDistance(polygon_red_vertex_c, polygon_red_vertex_d);
+    const polygon_red_side_ac = euclideanDistance(polygon_red_vertex_a, polygon_red_vertex_c);
+    const polygon_red_side_bc = euclideanDistance(polygon_red_vertex_b, polygon_red_vertex_c);
+
+    const angle_CAB = Math.acos((polygon_red_side_ac ** 2 + polygon_red_side_ab ** 2 - polygon_red_side_bc ** 2) / (2 * polygon_red_side_ac * polygon_red_side_ab));
+    const angle_BDC = Math.acos((polygon_red_side_bd ** 2 + polygon_red_side_cd ** 2 - polygon_red_side_bc ** 2) / (2 * polygon_red_side_bd * polygon_red_side_cd));
+
+    const area_triangle_CAB = 0.5 * polygon_red_side_ac * polygon_red_side_ab * Math.sin(angle_CAB);
+    const area_triangle_BDC = 0.5 * polygon_red_side_bd * polygon_red_side_bc * Math.sin(angle_BDC);
+
+    const area_red_polygon = area_triangle_CAB + area_triangle_BDC;
+
+    // Find areas of segments of circle 1, subtended from chords ab and cd:
+    let angle_a_c1_b = Math.acos((2 * circle1.r ** 2 - polygon_red_side_ab ** 2) / (2 * circle1.r ** 2));
+    let angle_c_c1_d = Math.acos((2 * circle1.r ** 2 - polygon_red_side_cd ** 2) / (2 * circle1.r ** 2));
+
+    let area_segment_ab = 0.5 * circle1.r ** 2 * (angle_a_c1_b - Math.sin(angle_a_c1_b));
+    let area_segment_cd = 0.5 * circle1.r ** 2 * (angle_c_c1_d - Math.sin(angle_c_c1_d));
+
+    // Find area of segment of circle 2, subtended from chord bd:
+    let angle_b_c2_d = Math.acos((2 * circle2.r ** 2 - polygon_red_side_bd ** 2) / (2 * circle2.r ** 2));
+    let area_segment_bd = 0.5 * circle2.r ** 2 * (angle_b_c2_d - Math.sin(angle_b_c2_d));
+
+    // Find area of segment of circle 3, subtended from chord ac:
+    let angle_a_c3_c = Math.acos((2 * circle3.r ** 2 - polygon_red_side_ac ** 2) / (2 * circle3.r ** 2));
+    let area_segment_ac = 0.5 * circle3.r ** 2 * (angle_a_c3_c - Math.sin(angle_a_c3_c));
+
+    let red = area_red_polygon + area_segment_ab + area_segment_cd + area_segment_bd + area_segment_ac;
+
+    // Finding y1 (:= top) and y3 (:= bottom) using the same approach to find Red in Case 8 (polygon + 3 subtensions)
+
+    // "Top" Reuleaux triangle:
+    let polygon_top_vertex_a = intersections_2and3[0];
+    let polygon_top_vertex_b: Point;
+    let polygon_top_vertex_c: Point;
+
+    if (euclideanDistance(intersections_1and3[0], polygon_top_vertex_a) < euclideanDistance(intersections_1and3[1], polygon_top_vertex_a)) {
+    polygon_top_vertex_b = intersections_1and3[0];
+    } else {
+    polygon_top_vertex_b = intersections_1and3[1];
+    }
+
+    if (euclideanDistance(intersections_1and2[0], polygon_top_vertex_a) < euclideanDistance(intersections_1and2[1], polygon_top_vertex_a)) {
+    polygon_top_vertex_c = intersections_1and2[0];
+    } else {
+    polygon_top_vertex_c = intersections_1and2[1];
+    }
+
+    let polygon_top_side_ab = euclideanDistance(polygon_top_vertex_a, polygon_top_vertex_b);
+    let polygon_top_side_ac = euclideanDistance(polygon_top_vertex_a, polygon_top_vertex_c);
+    let polygon_top_side_bc = euclideanDistance(polygon_top_vertex_b, polygon_top_vertex_c);
+
+    let polygon_top_angle = Math.acos((polygon_top_side_ab ** 2 + polygon_top_side_ac ** 2 - polygon_top_side_bc ** 2) / (2 * polygon_top_side_ab * polygon_top_side_ac));
+
+    let polygon_top_area = 0.5 * polygon_top_side_ab * polygon_top_side_ac * Math.sin(polygon_top_angle);
+
+    // "Top" segments:
+    let segment_angle_top_circle1 = Math.acos((2 * circle1.r ** 2 - polygon_top_side_bc ** 2) / (2 * circle1.r ** 2));
+    const segment_angle_top_circle2 = Math.acos((2 * circle2.r ** 2 - polygon_top_side_ac ** 2) / (2 * circle2.r ** 2));
+    const segment_angle_top_circle3 = Math.acos((2 * circle3.r ** 2 - polygon_top_side_ab ** 2) / (2 * circle3.r ** 2));
+    
+    const segment_area_top_circle1 = 0.5 * circle1.r ** 2 * (segment_angle_top_circle1 - Math.sin(segment_angle_top_circle1));
+    const segment_area_top_circle2 = 0.5 * circle2.r ** 2 * (segment_angle_top_circle2 - Math.sin(segment_angle_top_circle2));
+    const segment_area_top_circle3 = 0.5 * circle3.r ** 2 * (segment_angle_top_circle3 - Math.sin(segment_angle_top_circle3));
+    
+    const top = polygon_top_area - segment_area_top_circle1 + segment_area_top_circle2 + segment_area_top_circle3;
+    
+    //----
+    
+    //"Bottom" Reuleaux triangle:
+    
+    const polygon_bottom_vertex_a = intersections_2and3[1];
+    
+    let polygon_bottom_vertex_b: Point;
+    let polygon_bottom_vertex_c: Point;
+    
+    if (euclideanDistance(intersections_1and3[0], polygon_bottom_vertex_a) < euclideanDistance(intersections_1and3[1], polygon_bottom_vertex_a)) {
+      polygon_bottom_vertex_b = intersections_1and3[0];
+    } else {
+      polygon_bottom_vertex_b = intersections_1and3[1];
+    }
+    
+    if (euclideanDistance(intersections_1and2[0], polygon_bottom_vertex_a) < euclideanDistance(intersections_1and2[1], polygon_bottom_vertex_a)) {
+      polygon_bottom_vertex_c = intersections_1and2[0];
+    } else {
+      polygon_bottom_vertex_c = intersections_1and2[1];
+    }
+    
+    const polygon_bottom_side_ab = euclideanDistance(polygon_bottom_vertex_a, polygon_bottom_vertex_b);
+    const polygon_bottom_side_ac = euclideanDistance(polygon_bottom_vertex_a, polygon_bottom_vertex_c);
+    const polygon_bottom_side_bc = euclideanDistance(polygon_bottom_vertex_b, polygon_bottom_vertex_c);
+    
+    const polygon_bottom_angle = Math.acos((polygon_bottom_side_ab ** 2 + polygon_bottom_side_ac ** 2 - polygon_bottom_side_bc ** 2) / (2 * polygon_bottom_side_ab * polygon_bottom_side_ac));
+    
+    const polygon_bottom_area = 0.5 * polygon_bottom_side_ab * polygon_bottom_side_ac * Math.sin(polygon_bottom_angle);
+    
+    //"Bottom" segments:
+    
+    const segment_angle_bottom_circle1 = Math.acos((2 * circle1.r ** 2 - polygon_bottom_side_bc ** 2) / (2 * circle1.r ** 2));
+    const segment_angle_bottom_circle2 = Math.acos((2 * circle2.r ** 2 - polygon_bottom_side_ac ** 2) / (2 * circle2.r ** 2));
+    const segment_angle_bottom_circle3 = Math.acos((2 * circle3.r ** 2 - polygon_bottom_side_ab ** 2) / (2 * circle3.r ** 2));
+    
+    const segment_area_bottom_circle1 = 0.5 * circle1.r ** 2 * (segment_angle_bottom_circle1 - Math.sin(segment_angle_bottom_circle1));
+    const segment_area_bottom_circle2 = 0.5 * circle2.r ** 2 * (segment_angle_bottom_circle2 - Math.sin(segment_angle_bottom_circle2));
+    const segment_area_bottom_circle3 = 0.5 * circle3.r ** 2 * (segment_angle_bottom_circle3 - Math.sin(segment_angle_bottom_circle3));
+    
+    const bottom = polygon_bottom_area - segment_area_bottom_circle1 + segment_area_bottom_circle2 + segment_area_bottom_circle3;
+
+    //----------
+
+
+    const green1 = a2 - i2and3 - left;
+    const green2 = a3 - i2and3 - right;
+
+    return [
+        [green1, green2, 0, 0],
+        [top, right, bottom, left],
+        [red, 0, 0, 0]
+    ]
+}
+
+// Case14
+function areas_case14(circle1: Circle, circle2: Circle, circle3: Circle) {
+    const a1 = area_circle(circle1);
+    const a2 = area_circle(circle2);
+    const a3 = area_circle(circle3);
+    
+    const i1and2 = area_overlap_2circles(circle1, circle2);
+    const i1and3 = area_overlap_2circles(circle1, circle3);
+    const i2and3 = area_overlap_2circles(circle2, circle3);
+
+    const red = i1and3;
+
+    const y1 = i1and2 - red;
+    const y2 = i2and3 - red;
+
+    const green1 = a1 - i1and2;
+    const green4 = a3 - i2and3;
+
+    const intersections_1and2 = getIntersection2Circles(circle1, circle2);
+    const intersections_1and3 = getIntersection2Circles(circle1, circle3);  
+    const intersections_2and3 = getIntersection2Circles(circle2, circle3);
+
+    // Finding g2 (:=top) and g3 (:= bottom) areas using polygon + segments---------------------------------------------
+
+    let polygon_top_vertex_c :Point;
+    let polygon_bottom_vertex_c: Point;
+    let polygon_top_vertex_a: Point;
+    let polygon_bottom_vertex_a: Point;
+    let polygon_top_vertex_b: Point;
+    let polygon_bottom_vertex_b: Point;
+
+    if (intersections_1and3[0].y > intersections_1and3[1].y) {
+        polygon_top_vertex_c = intersections_1and3[0];
+        polygon_bottom_vertex_c = intersections_1and3[1];
+    } else {
+        polygon_top_vertex_c = intersections_1and3[1];
+        polygon_bottom_vertex_c = intersections_1and3[0];
+    }
+
+    if (intersections_1and2[0].y > intersections_1and2[1].y) {
+        polygon_top_vertex_a = intersections_1and2[0];
+        polygon_bottom_vertex_a = intersections_1and2[1];
+    } else {
+        polygon_top_vertex_a = intersections_1and2[1];
+        polygon_bottom_vertex_a = intersections_1and2[0];
+    }
+
+    if (intersections_2and3[0].y > intersections_2and3[1].y) {
+        polygon_top_vertex_b = intersections_2and3[0];
+        polygon_bottom_vertex_b = intersections_2and3[1];
+    } else {
+        polygon_top_vertex_b = intersections_2and3[1];
+        polygon_bottom_vertex_b = intersections_2and3[0];
+    }
+
+    const polygon_top_side_ab = euclideanDistance(polygon_top_vertex_a, polygon_top_vertex_b);
+    const polygon_top_side_ac = euclideanDistance(polygon_top_vertex_a, polygon_top_vertex_c);
+    const polygon_top_side_bc = euclideanDistance(polygon_top_vertex_b, polygon_top_vertex_c);
+
+    const polygon_bottom_side_ab = euclideanDistance(polygon_bottom_vertex_a, polygon_bottom_vertex_b);
+    const polygon_bottom_side_ac = euclideanDistance(polygon_bottom_vertex_a, polygon_bottom_vertex_c);
+    const polygon_bottom_side_bc = euclideanDistance(polygon_bottom_vertex_b, polygon_bottom_vertex_c);
+
+    //TOP======================================================================
+    const polygon_top_angle = Math.acos((polygon_top_side_ac ** 2 + polygon_top_side_bc ** 2 - polygon_top_side_ab ** 2) / (2 * polygon_top_side_ac * polygon_top_side_bc)); //angle ACB
+    const polygon_top_area = 0.5 * polygon_top_side_ac * polygon_top_side_bc * Math.sin(polygon_top_angle);
+
+    const top_angle_a_c1_c = Math.acos((2 * circle1.r ** 2 - polygon_top_side_ac ** 2) / (2 * circle1.r ** 2));
+    const top_segment_1 = 0.5 * circle1.r ** 2 * (top_angle_a_c1_c - Math.sin(top_angle_a_c1_c));
+
+    const top_angle_a_c2_b = Math.acos((2 * circle2.r ** 2 - polygon_top_side_ab ** 2) / (2 * circle2.r ** 2));
+    const top_segment_2 = 0.5 * circle2.r ** 2 * (top_angle_a_c2_b - Math.sin(top_angle_a_c2_b));
+
+    const top_angle_c_c2_b = Math.acos((2 * circle3.r ** 2 - polygon_top_side_bc ** 2) / (2 * circle3.r ** 2));
+    const top_segment_3 = 0.5 * circle3.r ** 2 * (top_angle_c_c2_b - Math.sin(top_angle_c_c2_b));
+
+    const green2 = polygon_top_area - top_segment_1 + top_segment_2 - top_segment_3;
+
+    //BOTTOM======================================================================
+    const polygon_bottom_angle = Math.acos((polygon_bottom_side_ac ** 2 + polygon_bottom_side_bc ** 2 - polygon_bottom_side_ab ** 2) / (2 * polygon_bottom_side_ac * polygon_bottom_side_bc)); //angle ACB
+    const polygon_bottom_area = 0.5 * polygon_bottom_side_ac * polygon_bottom_side_bc * Math.sin(polygon_bottom_angle);
+
+    const bottom_angle_a_c1_c = Math.acos((2 * circle1.r ** 2 - polygon_bottom_side_ac ** 2) / (2 * circle1.r ** 2));
+    const bottom_segment_1 = 0.5 * circle1.r ** 2 * (bottom_angle_a_c1_c - Math.sin(bottom_angle_a_c1_c));
+
+    const bottom_angle_a_c2_b = Math.acos((2 * circle2.r ** 2 - polygon_bottom_side_ab ** 2) / (2 * circle2.r ** 2));
+    const bottom_segment_2 = 0.5 * circle2.r ** 2 * (bottom_angle_a_c2_b - Math.sin(bottom_angle_a_c2_b));
+
+    const bottom_angle_c_c2_b = Math.acos((2 * circle3.r ** 2 - polygon_bottom_side_bc ** 2) / (2 * circle3.r ** 2));
+    const bottom_segment_3 = 0.5 * circle3.r ** 2 * (bottom_angle_c_c2_b - Math.sin(bottom_angle_c_c2_b));
+
+    const green3 = polygon_bottom_area - bottom_segment_1 + bottom_segment_2 - bottom_segment_3;
+
+    return [
+        [green1, green2, green3, green4],
+        [y1, y2, 0, 0],
+        [red, 0, 0, 0]
+    ]
+}
