@@ -84,7 +84,11 @@ class Map_ extends React.Component {
         }).catch((err) => {
             console.error(err);
         });
-        this.fetchHeatMap();
+        setTimeout(function() {
+
+            // code to be executed after 5 seconds
+          
+          }, 1000);
     }
 
     render() {
