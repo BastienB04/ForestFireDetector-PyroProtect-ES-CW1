@@ -157,7 +157,7 @@ function circleToHeat([radius1, radius2, radius3], array)
                 return Math.sqrt(Math.pow(stationInfo.circle.x - element.x, 2) + Math.pow(stationInfo.circle.y -element.y, 2));
             });
             const x = [distance1 < radius1*kmToSquareRatio ? 1 : 0, distance2 < radius2*kmToSquareRatio  ? 1 : 0, distance3 < radius3*kmToSquareRatio  ? 1 : 0,];
-            
+
             switch (x.join(' ')){
                 case'0 0 0':
                     element.color = 'rgba(0,0,0,0)';
@@ -209,7 +209,7 @@ function circleToHeat([radius1, radius2, radius3], array)
 
         });
     });
-    HeatMap[cachedData["device1"].x_pos][cachedData["device1"].y_pos].color = 'rgba(0,0,255, 0.5)';
+    HeatMap[stationHG.stationList[0].circle.x][cachedData["device1"].y_pos].color = 'rgba(0,0,255, 0.5)';
     HeatMap[cachedData["device2"].x_pos][cachedData["device2"].y_pos].color = 'rgba(0,0,255, 0.5)';
     HeatMap[cachedData["device3"].x_pos][cachedData["device3"].y_pos].color = 'rgba(0,0,255, 0.5)';
 }

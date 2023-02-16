@@ -639,6 +639,13 @@ function findColouredAreas([circle1, circle2, circle3]) {
     else if (Case[0] === 14) {
         coloured_areas = areas_case14(circle1_, circle2_, circle3_);
     }
+    else {
+        coloured_areas = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ];
+    }
     return coloured_areas;
 }
 exports.findColouredAreas = findColouredAreas;

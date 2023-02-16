@@ -828,6 +828,13 @@ function findColouredAreas([circle1, circle2, circle3]: Circle[]): number[][] {
     } else if (Case[0] === 14) {
         coloured_areas = areas_case14(circle1_, circle2_, circle3_);
     }
+    else{
+        coloured_areas = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+    }
       
     //   console.log("Green: ", coloured_areas[0]);
     //   console.log("Yellow: ", coloured_areas[1]);
