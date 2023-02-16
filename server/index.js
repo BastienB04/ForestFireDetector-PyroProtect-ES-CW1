@@ -49,9 +49,9 @@ const cachedData = {
 
 var pos_array = fs.readFileSync("positions.txt").toString().split("\n").map(x => x.split(","));
 const stationHQ = new StationBuilder('FWI');
-const station1 = stationHQ.build(pos_array[0][0],pos_array[0][1]);
-const station2 = stationHQ.build(pos_array[1][0],pos_array[1][1]);
-const station3 = stationHQ.build(pos_array[2][0],pos_array[2][1]);
+const station1 = stationHQ.build(int(pos_array[0][0]),int(pos_array[0][1]));
+const station2 = stationHQ.build(int(pos_array[1][0]),int(pos_array[1][1]));
+const station3 = stationHQ.build(int(pos_array[2][0]),int(pos_array[2][1]));
 
 const stationMap = {
     "station-0": station1,
