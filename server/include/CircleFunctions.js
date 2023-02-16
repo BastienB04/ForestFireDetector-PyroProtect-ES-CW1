@@ -209,7 +209,7 @@ function areas_case3(circle1, circle2, circle3) {
     green1 -= yellow;
     const green2 = area_circle(circle3);
     return [
-        [green1, green2, 0, 0],
+        [0, green1, green2, 0],
         [yellow, 0, 0, 0],
         [0, 0, 0, 0]
     ];
@@ -222,8 +222,8 @@ function areas_case4(circle1, circle2, circle3) {
     const yellow = a2 - a1;
     const green = a3 - a2;
     return [
-        [green, 0, 0, 0],
-        [yellow, 0, 0, 0],
+        [0, 0, green, 0],
+        [0, yellow, 0, 0],
         [red, 0, 0, 0]
     ];
 }
@@ -235,8 +235,8 @@ function areas_case5(circle1, circle2, circle3) {
     const yellow2 = a2 - red;
     let green = area_circle(circle3) - yellow1 - yellow2 - red;
     return [
-        [green, 0, 0, 0],
-        [yellow1, yellow2, 0, 0],
+        [0, 0, green, 0],
+        [0, yellow2, yellow1, 0],
         [red, 0, 0, 0]
     ];
 }
@@ -245,8 +245,8 @@ function areas_case6(circle1, circle2, circle3) {
     const a2 = area_circle(circle2);
     const green = area_circle(circle3) - a1 - a2;
     return [
-        [green, 0, 0, 0],
-        [a1, a2, 0, 0],
+        [0, 0, green, 0],
+        [0, a2, a1, 0],
         [0, 0, 0, 0]
     ];
 }
@@ -257,7 +257,7 @@ function areas_case7(circle1, circle2, circle3) {
     const a3 = area_circle(circle3) - yellow;
     return [
         [a1, a2, a3, 0],
-        [yellow, 0, 0, 0],
+        [0, yellow, 0, 0],
         [0, 0, 0, 0]
     ];
 }
@@ -356,7 +356,7 @@ function areas_case11(circle1, circle2, circle3) {
     const g1 = a2 - (y1 + y2 + red);
     const g2 = a3 - (y2 + red);
     return [
-        [g1, g2, 0, 0],
+        [0, g1, g2, 0],
         [y1, y2, 0, 0],
         [red, 0, 0, 0]
     ];
@@ -368,8 +368,8 @@ function areas_case12(circle1, circle2, circle3) {
     const green2 = area_circle(circle3) - yellow;
     yellow -= red;
     return [
-        [green1, green2, 0, 0],
-        [yellow, 0, 0, 0],
+        [0, green1, green2, 0],
+        [0, yellow, 0, 0],
         [red, 0, 0, 0]
     ];
 }
@@ -478,8 +478,8 @@ function areas_case13(circle1, circle2, circle3) {
     const green1 = a2 - i2and3 - left;
     const green2 = a3 - i2and3 - right;
     return [
-        [green1, green2, 0, 0],
-        [top, right, bottom, left],
+        [0, green1, green2, 0],
+        [left, top, right, bottom],
         [red, 0, 0, 0]
     ];
 }
@@ -553,7 +553,7 @@ function areas_case14(circle1, circle2, circle3) {
     const bottom_segment_3 = 0.5 * circle3.r ** 2 * (bottom_angle_c_c2_b - Math.sin(bottom_angle_c_c2_b));
     const green3 = polygon_bottom_area - bottom_segment_1 + bottom_segment_2 - bottom_segment_3;
     return [
-        [green1, green2, green3, green4],
+        [green1, green2, green4, green3],
         [y1, y2, 0, 0],
         [red, 0, 0, 0]
     ];
