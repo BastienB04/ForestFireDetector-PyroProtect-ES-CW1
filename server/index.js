@@ -354,8 +354,8 @@ const server = http.createServer((req, res) => {
             });
             req.on('end', function(){
                 var data = JSON.parse(recieved);
-                cachedData[data["device"]].x_pos = data["x"];
-                cachedData[data["device"]].y_pos = data["y"];
+                cachedData[data["device"]].x_pos = parseInt(data["x"]);
+                cachedData[data["device"]].y_pos = parseInt(data["y"]);
                 fs.writeFileSync("positions.txt",
                     cachedData["device1"].x_pos + "," + cachedData["device1"].y_pos + "\n" +
                     cachedData["device2"].x_pos + "," + cachedData["device2"].y_pos + "\n" +
