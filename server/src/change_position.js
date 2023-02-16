@@ -16,7 +16,7 @@ class PositionForm extends React.Component {
     this.setState({x: event.target.x});
   }
   handleChange2(event) {
-    this.setState({x: event.target.y});
+    this.setState({y: event.target.y});
   }
 
   handleSubmit(event) {
