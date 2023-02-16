@@ -12,11 +12,11 @@ class StationBuilder {
     readonly defaultIndex: string = 'FWI';
     private uniqueId: number = 0; 
     private chosenIndex: string;
-    private stationList: StationInfo[];
+    private _stationList: StationInfo[];
 
     constructor(_chosenIndex: string){
         this.chosenIndex = _chosenIndex;
-        this.stationList = [];
+        this._stationList = [];
     }
 
     public build(x: number, y: number){
@@ -33,7 +33,7 @@ class StationBuilder {
                     }
                 }
                 this.uniqueId += 1;
-                this.stationList.push(info);
+                this._stationList.push(info);
                 // res.readings = params;
                 // res.temperature = params.temperature;
                 // res.relativeHumidity = params.relativeHumidity;
@@ -45,6 +45,10 @@ class StationBuilder {
                 throw new Error("NO INDEX CHOSEN");
             }
         }
+    }
+
+    public get stationList(): StationInfo[]{
+        return this._stationList;
     }
 
     public getProbabilities():number[][]{

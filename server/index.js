@@ -205,6 +205,7 @@ function circleToHeat([radius1, radius2, radius3], array)
             // var distance1 = Math.sqrt(Math.pow(cachedData["device1"].x_pos - element.x,2) + Math.pow( cachedData["device1"].y_pos - element.y, 2));
             // var distance2 = Math.sqrt(Math.pow(cachedData["device2"].x_pos - element.x,2) + Math.pow( cachedData["device2"].y_pos - element.y, 2));
             // var distance3 = Math.sqrt(Math.pow(cachedData["device3"].x_pos - element.x,2) + Math.pow( cachedData["device3"].y_pos - element.y, 2));
+            console.log(stationHQ.stationList.)
             [circle1_, circle2_, circle3_] = rearange([stationHQ.stationList[0].circle, stationHQ.stationList[1].circle, stationHQ.stationList[2].circle]);
             var distance1 = Math.sqrt(Math.pow(circle1_.x - element.x, 2) + Math.pow(circle1_.y - element.y, 2));
             var distance2 = Math.sqrt(Math.pow(circle2_.x - element.x, 2) + Math.pow(circle2_.y - element.y, 2));

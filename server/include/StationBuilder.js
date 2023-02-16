@@ -7,10 +7,10 @@ class StationBuilder {
     defaultIndex = 'FWI';
     uniqueId = 0;
     chosenIndex;
-    stationList;
+    _stationList;
     constructor(_chosenIndex) {
         this.chosenIndex = _chosenIndex;
-        this.stationList = [];
+        this._stationList = [];
     }
     build(x, y) {
         switch (this.chosenIndex) {
@@ -26,13 +26,16 @@ class StationBuilder {
                     }
                 };
                 this.uniqueId += 1;
-                this.stationList.push(info);
+                this._stationList.push(info);
                 return res;
             }
             default: {
                 throw new Error("NO INDEX CHOSEN");
             }
         }
+    }
+    get stationList() {
+        return this._stationList;
     }
     getProbabilities() {
         if (this.stationList.length < 3) {
