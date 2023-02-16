@@ -157,7 +157,7 @@ function circleToHeat([radius1, radius2, radius3], array)
                 return Math.sqrt(Math.pow(stationInfo.circle.x - element.x, 2) + Math.pow(stationInfo.circle.y -element.y, 2));
             });
             const x = [distance1 < radius1*kmToSquareRatio ? 1 : 0, distance2 < radius2*kmToSquareRatio  ? 1 : 0, distance3 < radius3*kmToSquareRatio  ? 1 : 0,];
-            
+            console.log(x);
             switch (x.join(' ')){
                 case'0 0 0':
                     element.color = 'rgba(0,0,0,0)';
