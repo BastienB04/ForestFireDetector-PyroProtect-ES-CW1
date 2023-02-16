@@ -150,9 +150,12 @@ function circleToHeat([radius1, radius2, radius3], array)
 {
     HeatMap.forEach((row) =>{
         row.forEach((element) =>{
-            var distance1 = Math.sqrt(Math.pow(cachedData["device1"].x_pos - element.x,2) + Math.pow( cachedData["device1"].y_pos - element.y, 2));
-            var distance2 = Math.sqrt(Math.pow(cachedData["device2"].x_pos - element.x,2) + Math.pow( cachedData["device2"].y_pos - element.y, 2));
-            var distance3 = Math.sqrt(Math.pow(cachedData["device3"].x_pos - element.x,2) + Math.pow( cachedData["device3"].y_pos - element.y, 2));
+            // var distance1 = Math.sqrt(Math.pow(cachedData["device1"].x_pos - element.x,2) + Math.pow( cachedData["device1"].y_pos - element.y, 2));
+            // var distance2 = Math.sqrt(Math.pow(cachedData["device2"].x_pos - element.x,2) + Math.pow( cachedData["device2"].y_pos - element.y, 2));
+            // var distance3 = Math.sqrt(Math.pow(cachedData["device3"].x_pos - element.x,2) + Math.pow( cachedData["device3"].y_pos - element.y, 2));
+            [distance1, distance2, distance3] = stationHQ.stationList.map((stationInfo) => {
+                return Math.sqrt(Math.pow(stationInfo.circle.x - element.x, 2) + Math.pow(stationInfo.circle.y -element.y, 2));
+            });
             const x = [distance1 < radius1*kmToSquareRatio ? 1 : 0, distance2 < radius2*kmToSquareRatio  ? 1 : 0, distance3 < radius3*kmToSquareRatio  ? 1 : 0,];
             
             switch (x.join(' ')){
