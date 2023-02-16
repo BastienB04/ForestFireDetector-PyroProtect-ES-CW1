@@ -128,6 +128,7 @@ class Map_ extends React.Component {
     }
 }
 
+
 const domContainer = document.querySelector('#grid');
 if (domContainer) {
     const root = ReactDOM.createRoot(domContainer);

@@ -6,11 +6,12 @@ const { StationBuilder } = require('./include/StationBuilder');
 const nodemailer = require('nodemailer');
 const { sendEmail } = require('./src/mail')
 const { spawn } = require('child_process');
-
+const {SampleForm} = require('./src/Compile_sampleRate');
+const e = React.createElement;
 const kmToSquareRatio = 10;
 
 
-
+var sampleRate = 5;
 //-------------------------------------------------------------------------------------------------------------------------------
 //                                                  VARIABLES
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -347,6 +348,18 @@ const server = http.createServer((req, res) => {
             res.statusCode = 200;
             res.end();
         }
+        else if(req.url.startsWith('/api/SampleRateChange')){
+            var recieved = '';
+            req.on('data', function(data){
+                recieved += data
+            });
+            req.on('end', function(){
+                var data = JSON.parse(recieved);
+                sampleRate = data["sample"];
+            })
+            res.statusCode = 200;
+            res.end();
+        }
         else if(req.url.startsWith('/api/ChangePosition')){
             var recieved = '';
             req.on('data', function(data){
@@ -376,7 +389,13 @@ server.listen(port, () => {
 });
 
 
-
+const domContainer = document.querySelector('#form');
+if (domContainer) {
+    const root = ReactDOM.createRoot(domContainer);
+    root.render(e(SampleForm));
+} else {
+    console.error("Element with id 'test' not found in the HTML");
+}
 // function sleep(ms) {
 //     return new Promise(resolve => setTimeout(resolve, ms));
 // }
