@@ -201,7 +201,7 @@ function circleToHeat([radius1, radius2, radius3], array)
                     break;
                 case '0 1 1':
                     console.log('case13');
-                    if (!array[1][3] || element.y > cachedData["device1"].y_pos) {
+                    if (!array[1][3] || element.y > stationHQ[0].circle.y) {
                     element.color = 'rgba(255,255,0,0.5)';
                     element.probability = array[1][1];
                     } else {
