@@ -34,7 +34,7 @@ class StationBuilder {
             }
         }
     }
-    getProbablities() {
+    getProbabilities() {
         if (this.stationList.length < 3) {
             throw new Error("not enough stations");
         }
