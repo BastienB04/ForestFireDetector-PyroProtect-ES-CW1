@@ -113,6 +113,8 @@ class FWIStation extends Station_1.Station {
         return this;
     }
     calculateDC() {
+        console.log('ahhhhhhh');
+        console.log(this.currentDC);
         const L_f = this.effectiveDayLengthFactor;
         const tmp = Math.max(this.temperature, -2.8);
         const V = Math.max(0.36 * (tmp + 2.8) + L_f, 0);

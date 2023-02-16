@@ -152,6 +152,8 @@ class FWIStation extends Station{
 
     // Drought Code
     private calculateDC(): FWIStation{
+        console.log('ahhhhhhh');
+        console.log(this.currentDC);
         const L_f = this.effectiveDayLengthFactor;
 
         const tmp = Math.max(this.temperature, -2.8); // if temperature < -2.8 then tmp = -2.8
