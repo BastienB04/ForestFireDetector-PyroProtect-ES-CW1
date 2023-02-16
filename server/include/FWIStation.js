@@ -155,6 +155,8 @@ class FWIStation extends Station_1.Station {
         return this;
     }
     updateFWI() {
+        console.log(this.temperature);
+        console.log(this.currentFWI);
         return this.calculateFFMC()
             .calculateDMC()
             .calculateDC()
