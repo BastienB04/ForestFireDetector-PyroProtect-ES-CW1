@@ -67,6 +67,12 @@ let tmpReadings = {
 stationMap["station-0"].readings = tmpReadings;
 
 stationMap["station-1"].readings = tmpReadings;
+tmpReadings = {
+    temperature: 50,
+    relativeHumidity: 1,
+    windSpeed: 0,
+    precipitation:1
+}
 stationMap["station-2"].readings = tmpReadings;
 
 

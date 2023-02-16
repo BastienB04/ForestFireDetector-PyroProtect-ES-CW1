@@ -13,112 +13,64 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import Map_ from './Map_';
-function templateConcat(n, str) {
-  res = str;
-  for (i = 0; i < n - 1; i++) {
-    res += " " + str;
+var e = React.createElement;
+var SampleForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SampleForm, _React$Component);
+  var _super = _createSuper(SampleForm);
+  function SampleForm(props) {
+    var _this;
+    _classCallCheck(this, SampleForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      value: 5
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
   }
-  return res;
-}
-var map;
-var zoomLevel = 15;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
-    center: {
-      lat: 51.5088,
-      lng: -0.1749
-    },
-    mapTypeId: "satellite"
-  });
-  var bounds = new google.maps.LatLngBounds(new google.maps.LatLng(51.5009, -0.1826), new google.maps.LatLng(51.5100, -0.1589));
-  var CustomOverlay = /*#__PURE__*/function (_google$maps$OverlayV) {
-    _inherits(CustomOverlay, _google$maps$OverlayV);
-    var _super = _createSuper(CustomOverlay);
-    function CustomOverlay(bounds) {
-      var _this;
-      _classCallCheck(this, CustomOverlay);
-      _this = _super.call(this);
-      _this.bounds = bounds;
-      _this.div = null;
-      return _this;
+  _createClass(SampleForm, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      this.setState({
+        value: event.target.value
+      });
     }
-    _createClass(CustomOverlay, [{
-      key: "onAdd",
-      value: function onAdd() {
-        this.div = document.createElement('div');
-        this.div.style.border = "none";
-        this.div.style.borderWidth = "0px";
-        this.div.style.position = "absolute";
-        this.div.style.width = "100%";
-        this.div.style.height = "100%";
-        this.div.style.display = 'grid';
-        this.div.style.gridTemplateColumns = templateConcat(10, '40px');
-        this.div.style.gridTemplateRows = templateConcat(10, '40px');
-        ReactDOM.render( /*#__PURE__*/React.createElement(Map_, null), this.div);
-        this.getPanes().overlayLayer.appendChild(this.div);
-      }
-    }, {
-      key: "onRemove",
-      value: function onRemove() {
-        this.div.parentNode.removeChild(this.div);
-        this.div = null;
-      }
-    }, {
-      key: "draw",
-      value: function draw() {
-        var overlayProjection = this.getProjection();
-        if (!overlayProjection) {
-          return;
-        }
-        var sw = overlayProjection.fromLatLngToDivPixel(this.bounds.getSouthWest());
-        var ne = overlayProjection.fromLatLngToDivPixel(this.bounds.getNorthEast());
-        if (this.div) {
-          this.div.style.left = sw.x + "px";
-          this.div.style.top = ne.y + "px"; // Change to use ne.y instead of sw.y
-          var factor = Math.pow(2, zoomLevel - 15);
-          this.div.style.gridTemplateColumns = templateConcat(20, 40 * factor + 'px');
-          this.div.style.gridTemplateRows = templateConcat(20, 40 * factor + 'px');
-          //this.div.style.width = ne.x - sw.x + "px";
-          //this.div.style.height = sw.y - ne.y + "px"; // Change to use sw.y - ne.y instead of ne.y - sw.y
-        }
-
-        google.maps.event.addListener(map, "zoom_changed", function () {
-          // Get the current zoom level
-          zoomLevel = map.getZoom();
-          console.log(zoomLevel);
-        });
-      }
-    }]);
-    return CustomOverlay;
-  }(google.maps.OverlayView);
-  var customOverlay = new CustomOverlay(bounds);
-  customOverlay.setMap(map);
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      var requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          sample: this.state.value
+        })
+      };
+      fetch('http://13.41.188.158:8080/api/SampleRateChange', requestOptions);
+      event.preventDefault();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/React.createElement("label", null, "SampleRate:", /*#__PURE__*/React.createElement("input", {
+        type: "number",
+        value: this.state.value,
+        onChange: this.handleChange
+      })), /*#__PURE__*/React.createElement("input", {
+        type: "submit",
+        value: "Submit"
+      }));
+    }
+  }]);
+  return SampleForm;
+}(React.Component);
+var domContainer2 = document.querySelector('#form');
+if (domContainer2) {
+  var root = ReactDOM.createRoot(domContainer2);
+  root.render(e(SampleForm));
+} else {
+  console.error("Element with id 'test' not found in the HTML");
 }
-
-// function initMap() {
-//   const map = new google.maps.Map(document.getElementById('map'), {
-//     center: { lat: 51.4988, lng: 0.1749 },
-//     zoom: 8
-//   });
-
-//   const customOverlay = new google.maps.OverlayView();
-//   customOverlay.onAdd = function () {
-//     const div = document.createElement('div');
-//     div.id = 'grid';
-//     div.style.display = "flex";
-//     div.style.alignItems = "center";
-//     div.style.justifyContent = "center";
-//     div.style.position = "absolute";
-//     div.style.width = "100%";
-//     div.style.height = "100%";
-
-//     ReactDOM.render(<Map_ />, div);
-//     this.getPanes().floatPane.appendChild(div);
-//   };
-
-//   customOverlay.setMap(map);
-// };
