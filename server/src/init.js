@@ -1,5 +1,4 @@
 const e = React.createElement;
-const {SampleForm} = require('./sampleRate');
 // require('dotenv').config()
 // const HOST = process.env.HOST
 const HOST = 'http://13.41.188.158:8080'
@@ -137,10 +136,4 @@ if (domContainer) {
 } else {
     console.error("Element with id 'test' not found in the HTML");
 }
-const domContainer2 = document.querySelector('#form');
-if (domContainer2) {
-    const root = ReactDOM.createRoot(domContainer2);
-    root.render(e(SampleForm));
-} else {
-    console.error("Element with id 'test' not found in the HTML");
-}
+

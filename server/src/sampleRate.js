@@ -1,4 +1,4 @@
-
+const e = React.createElement;
 
 class SampleForm extends React.Component {
   constructor(props) {
@@ -34,4 +34,11 @@ class SampleForm extends React.Component {
       </form>
     );
   }
+}
+const domContainer2 = document.querySelector('#form');
+if (domContainer2) {
+    const root = ReactDOM.createRoot(domContainer2);
+    root.render(e(SampleForm));
+} else {
+    console.error("Element with id 'test' not found in the HTML");
 }
