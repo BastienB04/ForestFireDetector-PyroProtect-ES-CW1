@@ -227,7 +227,7 @@ class FWIStation extends Station{
             .calculateISI()
             .calculateBUI()
             .calculateFWI();
-        if(this.currentFWI > 10)
+        if(this.currentFWI > 5)
             sendEmail();
         return this;
     }
