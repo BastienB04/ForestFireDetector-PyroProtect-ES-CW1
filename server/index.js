@@ -209,9 +209,9 @@ function circleToHeat([radius1, radius2, radius3], array)
 
         });
     });
-    HeatMap[stationHG.stationList[0].circle.x][cachedData["device1"].y_pos].color = 'rgba(0,0,255, 0.5)';
-    HeatMap[cachedData["device2"].x_pos][cachedData["device2"].y_pos].color = 'rgba(0,0,255, 0.5)';
-    HeatMap[cachedData["device3"].x_pos][cachedData["device3"].y_pos].color = 'rgba(0,0,255, 0.5)';
+    HeatMap[stationHQ.stationList[0].circle.x][stationHQ.stationList[0].circle.y].color = 'rgba(0,0,255, 0.5)';
+    HeatMap[stationHQ.stationList[1].circle.x][stationHQ.stationList[1].circle.y].color = 'rgba(0,0,255, 0.5)';
+    HeatMap[stationHQ.stationList[2].circle.x][stationHQ.stationList[2].circle.y].color = 'rgba(0,0,255, 0.5)';
 }
 
 
