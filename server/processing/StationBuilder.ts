@@ -56,7 +56,6 @@ class StationBuilder {
         }
         this.stationList.forEach((stationInfo) => {
             stationInfo.station.update();
-            console.log(stationInfo.station.fireIndex);
             stationInfo.circle.r = radiusFromFWI(stationInfo.station.fireIndex);
         });
         const tmp: number[][] = findColouredAreas(this.stationList.map((val) => {return val.circle}));

@@ -43,7 +43,6 @@ class StationBuilder {
         }
         this.stationList.forEach((stationInfo) => {
             stationInfo.station.update();
-            console.log(stationInfo.station.fireIndex);
             stationInfo.circle.r = (0, CircleFunctions_1.radiusFromFWI)(stationInfo.station.fireIndex);
         });
         const tmp = (0, CircleFunctions_1.findColouredAreas)(this.stationList.map((val) => { return val.circle; }));

@@ -163,11 +163,7 @@ class FWIStation extends Station_1.Station {
             .calculateFWI();
     }
     update() {
-        if (this.updated) {
-            this.updated = false;
-            return this.updateFWI();
-        }
-        return this.currentFWI;
+        return this.updateFWI();
     }
 }
 exports.FWIStation = FWIStation;
