@@ -8,17 +8,18 @@ class PositionForm extends React.Component {
 
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
+    this.handleChange3 = this.handleChange3.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange1(event) {
-    this.setState({x: event.target.value, y: this.state.y});
+    this.setState({x: event.target.value, y: this.state.y, d:this.state.d});
   }
   handleChange2(event) {
-    this.setState({y: event.target.value, x: this.state.x});
+    this.setState({y: event.target.value, x: this.state.x, d : this.state.d});
   }
   handleChange3(event) {
-    this.setState({d : event.target.value});
+    this.setState({d : event.target.value, x : this.state.x, y:this.state.y});
   }
   handleSubmit(event) {
     const requestOptions = {
