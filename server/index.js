@@ -6,8 +6,6 @@ const { StationBuilder } = require('./include/StationBuilder');
 const nodemailer = require('nodemailer');
 const { sendEmail } = require('./src/mail')
 const { spawn } = require('child_process');
-const {SampleForm} = require('./src/Compiled_sampleRate');
-const e = React.createElement;
 const kmToSquareRatio = 10;
 
 
@@ -389,13 +387,7 @@ server.listen(port, () => {
 });
 
 
-const domContainer = document.querySelector('#form');
-if (domContainer) {
-    const root = ReactDOM.createRoot(domContainer);
-    root.render(e(SampleForm));
-} else {
-    console.error("Element with id 'test' not found in the HTML");
-}
+
 // function sleep(ms) {
 //     return new Promise(resolve => setTimeout(resolve, ms));
 // }
