@@ -462,7 +462,7 @@ const server = http.createServer((req, res) => {
             req.on('end', function(){
                 var data = JSON.parse(recieved);
                 console.log(data);
-                var index = stationHQ.setPosition(data["device"], data["x"], data["y"]);
+                var index = stationHQ.setPosition(data["device"], parseInt(data["x"]), parseInt(data["y"]));
                 var pos = fs.readFileSync("positions.txt").toString().split("\n").map(x => x.split(","));
                 pos[index] = [data["x"], data["y"]];
                 fs.writeFileSync("positions.txt",
