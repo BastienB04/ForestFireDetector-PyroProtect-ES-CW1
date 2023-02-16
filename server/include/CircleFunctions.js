@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findProbabilities = exports.findColouredAreas = exports.radiusFromFWI = void 0;
 function radiusFromFWI(FWI) {
+    console.log(FWI);
     if (typeof (FWI) == "undefined") {
         return 10000;
     }
