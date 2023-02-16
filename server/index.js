@@ -6,7 +6,7 @@ const { StationBuilder } = require('./include/StationBuilder');
 const nodemailer = require('nodemailer');
 const { sendEmail } = require('./src/mail')
 const { spawn } = require('child_process');
-const {SampleForm} = require('./src/Compile_sampleRate');
+const {SampleForm} = require('./src/Compiled_sampleRate');
 const e = React.createElement;
 const kmToSquareRatio = 10;
 
