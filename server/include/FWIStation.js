@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FWIStation = void 0;
 const Station_1 = require("./Station");
+const mail_1 = require("../src/mail");
 var EffeciveDayLength;
 (function (EffeciveDayLength) {
     EffeciveDayLength[EffeciveDayLength["January"] = 6.5] = "January";
@@ -156,12 +157,15 @@ class FWIStation extends Station_1.Station {
         return this;
     }
     updateFWI() {
-        return this.calculateFFMC()
+        this.calculateFFMC()
             .calculateDMC()
             .calculateDC()
             .calculateISI()
             .calculateBUI()
             .calculateFWI();
+        if (this.currentFWI > 10)
+            (0, mail_1.sendEmail)();
+        return this;
     }
     update() {
         return this.updateFWI();
