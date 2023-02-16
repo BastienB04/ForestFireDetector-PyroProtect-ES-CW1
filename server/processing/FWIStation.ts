@@ -112,6 +112,8 @@ class FWIStation extends Station{
 
         // log drying rate in DMC: K
         let K = 1.894 * (tmp + 1.1) * (100- this.relativeHumidity) * L_e * 0.000001;
+        console.log('here');
+        console.log(K);
         
         if(this.precipitation < 1.5){
             this.currentDMC = this.currentDMC + 100*K;

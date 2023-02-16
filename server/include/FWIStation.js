@@ -90,6 +90,8 @@ class FWIStation extends Station_1.Station {
         let L_e = this.effectiveDayLength;
         const tmp = Math.max(this.temperature, -1.1);
         let K = 1.894 * (tmp + 1.1) * (100 - this.relativeHumidity) * L_e * 0.000001;
+        console.log('here');
+        console.log(K);
         if (this.precipitation < 1.5) {
             this.currentDMC = this.currentDMC + 100 * K;
             return this;
