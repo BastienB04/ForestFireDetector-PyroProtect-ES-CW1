@@ -71,6 +71,19 @@ class StationBuilder {
             return val.circle.r;
         })
     }
+    public setPosition(name, x, y):number{
+        var counter = 0;
+        this.stationList.forEach((element) =>{
+            if(element.id == name)
+            {
+                element.circle.x = x;
+                element.circle.y = y;
+                return counter;
+            }
+            counter++;
+        });
+        return -1;
+    }
 }
 
 export { StationBuilder }

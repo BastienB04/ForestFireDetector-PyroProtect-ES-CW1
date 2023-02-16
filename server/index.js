@@ -47,11 +47,11 @@ const cachedData = {
 
 }
 
-
+var pos_array = fs.readFileSync("positions.txt").toString().split("\n").map(x => x.split(","));
 const stationHQ = new StationBuilder('FWI');
-const station1 = stationHQ.build(3,3);
-const station2 = stationHQ.build(4,12);
-const station3 = stationHQ.build(14,5);
+const station1 = stationHQ.build(pos_array[0][0],pos_array[0][1]);
+const station2 = stationHQ.build(pos_array[1][0],pos_array[1][1]);
+const station3 = stationHQ.build(pos_array[2][0],pos_array[2][1]);
 
 const stationMap = {
     "station-0": station1,
@@ -110,14 +110,7 @@ for(let i=0; i<GRIDSIZE; i++){
     }
     HeatMap.push(tmp);
 }
-var pos_array = fs.readFileSync("positions.txt").toString().split("\n").map(x => x.split(","));
-console.log(pos_array);
-cachedData["device1"].x_pos = parseInt(pos_array[0][0]);
-cachedData["device1"].y_pos = parseInt(pos_array[0][1]);
-cachedData["device2"].x_pos = parseInt(pos_array[1][0]);
-cachedData["device2"].y_pos = parseInt(pos_array[1][1]);
-cachedData["device3"].x_pos = parseInt(pos_array[2][0]);
-cachedData["device3"].y_pos = parseInt(pos_array[2][1]);
+
 
 
 const initData = {
@@ -469,12 +462,13 @@ const server = http.createServer((req, res) => {
             req.on('end', function(){
                 var data = JSON.parse(recieved);
                 console.log(data);
-                cachedData[data["device"]].x_pos = parseInt(data["x"]);
-                cachedData[data["device"]].y_pos = parseInt(data["y"]);
+                var index = stationHQ.setPosition(data["device"], data["x"], data["y"]);
+                var pos = fs.readFileSync("positions.txt").toString().split("\n").map(x => x.split(","));
+                pos[index] = [data["x"], data["y"]];
                 fs.writeFileSync("positions.txt",
-                    cachedData["device1"].x_pos + "," + cachedData["device1"].y_pos + "\n" +
-                    cachedData["device2"].x_pos + "," + cachedData["device2"].y_pos + "\n" +
-                    cachedData["device3"].x_pos + "," + cachedData["device3"].y_pos + "\n" 
+                    pos[0][0]+ "," + pos[0][1] + "\n" +
+                    pos[1][0]+ "," + pos[1][1] + "\n" +
+                    pos[2][0]+ "," + pos[2][1] + "\n" 
                 );
             })
             res.statusCode = 301;

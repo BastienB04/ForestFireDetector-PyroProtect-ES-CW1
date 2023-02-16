@@ -27,7 +27,7 @@ class PositionForm extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({x : this.state.x,
              y : this.state.y,
-              device:("device" + this.state.d)})
+              device:("station-" + this.state.d)})
     };
     fetch('http://13.41.188.158:8080/api/ChangePosition', requestOptions);
     event.preventDefault();
