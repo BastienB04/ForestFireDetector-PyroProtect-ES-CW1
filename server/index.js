@@ -6,7 +6,7 @@ const { StationBuilder } = require('./include/StationBuilder');
 const nodemailer = require('nodemailer');
 const { sendEmail } = require('./src/mail')
 const { spawn } = require('child_process');
-const kmToSquareRatio = 0.1;
+const kmToSquareRatio = 0.5;
 
 
 var sampleRate = 5;
