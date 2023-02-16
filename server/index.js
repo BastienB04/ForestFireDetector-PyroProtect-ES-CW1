@@ -31,7 +31,7 @@ const cachedData = {
     "device2": {
         deviceId: 2,
         x_pos: 15,
-        y_pos: 19,
+        y_pos: 9,
         status:{
             gas: null,
             temperature: null,
@@ -148,7 +148,7 @@ function circleToHeat(radius1, radius2, radius3, array)
                     element.probability = array[0][2];
                     break;
                 case '1 0 1':
-                    element.color = 'rgba(255,0,0,0.5)';
+                    element.color = 'rgba(255,255,0,0.5)';
                     element.probability = array[1][2];
                     break;
                 case '1 1 0':
@@ -262,9 +262,9 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Content-Type', 'application/json');
                 res.write(JSON.stringify(HeatMap));
                 res.end();
-                circleToHeat(1,1,0.6,[  [0, 1, 2, 3],
-                    [4, 5, 6, 7],
-                    [8, 9, 10, 11]
+                circleToHeat(1,1,0.6,[  [0.2, 0.3, 0.25, 0],
+                    [0.5, 0.3, 0.2, 0.2],
+                    [0.8, 0, 0, 0]
                   ]);
             }
             else if(req.url.startsWith('/api/initData')){
