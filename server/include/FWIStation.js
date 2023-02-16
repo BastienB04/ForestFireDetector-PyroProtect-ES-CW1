@@ -159,11 +159,15 @@ class FWIStation extends Station_1.Station {
         console.log(this.currentFWI);
         this.calculateFFMC();
         console.log(`FFMC: ${this.currentFFMC}`);
-        this.calculateDMC()
-            .calculateDC()
-            .calculateISI()
-            .calculateBUI()
-            .calculateFWI();
+        this.calculateDMC();
+        console.log(`DMC: ${this.currentDMC}`);
+        this.calculateDC();
+        console.log(`DC: ${this.currentDC}`);
+        this.calculateISI();
+        console.log(`ISI: ${this.currentISI}`);
+        this.calculateBUI();
+        console.log(`BUI: ${this.currentBUI}`);
+        this.calculateFWI();
         console.log(this.currentFWI);
         return this;
     }
