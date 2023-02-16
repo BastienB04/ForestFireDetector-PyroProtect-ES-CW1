@@ -155,10 +155,13 @@ class FWIStation extends Station{
         const tmp = Math.max(this.temperature, -2.8); // if temperature < -2.8 then tmp = -2.8
 
         // potential evapotranspiration: V
-        const V = Math.max( 0.36 * (this.temperature + 2.8) + L_f, 0); // if V < 0 then V = 0
+        const V = Math.max( 0.36 * (tmp+ 2.8) + L_f, 0); // if V < 0 then V = 0
 
         if(this.precipitation <= 2.8){
+            console.log('here');
+            console.log(this.currentDC);
             this.currentDC = this.currentDC + 0.5 * V;
+            console.log(this.currentDC)
             return this;
         }
 

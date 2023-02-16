@@ -113,9 +113,12 @@ class FWIStation extends Station_1.Station {
     calculateDC() {
         const L_f = this.effectiveDayLengthFactor;
         const tmp = Math.max(this.temperature, -2.8);
-        const V = Math.max(0.36 * (this.temperature + 2.8) + L_f, 0);
+        const V = Math.max(0.36 * (tmp + 2.8) + L_f, 0);
         if (this.precipitation <= 2.8) {
+            console.log('here');
+            console.log(this.currentDC);
             this.currentDC = this.currentDC + 0.5 * V;
+            console.log(this.currentDC);
             return this;
         }
         const P_d = 0.83 * this.precipitation - 1.27;
