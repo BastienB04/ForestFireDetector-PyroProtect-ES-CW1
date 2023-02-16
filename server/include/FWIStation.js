@@ -48,7 +48,7 @@ class FWIStation extends Station_1.Station {
         this.currentDMC = 6;
         this.currentDC = 15;
     }
-    get index() {
+    get fireIndex() {
         return this.currentFWI;
     }
     calculateFFMC() {

@@ -9,13 +9,14 @@ class StationBuilder {
     stationList;
     constructor(_chosenIndex) {
         this.chosenIndex = _chosenIndex;
+        this.stationList = [];
     }
     build(x, y) {
         switch (this.chosenIndex) {
             case this.defaultIndex: {
                 const res = new FWIStation_1.FWIStation(`station-${this.uniqueId}`);
-                this.uniqueId += 1;
                 const info = {
+                    id: `station-${this.uniqueId}`,
                     station: res,
                     circle: {
                         x: x,
@@ -23,6 +24,7 @@ class StationBuilder {
                         r: -1
                     }
                 };
+                this.uniqueId += 1;
                 this.stationList.push(info);
                 return res;
             }
