@@ -57,6 +57,7 @@ class FWIStation extends Station{
 
     // Fine Fuel Moisture Code
     private calculateFFMC(): FWIStation {
+        console.log(this.currentDC);
 
         // previous day's fine fuel moisture content: prevMT
         let prevMT = 147.2 * (101 - this.currentFFMC) / (59.5 + this.currentFFMC);

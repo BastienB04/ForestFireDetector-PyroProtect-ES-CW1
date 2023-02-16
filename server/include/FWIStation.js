@@ -52,6 +52,7 @@ class FWIStation extends Station_1.Station {
         return this.currentFWI;
     }
     calculateFFMC() {
+        console.log(this.currentDC);
         let prevMT = 147.2 * (101 - this.currentFFMC) / (59.5 + this.currentFFMC);
         if (this.precipitation > 0.5) {
             let pf = this.precipitation - 0.5;
