@@ -59,27 +59,14 @@ const stationMap = {
 }
 
 let tmpReadings = {
-    temperature: 15,
-    relativeHumidity: 20,
-    windSpeed: 20,
-    precipitation: 0
+    temperature: 1,
+    relativeHumidity: 1,
+    windSpeed: 0,
+    precipitation: 1
 }
 stationMap["station-0"].readings = tmpReadings;
 
-tmpReadings = {
-    temperature: 25,
-    relativeHumidity: 20,
-    windSpeed: 20,
-    precipitation: 0
-}
 stationMap["station-1"].readings = tmpReadings;
-
-tmpReadings = {
-    temperature: 10,
-    relativeHumidity: 20,
-    windSpeed: 20,
-    precipitation: 0
-}
 stationMap["station-2"].readings = tmpReadings;
 
 
