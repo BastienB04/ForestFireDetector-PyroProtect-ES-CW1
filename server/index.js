@@ -214,20 +214,20 @@ function circleToHeat([circle1, circle2, circle3], array)
                     element.probability = 0;
                     break;
                 case'1 0 0':
-                    element.color = 'rgba(20,255,0,0.5)';
+                    element.color = 'rgba(0,255,0,0.5)';
                     element.probability = Math.round(array[0][0]*100)/100;
                     break;
                 case '0 1 0':
                     if (!array[0][3] || element.y > circle2_.y) {
-                    element.color = 'rgba(20,255,0,0.5)';
+                    element.color = 'rgba(75,218,75,0.5)';
                     element.probability = Math.round(array[0][1]*100)/100;
                     } else {
-                    element.color = 'rgba(20,255,0,0.5)';
+                    element.color = 'rgba(49,199,49,0.5)';
                     element.probability = Math.round(array[0][3]*100)/100;
                     }
                     break;  
                 case '0 0 1':
-                    element.color = 'rgba(20,255,0,0.5)';
+                    element.color = 'rgba(8,189,8,0.5)';
                     element.probability = Math.round(array[0][2]*100)/100;
                     break;
                 case '1 0 1':
@@ -235,7 +235,7 @@ function circleToHeat([circle1, circle2, circle3], array)
                     element.probability = Math.round(array[1][2]*100)/100;
                     break;
                 case '1 1 0':
-                    element.color = 'rgba(255,255,0,0.5)';
+                    element.color = 'rgba(218,218,5,0.5)';
                     element.probability = Math.round(array[1][0]*100)/100;
                     break;
                 case '1 1 1':
@@ -244,10 +244,10 @@ function circleToHeat([circle1, circle2, circle3], array)
                     break;
                 case '0 1 1':
                     if (!array[1][3] || element.y > circle1_.y) {
-                    element.color = 'rgba(255,255,0,0.5)';
+                    element.color = 'rgba(223,223,77,0.5)';
                     element.probability = Math.round(array[1][1]*100)/100;
                     } else {
-                    element.color = 'rgba(255,255,0,0.5)';
+                    element.color = 'rgba(238,238,141,0.5)';
                     element.probability = Math.round(array[1][3]*100)/100;
                     }
                     break;
