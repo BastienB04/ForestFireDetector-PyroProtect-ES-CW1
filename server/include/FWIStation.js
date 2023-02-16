@@ -160,19 +160,12 @@ class FWIStation extends Station_1.Station {
         return this;
     }
     updateFWI() {
-        this.calculateFFMC();
-        console.log(`FFMC: ${this.currentFFMC}`);
-        this.calculateDMC();
-        console.log(`DMC: ${this.currentDMC}`);
-        this.calculateDC();
-        console.log(`DC: ${this.currentDC}`);
-        this.calculateISI();
-        console.log(`ISI: ${this.currentISI}`);
-        this.calculateBUI();
-        console.log(`BUI: ${this.currentBUI}`);
-        this.calculateFWI();
-        console.log(`FWI: ${this.currentFWI}`);
-        return this;
+        return this.calculateFFMC()
+            .calculateDMC()
+            .calculateDC()
+            .calculateISI()
+            .calculateBUI()
+            .calculateFWI();
     }
     update() {
         return this.updateFWI();
