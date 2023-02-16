@@ -49,9 +49,9 @@ const cachedData = {
 
 var pos_array = fs.readFileSync("positions.txt").toString().split("\n").map(x => x.split(","));
 const stationHQ = new StationBuilder('FWI');
-const station1 = stationHQ.build(pos_array[0][0],pos_array[0][1]);
-const station2 = stationHQ.build(pos_array[1][0],pos_array[1][1]);
-const station3 = stationHQ.build(pos_array[2][0],pos_array[2][1]);
+const station1 = stationHQ.build(parseInt(pos_array[0][0]),parseInt(pos_array[0][1]));
+const station2 = stationHQ.build(parseInt(pos_array[1][0]),parseInt(pos_array[1][1]));
+const station3 = stationHQ.build(parseInt(pos_array[2][0]),parseInt(pos_array[2][1]));
 
 const stationMap = {
     "station-0": station1,
@@ -69,7 +69,7 @@ stationMap["station-0"].readings = tmpReadings;
 
 stationMap["station-1"].readings = tmpReadings;
 tmpReadings = {
-    temperature: 50,
+    temperature: 20,
     relativeHumidity: 1,
     windSpeed: 0,
     precipitation:1
@@ -208,50 +208,47 @@ function circleToHeat([circle1, circle2, circle3], array)
                 // return Math.sqrt(Math.pow(stationInfo.circle.x - element.x, 2) + Math.pow(stationInfo.circle.y -element.y, 2));
             // });
             const x = [distance1 < radius1*kmToSquareRatio ? 1 : 0, distance2 < radius2*kmToSquareRatio  ? 1 : 0, distance3 < radius3*kmToSquareRatio  ? 1 : 0,];
-            console.log(x);
             switch (x.join(' ')){
                 case'0 0 0':
                     element.color = 'rgba(0,0,0,0)';
                     element.probability = 0;
                     break;
                 case'1 0 0':
-                    element.color = 'rgba(20,255,0,0.5)';
-                    element.probability = array[0][0];
+                    element.color = 'rgba(0,255,0,0.5)';
+                    element.probability = Math.round(array[0][0]*100)/100;
                     break;
                 case '0 1 0':
-                    console.log('case14');
                     if (!array[0][3] || element.y > circle2_.y) {
-                    element.color = 'rgba(20,255,0,0.5)';
-                    element.probability = array[0][1];
+                    element.color = 'rgba(75,218,75,0.5)';
+                    element.probability = Math.round(array[0][1]*100)/100;
                     } else {
-                    element.color = 'rgba(20,255,0,0.5)';
-                    element.probability = array[0][3];
+                    element.color = 'rgba(49,199,49,0.5)';
+                    element.probability = Math.round(array[0][3]*100)/100;
                     }
                     break;  
                 case '0 0 1':
-                    element.color = 'rgba(20,255,0,0.5)';
-                    element.probability = array[0][2];
+                    element.color = 'rgba(8,189,8,0.5)';
+                    element.probability = Math.round(array[0][2]*100)/100;
                     break;
                 case '1 0 1':
                     element.color = 'rgba(255,255,0,0.5)';
-                    element.probability = array[1][2];
+                    element.probability = Math.round(array[1][2]*100)/100;
                     break;
                 case '1 1 0':
-                    element.color = 'rgba(255,255,0,0.5)';
-                    element.probability = array[1][0];
+                    element.color = 'rgba(218,218,5,0.5)';
+                    element.probability = Math.round(array[1][0]*100)/100;
                     break;
                 case '1 1 1':
                     element.color = 'rgba(255,0,0,0.5)';
-                    element.probability = array[2][0];
+                    element.probability = Math.round(array[2][0]*100)/100;
                     break;
                 case '0 1 1':
-                    console.log('case13');
                     if (!array[1][3] || element.y > circle1_.y) {
-                    element.color = 'rgba(255,255,0,0.5)';
-                    element.probability = array[1][1];
+                    element.color = 'rgba(223,223,77,0.5)';
+                    element.probability = Math.round(array[1][1]*100)/100;
                     } else {
-                    element.color = 'rgba(255,255,0,0.5)';
-                    element.probability = array[1][3];
+                    element.color = 'rgba(238,238,141,0.5)';
+                    element.probability = Math.round(array[1][3]*100)/100;
                     }
                     break;
                 default:
@@ -344,11 +341,6 @@ const server = http.createServer((req, res) => {
             }
             else if(req.url.startsWith('/api/heatMap'))
             {
-                const tmp = stationHQ.getProbabilities();
-                console.log(`index 304: ${tmp[0]}`);
-                console.log(`index 304: ${tmp[1]}`);
-                console.log(`index 304: ${tmp[2]}`);
-                console.log(stationHQ.getRadius());
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.write(JSON.stringify(HeatMap));
@@ -461,8 +453,8 @@ const server = http.createServer((req, res) => {
             });
             req.on('end', function(){
                 var data = JSON.parse(recieved);
-                console.log(data);
-                var index = stationHQ.setPosition(data["device"], data["x"], data["y"]);
+                // console.log(data);
+                var index = stationHQ.setPosition(data["device"], parseInt(data["x"]), parseInt(data["y"]));
                 var pos = fs.readFileSync("positions.txt").toString().split("\n").map(x => x.split(","));
                 pos[index] = [data["x"], data["y"]];
                 fs.writeFileSync("positions.txt",
