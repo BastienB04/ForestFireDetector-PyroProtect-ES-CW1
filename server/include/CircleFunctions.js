@@ -339,7 +339,7 @@ function areas_case10(circle1, circle2, circle3) {
     const g1 = area_circle(circle2) - y1 - y2;
     const g2 = area_circle(circle3) - y2;
     return [
-        [g1, g2, 0, 0],
+        [0, g1, g2, 0],
         [y1, y2, 0, 0],
         [0, 0, 0, 0]
     ];

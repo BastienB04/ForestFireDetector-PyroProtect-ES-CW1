@@ -449,7 +449,7 @@ function areas_case10(circle1: Circle, circle2: Circle, circle3: Circle){
     const g2: number = area_circle(circle3) - y2;
 
     return [
-        [g1, g2, 0, 0],
+        [0, g1, g2, 0],
         [y1, y2, 0, 0],
         [0, 0, 0, 0]
     ]
