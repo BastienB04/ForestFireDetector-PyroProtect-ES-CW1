@@ -82,7 +82,7 @@ for(let i=0; i<GRIDSIZE; i++){
     }
     HeatMap.push(tmp);
 }
-var pos_array = fs.readFileSync("positions.txt").split("\n").split(",");
+var pos_array = fs.readFileSync("positions.txt").toString().split("\n").split(",");
 cachedData["device1"].x_pos = pos_array[0];
 cachedData["device1"].y_pos = pos_array[1];
 cachedData["device2"].x_pos = pos_array[2];
