@@ -49,6 +49,7 @@ class FWIStation extends Station{
         this.currentFFMC = 85;
         this.currentDMC = 6;
         this.currentDC = 15;
+        console.log('finished constructing');
     }
 
     get fireIndex(){
