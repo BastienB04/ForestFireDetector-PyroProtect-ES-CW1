@@ -221,12 +221,14 @@ class FWIStation extends Station{
     public updateFWI(): FWIStation{
         console.log(this.temperature);
         console.log(this.currentFWI);
-        return this.calculateFFMC()
+        this.calculateFFMC()
                 .calculateDMC()
                 .calculateDC()
                 .calculateISI()
                 .calculateBUI()
                 .calculateFWI();
+        console.log(this.currentFWI);
+        return this;
     }
 
     public update(): any {
