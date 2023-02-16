@@ -206,9 +206,9 @@ function circleToHeat([radius1, radius2, radius3], array)
             // var distance2 = Math.sqrt(Math.pow(cachedData["device2"].x_pos - element.x,2) + Math.pow( cachedData["device2"].y_pos - element.y, 2));
             // var distance3 = Math.sqrt(Math.pow(cachedData["device3"].x_pos - element.x,2) + Math.pow( cachedData["device3"].y_pos - element.y, 2));
             [circle1_, circle2_, circle3_] = rearange([stationHQ.stationList[0].circle, stationHQ.stationList[1].circle, stationHQ.stationList[2].circle]);
-            console.log(circle1_);
-            console.log(circle2_);
-            console.log(circle3_);
+            // console.log(circle1_);
+            // console.log(circle2_);
+            // console.log(circle3_);
             var distance1 = Math.sqrt(Math.pow(circle1_.x - element.x, 2) + Math.pow(circle1_.y - element.y, 2));
             var distance2 = Math.sqrt(Math.pow(circle2_.x - element.x, 2) + Math.pow(circle2_.y - element.y, 2));
             var distance3 = Math.sqrt(Math.pow(circle3_.x - element.x, 2) + Math.pow(circle3_.y - element.y, 2));
@@ -216,7 +216,7 @@ function circleToHeat([radius1, radius2, radius3], array)
                 // return Math.sqrt(Math.pow(stationInfo.circle.x - element.x, 2) + Math.pow(stationInfo.circle.y -element.y, 2));
             // });
             const x = [distance1 < radius1*kmToSquareRatio ? 1 : 0, distance2 < radius2*kmToSquareRatio  ? 1 : 0, distance3 < radius3*kmToSquareRatio  ? 1 : 0,];
-
+            console.log(x);
             switch (x.join(' ')){
                 case'0 0 0':
                     element.color = 'rgba(0,0,0,0)';
