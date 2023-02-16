@@ -15,6 +15,7 @@ abstract class Station {
     private _windSpeed:number; // km/h
     private _precipitation: number; // mm
     private _updated: boolean;
+    private _samplingRate: number = 5; // s
 
     constructor(name: string){
         this._stationId = name;
@@ -70,7 +71,16 @@ abstract class Station {
         this._updated = b;
     }
 
+    public get samplingRate(): number{
+        return this._samplingRate;
+    }
+
+    public set sampingRate(s: number){
+        this._samplingRate = s;
+    }
+
     public abstract update(): any;
+
 }
 
 export { Station, SensorReadings }

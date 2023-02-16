@@ -8,6 +8,7 @@ class Station {
     _windSpeed;
     _precipitation;
     _updated;
+    _samplingRate = 5;
     constructor(name) {
         this._stationId = name;
     }
@@ -47,6 +48,12 @@ class Station {
     }
     set updated(b) {
         this._updated = b;
+    }
+    get samplingRate() {
+        return this._samplingRate;
+    }
+    set sampingRate(s) {
+        this._samplingRate = s;
     }
 }
 exports.Station = Station;
