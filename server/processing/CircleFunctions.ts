@@ -763,8 +763,8 @@ function areas_case14(circle1: Circle, circle2: Circle, circle3: Circle) {
 
 function findColouredAreas([circle1, circle2, circle3]: Circle[]): number[][] {
     const Case: [number, number] = determineOverlapCase(circle1, circle2, circle3);
-    console.log("Case: ", Case[0]);
-    console.log("circle_configuration: ", Case[1]);
+    // console.log("Case: ", Case[0]);
+    // console.log("circle_configuration: ", Case[1]);
   
     let circle1_: Circle;
     let circle2_: Circle;

@@ -112,8 +112,6 @@ class FWIStation extends Station{
 
         // log drying rate in DMC: K
         let K = 1.894 * (tmp + 1.1) * (100- this.relativeHumidity) * L_e * 0.000001;
-        console.log('here');
-        console.log(K);
         
         if(this.precipitation < 1.5){
             this.currentDMC = this.currentDMC + (100*K);
@@ -211,7 +209,6 @@ class FWIStation extends Station{
             b *= (1000/(25 + 108.64 * Math.exp(-0.023 * this.currentBUI)));
         }
         
-        console.log(`b: ${b}`);
         if(b > 1){
             console.log(Math.exp(2.72 * Math.pow(0.434 * Math.log(b), 0.647)));
             this.currentFWI = Math.exp(2.72 * Math.pow(0.434 * Math.log(b), 0.647));
