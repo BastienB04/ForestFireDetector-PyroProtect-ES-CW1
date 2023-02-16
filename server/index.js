@@ -287,7 +287,7 @@ const server = http.createServer((req, res) => {
                 res.write({'status': 'succ'});
                 res.end();
             }
-            else if(req.url.startswith('/api/getSampleRate')){
+            else if(req.url.startsWith('/api/getSampleRate')){
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.write({'sampleling_rate': sampleRate});
