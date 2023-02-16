@@ -137,6 +137,7 @@ class FWIStation extends Station_1.Station {
     }
     calculateISI() {
         const m = 147.2 * ((101 - this.currentFFMC) / (59.5 + this.currentFFMC));
+        console.log(`m: ${m}`);
         this.currentISI = 0.208 * Math.exp(0.05039 * this.windSpeed) * (91.9 * Math.exp(-0.1386 * m)) * (1 + Math.pow(m, 5.31) / 49300000);
         return this;
     }
