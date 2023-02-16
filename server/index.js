@@ -208,7 +208,6 @@ function circleToHeat([circle1, circle2, circle3], array)
                 // return Math.sqrt(Math.pow(stationInfo.circle.x - element.x, 2) + Math.pow(stationInfo.circle.y -element.y, 2));
             // });
             const x = [distance1 < radius1*kmToSquareRatio ? 1 : 0, distance2 < radius2*kmToSquareRatio  ? 1 : 0, distance3 < radius3*kmToSquareRatio  ? 1 : 0,];
-            console.log(x);
             switch (x.join(' ')){
                 case'0 0 0':
                     element.color = 'rgba(0,0,0,0)';
@@ -219,7 +218,6 @@ function circleToHeat([circle1, circle2, circle3], array)
                     element.probability = Math.round(array[0][0]*100)/100;
                     break;
                 case '0 1 0':
-                    console.log('case14');
                     if (!array[0][3] || element.y > circle2_.y) {
                     element.color = 'rgba(20,255,0,0.5)';
                     element.probability = Math.round(array[0][1]*100)/100;
@@ -245,7 +243,6 @@ function circleToHeat([circle1, circle2, circle3], array)
                     element.probability = Math.round(array[2][0]*100)/100;
                     break;
                 case '0 1 1':
-                    console.log('case13');
                     if (!array[1][3] || element.y > circle1_.y) {
                     element.color = 'rgba(255,255,0,0.5)';
                     element.probability = Math.round(array[1][1]*100)/100;
