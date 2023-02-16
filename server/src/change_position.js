@@ -4,8 +4,7 @@ const e = React.createElement;
 class PositionForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {x: ''};
-    this.state = {y:''};
+    this.state = { x: '', y: '' };
 
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
@@ -13,17 +12,19 @@ class PositionForm extends React.Component {
   }
 
   handleChange1(event) {
-    this.setState({x: event.target.x});
+    this.setState({x: event.target.value, y: this.state.y});
   }
   handleChange2(event) {
-    this.setState({y: event.target.y});
+    this.setState({y: event.target.value, x: this.state.x});
   }
 
   handleSubmit(event) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({x : this.state.x, y : this.state.y, device:"device1"})
+        body: JSON.stringify({x : this.state.x,
+             y : this.state.y,
+              device:"device1"})
     };
     fetch('http://13.41.188.158:8080/api/ChangePosition', requestOptions);
     event.preventDefault();
