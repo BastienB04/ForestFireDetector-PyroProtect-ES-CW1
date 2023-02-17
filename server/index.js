@@ -6,7 +6,7 @@ const { StationBuilder } = require('./include/StationBuilder');
 const nodemailer = require('nodemailer');
 const { sendEmail } = require('./src/mail')
 const { spawn } = require('child_process');
-const kmToSquareRatio = 10;
+const kmToSquareRatio = 2;
 const {determineOverlapCase} = require('./include/CircleFunctions');
 
 
