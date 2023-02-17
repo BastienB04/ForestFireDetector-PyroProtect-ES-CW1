@@ -11,6 +11,8 @@ The Raspberry Pi code for this project can be found in the [Sensor](/Sensors/) f
 ### I2C Communication
 The temperature and relative humidity sensors are connected to the Raspberry Pi via the I2C communication protocol. Please ensure that I2C is enabled in the Raspberry Pi configuration settings and the relevant kernel modules are loaded.
 
+The ADS1115 Analog-to-Digital Converter (ADC) is also connected to the Raspberry Pi via I2C communication protocol.
+
 ### Analog-to-Digital Conversion
 The precipitation and wind speed sensors provide analog output, which needs to be converted to digital signals for processing. An ADS1115 Analog-to-Digital Converter (ADC) is used to accomplish this conversion.
 
