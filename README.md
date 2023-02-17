@@ -8,11 +8,13 @@ We use a Raspberry PI Zero WH with a temperature sensor, gas sensor, wind sensor
 ### Sensor Setup
 The Raspberry Pi code for this project can be found in the [Sensor](/Sensors/) folder. The project utilizes four sensors, including a temperature sensor, a relative humidity sensor, a precipitation sensor, and a wind speed sensor.
 
-### I2C Communication
+### I2C Communication
 The temperature and relative humidity sensors are connected to the Raspberry Pi via the I2C communication protocol. Please ensure that I2C is enabled in the Raspberry Pi configuration settings and the relevant kernel modules are loaded.
 
 ### Analog-to-Digital Conversion
 The precipitation and wind speed sensors provide analog output, which needs to be converted to digital signals for processing. An ADS1115 Analog-to-Digital Converter (ADC) is used to accomplish this conversion.
+
+Additionally, the precipitation sensor also connects to a digital GPIO pin, which provides a boolean value to determine whether it is currently raining or not.
 
 ### Sensor Data
 The code in the Sensor folder retrieves and logs data from the four sensors mentioned above. Please refer to the comments in the code for more information on the data format and storage.
