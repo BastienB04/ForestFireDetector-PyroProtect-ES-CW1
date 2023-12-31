@@ -3,6 +3,8 @@
 Internet of Things (IoT) device network that generates a probability map for the location of a fire outbreak in a specific area.
 We use a Raspberry PI Zero WH with a temperature sensor, gas sensor, wind sensor and a rain sensor to read mesurements and send them to a server, which processes the data and comes up with the probability map. The server also distributes HTML files and JavaScript code for the website.
 
+_The promotional webpage for this IoT product can be viewed [here](https://bcb206.wixsite.com/pyroprotector)._
+
 ## Raspberry PI
 
 ### Sensor Setup
